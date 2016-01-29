@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<protocol> 
+    <header>
+        <field type = "uint8_t" name = "node_src_id"></field>
+        <field type = "uint8_t" name = "node_dest_id"></field>
+        <field type = "uint8_t" name = "sequence_number"></field>
+        <field type = "uint8_t" name = "message_ttl"></field>
+        <field type = "uint16_t" name = "message_type"></field>
+        <field type = "uint16_t" name = "message_length"></field>
+    </header>
+
+    <message name = "Enter" id ="0000">
+        <field type = "float64_t" name = "timestamp"></field>
+    </message>
+    <message name = "Exit" id ="0001">
+        <field type = "float64_t" name = "timestamp"></field>
+    </message>    
+    <message name = "Ping" id ="0002">
+        <field type = "float64_t" name = "timestamp"></field>
+    </message>
+    <message name = "Pong" id ="0003">
+        <field type = "float64_t" name = "timestamp"></field>
+    </message>        
+
+    <message name = "Vehicle_Identification" id ="1000">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "vehicle_type"></field>
+        <field type = "uint16_t" name = "owner_ID"></field>
+    </message>
+
+    <message name = "Amy_Stuff" id = "9000">
+        <field type = "float64_t" name = "hello"></field>
+    </message>
+
+    <message name = "Vehicle_Authorization_Request" id ="1001">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "link_key"></field>
+        <field type = "uint8_t" name = "requested_services"></field>
+        <field type = "uint8_t" name = "handover_node"></field>
+    </message>
+
+    <message name = "Vehicle_Authorization_Reply" id ="1002">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "vehicle_type"></field>
+        <field type = "uint8_t" name = "authorized_services"></field>
+        <field type = "uint8_t" name = "granted_services"></field>
+    </message>
+    
+    <message name = "Vehicle_Mode_Command" id = "1003">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "vehicle_mode"></field>
+    </message>
+    
+    <message name = "Vehicle_Termination_Command" id = "1004">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "termination_mode"></field>
+    </message>
+
+    <message name = "Vehicle_Telemetry_Command" id = "1005">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint8_t" name = "telemetry_select"></field>
+        <field type = "uint8_t" name = "telemetry_rate"></field>
+    </message>
+    
+    <message name = "Vehicle_Waypoint_Command" id = "1006">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "int32_t" name = "latitude"></field>
+        <field type = "int32_t" name = "longitude"></field>
+        <field type = "int32_t" name = "altitude"></field>
+        <field type = "int32_t" name = "heading"></field>
+        <field type = "uint8_t" name = "waypoint_ID"></field>
+        <field type = "uint8_t" name = "waypoint_type"></field>
+    </message>    
+    
+    <message name = "Vehicle_System_Status" id = "2000">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "vehicle_mode"></field>
+        <field type = "uint8_t" name = "vehicle_state"></field>
+    </message>
+    
+    <message name = "Vehicle_Inertial_State" id = "2001">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "float64_t" name = "latitude"></field>
+        <field type = "float64_t" name = "longitude"></field>
+        <field type = "float32_t" name = "altitude"></field>
+        <field type = "float32_t" name = "roll"></field>
+        <field type = "float32_t" name = "pitch"></field>
+        <field type = "float32_t" name = "heading"></field>
+        <field type = "float32_t" name = "north_speed"></field>
+        <field type = "float32_t" name = "east_speed"></field>
+        <field type = "float32_t" name = "vertical_speed"></field>
+        <field type = "float32_t" name = "roll_rate"></field>
+        <field type = "float32_t" name = "pitch_rate"></field>
+        <field type = "float32_t" name = "yaw_rate"></field>
+        <field type = "float32_t" name = "north_accel"></field>
+        <field type = "float32_t" name = "east_accel"></field>
+        <field type = "float32_t" name = "vertical_accel"></field>
+    </message>
+
+    <message name = "Vehicle_Global_Position" id ="2002">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "int32_t" name = "latitude"></field>
+        <field type = "int32_t" name = "longitude"></field>
+        <field type = "int32_t" name = "altitude"></field>
+        <field type = "int32_t" name = "heading"></field>
+        <field type = "int16_t" name = "x_speed"></field>
+        <field type = "int16_t" name = "y_speed"></field>
+        <field type = "int16_t" name = "z_speed"></field>
+    </message>
+    
+    <message name = "Vehicle_Body_Sensed_State" id ="2003">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "int16_t" name = "x_accel"></field>
+        <field type = "int16_t" name = "y_accel"></field>
+        <field type = "int16_t" name = "z_accel"></field>
+        <field type = "int16_t" name = "roll_rate"></field>
+        <field type = "int16_t" name = "pitch_rate"></field>
+        <field type = "int16_t" name = "yaw_rate"></field>
+    </message>
+    
+    <message name = "Vehicle_Attitude" id ="2004">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "float32_t" name = "roll"></field>
+        <field type = "float32_t" name = "pitch"></field>
+        <field type = "float32_t" name = "yaw"></field>
+    </message>
+
+    <message name = "Vehicle_Ground_Relative_State" id ="2005">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "float32_t" name = "angle_of_attack"></field>
+        <field type = "float32_t" name = "angle_of_sideslip"></field>
+        <field type = "float32_t" name = "true_airspeed"></field>
+        <field type = "float32_t" name = "indicated_airspeed"></field>
+        <field type = "float32_t" name = "north_wind_speed"></field>
+        <field type = "float32_t" name = "east_wind_speed"></field>        
+        <field type = "float32_t" name = "north_ground_speed"></field>
+        <field type = "float32_t" name = "east_ground_speed"></field>
+        <field type = "float32_t" name = "barometric_pressure"></field>
+        <field type = "float32_t" name = "barometric_altitude"></field>
+    </message>
+    
+    <enum name = "payload_bay_command_enum">
+        <field enum = "Deployed" id = "0"></field>
+    </enum>
+    
+    <message name = "Payload_Bay_Command" id = "3000">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint32_t" name = "payload_ID"></field>
+        <field type = "uint8_t" name = "payload_command"></field>
+    </message>
+    
+    <message name = "Payload_Bay_Mode_Command" id = "3001">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint32_t" name = "payload_ID"></field>
+        <field type = "uint8_t" name = "payload_mode"></field>
+    </message>
+
+    <message name = "Target_Designation_Command" id ="5000">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint16_t" name = "vehicle_ID"></field>
+        <field type = "uint8_t" name = "payload_ID"></field>
+        <field type = "uint8_t" name = "target_ID"></field>
+        <field type = "uint8_t" name = "target_type"></field>
+        <field type = "int32_t" name = "latitude"></field>
+        <field type = "int32_t" name = "longitude"></field>
+        <field type = "int32_t" name = "altitude"></field>
+    </message>
+    
+    <message name = "UGV_Joystick" id ="6000">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "uint8_t" name = "vehicle_id"></field>
+        <field type = "float32_t" name = "steering"></field>
+        <field type = "float32_t" name = "throttle"></field>
+    </message>
+
+    <message name = "UGV_Battery_Status" id ="6001">
+        <field type = "float64_t" name = "timestamp"></field>
+        <field type = "float32_t" name = "voltage_3_3V"></field>
+        <field type = "float32_t" name = "voltage_5V"></field>
+        <field type = "float32_t" name = "voltage_12V"></field>
+        <field type = "float32_t" name = "current_3_3V"></field>
+        <field type = "float32_t" name = "current_5V"></field>
+        <field type = "float32_t" name = "current_12V"></field>
+        <field type = "float32_t" name = "current_fore_motor"></field>
+        <field type = "float32_t" name = "current_aft_motor"></field>
+    </message>
+</protocol>
