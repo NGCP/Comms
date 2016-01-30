@@ -46,6 +46,8 @@ def generate_proto_wrapper_include(directory, include_extension, src_extension):
     #create header struct
     for field in header:
         f.write(tab+tab+field.get('type')+' '+ field.get('name')+';\n')
+    #manual priority variable because c++ struct is special
+    f.write(tab+tab+ 'bool is_mergency;\n')
     #header constructors
     f.write(tab+tab+'Header(){}\n')
     f.write(tab+tab+'Header(const Header% to_copy)\n')
@@ -108,7 +110,7 @@ def generate_proto_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+tab+'void AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint32_t baud_rate, String^ device_path);\n')
     f.write(tab+tab+'void EstablishSerialEndpoint(int8_t link_id, uint8_t node_id);\n\n')
     
-    #node send_message
+    #node send_message default
     for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_","")
@@ -120,6 +122,19 @@ def generate_proto_wrapper_include(directory, include_extension, src_extension):
             f.write('\n'+tab+tab+field.get('type')+' '+ field.get('name')+',')
         f.seek(-1, 1)
         f.write(');\n\n')
+    #priority bool emergency added argument    
+    for message in protocol:
+        name = message.get('name')
+        cs_name = message.get('name').replace("_","")
+        variable_name = lower_case_acronym(name)
+        type_t_name = variable_name + "_t"
+        f.write(tab+'void Send'+ cs_name+'(\n')
+        f.write(tab+tab+'uint8_t dest_id,')
+        for field in message:
+            f.write('\n'+tab+tab+field.get('type')+' '+ field.get('name')+',')
+        f.write('\n' + tab + tab + 'bool emergency,')    
+        f.seek(-1, 1)
+        f.write(');\n\n')    
     #node message methods enter, exit, ping, ect
     for message in protocol:
         name = message.get('name')

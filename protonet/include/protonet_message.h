@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <protonet_marshal.h>
 
+#define MAX_DATA_SIZE               540
 /** Global typdef struct which is the packet header used to transmit data. */
 typedef struct {
    uint8_t node_src_id;
@@ -14,7 +15,8 @@ typedef struct {
    uint8_t sequence_number;
    uint8_t message_ttl;
    uint16_t message_type;
-   uint16_t message_length;
+   uint16_t message_length	: 15,
+            is_emergency 	: 1;
 } proto_header_t;
 
 /**Global typdef which hold checksum value.*/
@@ -31,7 +33,7 @@ typedef struct {
    proto_header_t header;
    proto_direction_t direction;
    uint8_t link_id;
-   uint8_t data[540];
+   uint8_t data[MAX_DATA_SIZE];
    uint16_t  tx_len;
    checksum_t checksum;
 } proto_msg_t;

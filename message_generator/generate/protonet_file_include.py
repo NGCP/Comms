@@ -46,7 +46,7 @@ def generate_protonet_file_include(directory, include_extension, src_extension):
         f.write(tab+'typedef void* (*'+ variable_name+'_callback)(int8_t, proto_header_t, '+type_t_name+', protonet::node* node_ptr);\n')
     
     #declare class node
-    f.write(tab + "/** Class node represents each point of communication. The Node will be able to establish type of communication and send and receive messages. The callbacks must be implemented on the platform*/ \n")
+    f.write(tab + "\n\t/** Class node represents each point of communication. The Node will be able to establish type of communication and send and receive messages. The callbacks must be implemented on the platform*/")
     f.write('\n'+ tab+'class node\n')
     f.write(tab+'{\n')
     #public members
@@ -85,6 +85,8 @@ def generate_protonet_file_include(directory, include_extension, src_extension):
         f.write(tab+tab+tab+'uint8_t dest_id,')
         for field in message:
             f.write('\n'+tab+tab+tab+field.get('type')+' '+ field.get('name')+',')
+        #update Priority queue to add send bool is emergency as last argument with default value of false
+        f.write('\n' + tab + tab + tab + 'bool is_emergency = false' + ',')
         f.seek(-1, 1)
         f.write(');\n\n')
     #declare register_on_message

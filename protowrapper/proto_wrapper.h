@@ -23,6 +23,7 @@ namespace Protonet
       uint8_t message_ttl;
       uint16_t message_type;
       uint16_t message_length;
+      bool is_mergency;
       Header(){}
       Header(const Header% to_copy)
       {
@@ -923,6 +924,216 @@ namespace Protonet
       float32_t current_12V,
       float32_t current_fore_motor,
       float32_t current_aft_motor);
+
+   void SendEnter(
+      uint8_t dest_id,
+      float64_t timestamp,
+      bool emergency);
+
+   void SendExit(
+      uint8_t dest_id,
+      float64_t timestamp,
+      bool emergency);
+
+   void SendPing(
+      uint8_t dest_id,
+      float64_t timestamp,
+      bool emergency);
+
+   void SendPong(
+      uint8_t dest_id,
+      float64_t timestamp,
+      bool emergency);
+
+   void SendVehicleIdentification(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t vehicle_type,
+      uint16_t owner_ID,
+      bool emergency);
+
+   void SendAmyStuff(
+      uint8_t dest_id,
+      float64_t hello,
+      bool emergency);
+
+   void SendVehicleAuthorizationRequest(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t link_key,
+      uint8_t requested_services,
+      uint8_t handover_node,
+      bool emergency);
+
+   void SendVehicleAuthorizationReply(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t vehicle_type,
+      uint8_t authorized_services,
+      uint8_t granted_services,
+      bool emergency);
+
+   void SendVehicleModeCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t vehicle_mode,
+      bool emergency);
+
+   void SendVehicleTerminationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t termination_mode,
+      bool emergency);
+
+   void SendVehicleTelemetryCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t telemetry_select,
+      uint8_t telemetry_rate,
+      bool emergency);
+
+   void SendVehicleWaypointCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      int32_t latitude,
+      int32_t longitude,
+      int32_t altitude,
+      int32_t heading,
+      uint8_t waypoint_ID,
+      uint8_t waypoint_type,
+      bool emergency);
+
+   void SendVehicleSystemStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t vehicle_mode,
+      uint8_t vehicle_state,
+      bool emergency);
+
+   void SendVehicleInertialState(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      float64_t latitude,
+      float64_t longitude,
+      float32_t altitude,
+      float32_t roll,
+      float32_t pitch,
+      float32_t heading,
+      float32_t north_speed,
+      float32_t east_speed,
+      float32_t vertical_speed,
+      float32_t roll_rate,
+      float32_t pitch_rate,
+      float32_t yaw_rate,
+      float32_t north_accel,
+      float32_t east_accel,
+      float32_t vertical_accel,
+      bool emergency);
+
+   void SendVehicleGlobalPosition(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      int32_t latitude,
+      int32_t longitude,
+      int32_t altitude,
+      int32_t heading,
+      int16_t x_speed,
+      int16_t y_speed,
+      int16_t z_speed,
+      bool emergency);
+
+   void SendVehicleBodySensedState(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      int16_t x_accel,
+      int16_t y_accel,
+      int16_t z_accel,
+      int16_t roll_rate,
+      int16_t pitch_rate,
+      int16_t yaw_rate,
+      bool emergency);
+
+   void SendVehicleAttitude(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t roll,
+      float32_t pitch,
+      float32_t yaw,
+      bool emergency);
+
+   void SendVehicleGroundRelativeState(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t angle_of_attack,
+      float32_t angle_of_sideslip,
+      float32_t true_airspeed,
+      float32_t indicated_airspeed,
+      float32_t north_wind_speed,
+      float32_t east_wind_speed,
+      float32_t north_ground_speed,
+      float32_t east_ground_speed,
+      float32_t barometric_pressure,
+      float32_t barometric_altitude,
+      bool emergency);
+
+   void SendPayloadBayCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint32_t payload_ID,
+      uint8_t payload_command,
+      bool emergency);
+
+   void SendPayloadBayModeCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint32_t payload_ID,
+      uint8_t payload_mode,
+      bool emergency);
+
+   void SendTargetDesignationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t payload_ID,
+      uint8_t target_ID,
+      uint8_t target_type,
+      int32_t latitude,
+      int32_t longitude,
+      int32_t altitude,
+      bool emergency);
+
+   void SendUGVJoystick(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t vehicle_id,
+      float32_t steering,
+      float32_t throttle,
+      bool emergency);
+
+   void SendUGVBatteryStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float32_t voltage_3_3V,
+      float32_t voltage_5V,
+      float32_t voltage_12V,
+      float32_t current_3_3V,
+      float32_t current_5V,
+      float32_t current_12V,
+      float32_t current_fore_motor,
+      float32_t current_aft_motor,
+      bool emergency);
 
    delegate void EnterDelegate(int8_t, Header^%, Enter^%, Protonet::Node^);
    delegate void ExitDelegate(int8_t, Header^%, Exit^%, Protonet::Node^);

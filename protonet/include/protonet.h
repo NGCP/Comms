@@ -60,8 +60,8 @@ namespace protonet
    typedef void* (*UGV_joystick_callback)(int8_t, proto_header_t, UGV_joystick_t, protonet::node* node_ptr);
    /**Global function call back used for message UGV_Battery_Status must be implemented on platform for use*/ 
    typedef void* (*UGV_battery_status_callback)(int8_t, proto_header_t, UGV_battery_status_t, protonet::node* node_ptr);
-   /** Class node represents each point of communication. The Node will be able to establish type of communication and send and receive messages. The callbacks must be implemented on the platform*/ 
-
+   
+	/** Class node represents each point of communication. The Node will be able to establish type of communication and send and receive messages. The callbacks must be implemented on the platform*/
    class node
    {
    public:
@@ -93,22 +93,26 @@ namespace protonet
       /**Public definition of the send Enter message which will be put into the message queue.*/ 
       void send_enter(
          uint8_t dest_id,
-         float64_t timestamp);
+         float64_t timestamp,
+         bool is_emergency = false);
 
       /**Public definition of the send Exit message which will be put into the message queue.*/ 
       void send_exit(
          uint8_t dest_id,
-         float64_t timestamp);
+         float64_t timestamp,
+         bool is_emergency = false);
 
       /**Public definition of the send Ping message which will be put into the message queue.*/ 
       void send_ping(
          uint8_t dest_id,
-         float64_t timestamp);
+         float64_t timestamp,
+         bool is_emergency = false);
 
       /**Public definition of the send Pong message which will be put into the message queue.*/ 
       void send_pong(
          uint8_t dest_id,
-         float64_t timestamp);
+         float64_t timestamp,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Identification message which will be put into the message queue.*/ 
       void send_vehicle_identification(
@@ -116,12 +120,14 @@ namespace protonet
          float64_t timestamp,
          uint16_t vehicle_ID,
          uint8_t vehicle_type,
-         uint16_t owner_ID);
+         uint16_t owner_ID,
+         bool is_emergency = false);
 
       /**Public definition of the send Amy_Stuff message which will be put into the message queue.*/ 
       void send_amy_stuff(
          uint8_t dest_id,
-         float64_t hello);
+         float64_t hello,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Authorization_Request message which will be put into the message queue.*/ 
       void send_vehicle_authorization_request(
@@ -130,7 +136,8 @@ namespace protonet
          uint16_t vehicle_ID,
          uint8_t link_key,
          uint8_t requested_services,
-         uint8_t handover_node);
+         uint8_t handover_node,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Authorization_Reply message which will be put into the message queue.*/ 
       void send_vehicle_authorization_reply(
@@ -139,28 +146,32 @@ namespace protonet
          uint16_t vehicle_ID,
          uint8_t vehicle_type,
          uint8_t authorized_services,
-         uint8_t granted_services);
+         uint8_t granted_services,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Mode_Command message which will be put into the message queue.*/ 
       void send_vehicle_mode_command(
          uint8_t dest_id,
          float64_t timestamp,
          uint16_t vehicle_ID,
-         uint8_t vehicle_mode);
+         uint8_t vehicle_mode,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Termination_Command message which will be put into the message queue.*/ 
       void send_vehicle_termination_command(
          uint8_t dest_id,
          float64_t timestamp,
          uint16_t vehicle_ID,
-         uint8_t termination_mode);
+         uint8_t termination_mode,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Telemetry_Command message which will be put into the message queue.*/ 
       void send_vehicle_telemetry_command(
          uint8_t dest_id,
          float64_t timestamp,
          uint8_t telemetry_select,
-         uint8_t telemetry_rate);
+         uint8_t telemetry_rate,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Waypoint_Command message which will be put into the message queue.*/ 
       void send_vehicle_waypoint_command(
@@ -172,7 +183,8 @@ namespace protonet
          int32_t altitude,
          int32_t heading,
          uint8_t waypoint_ID,
-         uint8_t waypoint_type);
+         uint8_t waypoint_type,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_System_Status message which will be put into the message queue.*/ 
       void send_vehicle_system_status(
@@ -180,7 +192,8 @@ namespace protonet
          float64_t timestamp,
          uint16_t vehicle_ID,
          uint8_t vehicle_mode,
-         uint8_t vehicle_state);
+         uint8_t vehicle_state,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Inertial_State message which will be put into the message queue.*/ 
       void send_vehicle_inertial_state(
@@ -201,7 +214,8 @@ namespace protonet
          float32_t yaw_rate,
          float32_t north_accel,
          float32_t east_accel,
-         float32_t vertical_accel);
+         float32_t vertical_accel,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Global_Position message which will be put into the message queue.*/ 
       void send_vehicle_global_position(
@@ -214,7 +228,8 @@ namespace protonet
          int32_t heading,
          int16_t x_speed,
          int16_t y_speed,
-         int16_t z_speed);
+         int16_t z_speed,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Body_Sensed_State message which will be put into the message queue.*/ 
       void send_vehicle_body_sensed_state(
@@ -226,7 +241,8 @@ namespace protonet
          int16_t z_accel,
          int16_t roll_rate,
          int16_t pitch_rate,
-         int16_t yaw_rate);
+         int16_t yaw_rate,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Attitude message which will be put into the message queue.*/ 
       void send_vehicle_attitude(
@@ -235,7 +251,8 @@ namespace protonet
          uint16_t vehicle_ID,
          float32_t roll,
          float32_t pitch,
-         float32_t yaw);
+         float32_t yaw,
+         bool is_emergency = false);
 
       /**Public definition of the send Vehicle_Ground_Relative_State message which will be put into the message queue.*/ 
       void send_vehicle_ground_relative_state(
@@ -251,21 +268,24 @@ namespace protonet
          float32_t north_ground_speed,
          float32_t east_ground_speed,
          float32_t barometric_pressure,
-         float32_t barometric_altitude);
+         float32_t barometric_altitude,
+         bool is_emergency = false);
 
       /**Public definition of the send Payload_Bay_Command message which will be put into the message queue.*/ 
       void send_payload_bay_command(
          uint8_t dest_id,
          float64_t timestamp,
          uint32_t payload_ID,
-         uint8_t payload_command);
+         uint8_t payload_command,
+         bool is_emergency = false);
 
       /**Public definition of the send Payload_Bay_Mode_Command message which will be put into the message queue.*/ 
       void send_payload_bay_mode_command(
          uint8_t dest_id,
          float64_t timestamp,
          uint32_t payload_ID,
-         uint8_t payload_mode);
+         uint8_t payload_mode,
+         bool is_emergency = false);
 
       /**Public definition of the send Target_Designation_Command message which will be put into the message queue.*/ 
       void send_target_designation_command(
@@ -277,7 +297,8 @@ namespace protonet
          uint8_t target_type,
          int32_t latitude,
          int32_t longitude,
-         int32_t altitude);
+         int32_t altitude,
+         bool is_emergency = false);
 
       /**Public definition of the send UGV_Joystick message which will be put into the message queue.*/ 
       void send_UGV_joystick(
@@ -285,7 +306,8 @@ namespace protonet
          float64_t timestamp,
          uint8_t vehicle_id,
          float32_t steering,
-         float32_t throttle);
+         float32_t throttle,
+         bool is_emergency = false);
 
       /**Public definition of the send UGV_Battery_Status message which will be put into the message queue.*/ 
       void send_UGV_battery_status(
@@ -298,7 +320,8 @@ namespace protonet
          float32_t current_5V,
          float32_t current_12V,
          float32_t current_fore_motor,
-         float32_t current_aft_motor);
+         float32_t current_aft_motor,
+         bool is_emergency = false);
 
       /**Public definition of the register on Enter message which will use the message call back.*/ 
       void register_on_enter(enter_callback callback){on_enter = callback;}

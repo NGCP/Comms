@@ -20,11 +20,455 @@ void Node::Start()
 
 void Node::SendEnter(
    uint8_t dest_id,
+   float64_t timestamp,
+   bool emergency)
+{
+   node->send_enter(
+   dest_id,
+   timestamp,
+   emergency);
+}
+
+void Node::SendExit(
+   uint8_t dest_id,
+   float64_t timestamp,
+   bool emergency)
+{
+   node->send_exit(
+   dest_id,
+   timestamp,
+   emergency);
+}
+
+void Node::SendPing(
+   uint8_t dest_id,
+   float64_t timestamp,
+   bool emergency)
+{
+   node->send_ping(
+   dest_id,
+   timestamp,
+   emergency);
+}
+
+void Node::SendPong(
+   uint8_t dest_id,
+   float64_t timestamp,
+   bool emergency)
+{
+   node->send_pong(
+   dest_id,
+   timestamp,
+   emergency);
+}
+
+void Node::SendVehicleIdentification(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t vehicle_type,
+   uint16_t owner_ID,
+   bool emergency)
+{
+   node->send_vehicle_identification(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   vehicle_type,
+   owner_ID,
+   emergency);
+}
+
+void Node::SendAmyStuff(
+   uint8_t dest_id,
+   float64_t hello,
+   bool emergency)
+{
+   node->send_amy_stuff(
+   dest_id,
+   hello,
+   emergency);
+}
+
+void Node::SendVehicleAuthorizationRequest(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t link_key,
+   uint8_t requested_services,
+   uint8_t handover_node,
+   bool emergency)
+{
+   node->send_vehicle_authorization_request(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   link_key,
+   requested_services,
+   handover_node,
+   emergency);
+}
+
+void Node::SendVehicleAuthorizationReply(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t vehicle_type,
+   uint8_t authorized_services,
+   uint8_t granted_services,
+   bool emergency)
+{
+   node->send_vehicle_authorization_reply(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   vehicle_type,
+   authorized_services,
+   granted_services,
+   emergency);
+}
+
+void Node::SendVehicleModeCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t vehicle_mode,
+   bool emergency)
+{
+   node->send_vehicle_mode_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   vehicle_mode,
+   emergency);
+}
+
+void Node::SendVehicleTerminationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t termination_mode,
+   bool emergency)
+{
+   node->send_vehicle_termination_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   termination_mode,
+   emergency);
+}
+
+void Node::SendVehicleTelemetryCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t telemetry_select,
+   uint8_t telemetry_rate,
+   bool emergency)
+{
+   node->send_vehicle_telemetry_command(
+   dest_id,
+   timestamp,
+   telemetry_select,
+   telemetry_rate,
+   emergency);
+}
+
+void Node::SendVehicleWaypointCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude,
+   int32_t heading,
+   uint8_t waypoint_ID,
+   uint8_t waypoint_type,
+   bool emergency)
+{
+   node->send_vehicle_waypoint_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   latitude,
+   longitude,
+   altitude,
+   heading,
+   waypoint_ID,
+   waypoint_type,
+   emergency);
+}
+
+void Node::SendVehicleSystemStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t vehicle_mode,
+   uint8_t vehicle_state,
+   bool emergency)
+{
+   node->send_vehicle_system_status(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   vehicle_mode,
+   vehicle_state,
+   emergency);
+}
+
+void Node::SendVehicleInertialState(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float64_t latitude,
+   float64_t longitude,
+   float32_t altitude,
+   float32_t roll,
+   float32_t pitch,
+   float32_t heading,
+   float32_t north_speed,
+   float32_t east_speed,
+   float32_t vertical_speed,
+   float32_t roll_rate,
+   float32_t pitch_rate,
+   float32_t yaw_rate,
+   float32_t north_accel,
+   float32_t east_accel,
+   float32_t vertical_accel,
+   bool emergency)
+{
+   node->send_vehicle_inertial_state(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   latitude,
+   longitude,
+   altitude,
+   roll,
+   pitch,
+   heading,
+   north_speed,
+   east_speed,
+   vertical_speed,
+   roll_rate,
+   pitch_rate,
+   yaw_rate,
+   north_accel,
+   east_accel,
+   vertical_accel,
+   emergency);
+}
+
+void Node::SendVehicleGlobalPosition(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude,
+   int32_t heading,
+   int16_t x_speed,
+   int16_t y_speed,
+   int16_t z_speed,
+   bool emergency)
+{
+   node->send_vehicle_global_position(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   latitude,
+   longitude,
+   altitude,
+   heading,
+   x_speed,
+   y_speed,
+   z_speed,
+   emergency);
+}
+
+void Node::SendVehicleBodySensedState(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   int16_t x_accel,
+   int16_t y_accel,
+   int16_t z_accel,
+   int16_t roll_rate,
+   int16_t pitch_rate,
+   int16_t yaw_rate,
+   bool emergency)
+{
+   node->send_vehicle_body_sensed_state(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   x_accel,
+   y_accel,
+   z_accel,
+   roll_rate,
+   pitch_rate,
+   yaw_rate,
+   emergency);
+}
+
+void Node::SendVehicleAttitude(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t roll,
+   float32_t pitch,
+   float32_t yaw,
+   bool emergency)
+{
+   node->send_vehicle_attitude(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   roll,
+   pitch,
+   yaw,
+   emergency);
+}
+
+void Node::SendVehicleGroundRelativeState(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t angle_of_attack,
+   float32_t angle_of_sideslip,
+   float32_t true_airspeed,
+   float32_t indicated_airspeed,
+   float32_t north_wind_speed,
+   float32_t east_wind_speed,
+   float32_t north_ground_speed,
+   float32_t east_ground_speed,
+   float32_t barometric_pressure,
+   float32_t barometric_altitude,
+   bool emergency)
+{
+   node->send_vehicle_ground_relative_state(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   angle_of_attack,
+   angle_of_sideslip,
+   true_airspeed,
+   indicated_airspeed,
+   north_wind_speed,
+   east_wind_speed,
+   north_ground_speed,
+   east_ground_speed,
+   barometric_pressure,
+   barometric_altitude,
+   emergency);
+}
+
+void Node::SendPayloadBayCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint32_t payload_ID,
+   uint8_t payload_command,
+   bool emergency)
+{
+   node->send_payload_bay_command(
+   dest_id,
+   timestamp,
+   payload_ID,
+   payload_command,
+   emergency);
+}
+
+void Node::SendPayloadBayModeCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint32_t payload_ID,
+   uint8_t payload_mode,
+   bool emergency)
+{
+   node->send_payload_bay_mode_command(
+   dest_id,
+   timestamp,
+   payload_ID,
+   payload_mode,
+   emergency);
+}
+
+void Node::SendTargetDesignationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t payload_ID,
+   uint8_t target_ID,
+   uint8_t target_type,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude,
+   bool emergency)
+{
+   node->send_target_designation_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   payload_ID,
+   target_ID,
+   target_type,
+   latitude,
+   longitude,
+   altitude,
+   emergency);
+}
+
+void Node::SendUGVJoystick(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t vehicle_id,
+   float32_t steering,
+   float32_t throttle,
+   bool emergency)
+{
+   node->send_UGV_joystick(
+   dest_id,
+   timestamp,
+   vehicle_id,
+   steering,
+   throttle,
+   emergency);
+}
+
+void Node::SendUGVBatteryStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float32_t voltage_3_3V,
+   float32_t voltage_5V,
+   float32_t voltage_12V,
+   float32_t current_3_3V,
+   float32_t current_5V,
+   float32_t current_12V,
+   float32_t current_fore_motor,
+   float32_t current_aft_motor,
+   bool emergency)
+{
+   node->send_UGV_battery_status(
+   dest_id,
+   timestamp,
+   voltage_3_3V,
+   voltage_5V,
+   voltage_12V,
+   current_3_3V,
+   current_5V,
+   current_12V,
+   current_fore_motor,
+   current_aft_motor,
+   emergency);
+}
+
+void Node::SendEnter(
+   uint8_t dest_id,
    float64_t timestamp)
 {
    node->send_enter(
    dest_id,
-   timestamp);
+   timestamp,
+   0);
 }
 
 void Node::SendExit(
@@ -33,7 +477,8 @@ void Node::SendExit(
 {
    node->send_exit(
    dest_id,
-   timestamp);
+   timestamp,
+   0);
 }
 
 void Node::SendPing(
@@ -42,7 +487,8 @@ void Node::SendPing(
 {
    node->send_ping(
    dest_id,
-   timestamp);
+   timestamp,
+   0);
 }
 
 void Node::SendPong(
@@ -51,7 +497,8 @@ void Node::SendPong(
 {
    node->send_pong(
    dest_id,
-   timestamp);
+   timestamp,
+   0);
 }
 
 void Node::SendVehicleIdentification(
@@ -66,7 +513,8 @@ void Node::SendVehicleIdentification(
    timestamp,
    vehicle_ID,
    vehicle_type,
-   owner_ID);
+   owner_ID,
+   0);
 }
 
 void Node::SendAmyStuff(
@@ -75,7 +523,8 @@ void Node::SendAmyStuff(
 {
    node->send_amy_stuff(
    dest_id,
-   hello);
+   hello,
+   0);
 }
 
 void Node::SendVehicleAuthorizationRequest(
@@ -92,7 +541,8 @@ void Node::SendVehicleAuthorizationRequest(
    vehicle_ID,
    link_key,
    requested_services,
-   handover_node);
+   handover_node,
+   0);
 }
 
 void Node::SendVehicleAuthorizationReply(
@@ -109,7 +559,8 @@ void Node::SendVehicleAuthorizationReply(
    vehicle_ID,
    vehicle_type,
    authorized_services,
-   granted_services);
+   granted_services,
+   0);
 }
 
 void Node::SendVehicleModeCommand(
@@ -122,7 +573,8 @@ void Node::SendVehicleModeCommand(
    dest_id,
    timestamp,
    vehicle_ID,
-   vehicle_mode);
+   vehicle_mode,
+   0);
 }
 
 void Node::SendVehicleTerminationCommand(
@@ -135,7 +587,8 @@ void Node::SendVehicleTerminationCommand(
    dest_id,
    timestamp,
    vehicle_ID,
-   termination_mode);
+   termination_mode,
+   0);
 }
 
 void Node::SendVehicleTelemetryCommand(
@@ -148,7 +601,8 @@ void Node::SendVehicleTelemetryCommand(
    dest_id,
    timestamp,
    telemetry_select,
-   telemetry_rate);
+   telemetry_rate,
+   0);
 }
 
 void Node::SendVehicleWaypointCommand(
@@ -171,7 +625,8 @@ void Node::SendVehicleWaypointCommand(
    altitude,
    heading,
    waypoint_ID,
-   waypoint_type);
+   waypoint_type,
+   0);
 }
 
 void Node::SendVehicleSystemStatus(
@@ -186,7 +641,8 @@ void Node::SendVehicleSystemStatus(
    timestamp,
    vehicle_ID,
    vehicle_mode,
-   vehicle_state);
+   vehicle_state,
+   0);
 }
 
 void Node::SendVehicleInertialState(
@@ -227,7 +683,8 @@ void Node::SendVehicleInertialState(
    yaw_rate,
    north_accel,
    east_accel,
-   vertical_accel);
+   vertical_accel,
+   0);
 }
 
 void Node::SendVehicleGlobalPosition(
@@ -252,7 +709,8 @@ void Node::SendVehicleGlobalPosition(
    heading,
    x_speed,
    y_speed,
-   z_speed);
+   z_speed,
+   0);
 }
 
 void Node::SendVehicleBodySensedState(
@@ -275,7 +733,8 @@ void Node::SendVehicleBodySensedState(
    z_accel,
    roll_rate,
    pitch_rate,
-   yaw_rate);
+   yaw_rate,
+   0);
 }
 
 void Node::SendVehicleAttitude(
@@ -292,7 +751,8 @@ void Node::SendVehicleAttitude(
    vehicle_ID,
    roll,
    pitch,
-   yaw);
+   yaw,
+   0);
 }
 
 void Node::SendVehicleGroundRelativeState(
@@ -323,7 +783,8 @@ void Node::SendVehicleGroundRelativeState(
    north_ground_speed,
    east_ground_speed,
    barometric_pressure,
-   barometric_altitude);
+   barometric_altitude,
+   0);
 }
 
 void Node::SendPayloadBayCommand(
@@ -336,7 +797,8 @@ void Node::SendPayloadBayCommand(
    dest_id,
    timestamp,
    payload_ID,
-   payload_command);
+   payload_command,
+   0);
 }
 
 void Node::SendPayloadBayModeCommand(
@@ -349,7 +811,8 @@ void Node::SendPayloadBayModeCommand(
    dest_id,
    timestamp,
    payload_ID,
-   payload_mode);
+   payload_mode,
+   0);
 }
 
 void Node::SendTargetDesignationCommand(
@@ -372,7 +835,8 @@ void Node::SendTargetDesignationCommand(
    target_type,
    latitude,
    longitude,
-   altitude);
+   altitude,
+   0);
 }
 
 void Node::SendUGVJoystick(
@@ -387,7 +851,8 @@ void Node::SendUGVJoystick(
    timestamp,
    vehicle_id,
    steering,
-   throttle);
+   throttle,
+   0);
 }
 
 void Node::SendUGVBatteryStatus(
@@ -412,7 +877,8 @@ void Node::SendUGVBatteryStatus(
    current_5V,
    current_12V,
    current_fore_motor,
-   current_aft_motor);
+   current_aft_motor,
+   0);
 }
 
 void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port)

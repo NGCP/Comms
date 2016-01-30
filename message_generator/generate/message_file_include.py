@@ -32,6 +32,8 @@ def generate_message_file_include(directory, include_extension, src_extension):
     f.write('#include <stdio.h>\n')
     f.write('#include <protonet_marshal'+include_extension+'>\n\n')
     
+    #define max data zize 
+    f.write("#define MAX_DATA_SIZE               540\n")
     # header struct
     f.write("/** Global typdef struct which is the packet header used to transmit data. */\n")
     f.write('typedef struct {\n')
@@ -39,6 +41,9 @@ def generate_message_file_include(directory, include_extension, src_extension):
         if(check_valid_type(field.get('type')) == 0):
             print 'error: field: '+ field.get('name') + ' in header has invalid type.'
         f.write(tab + field.get('type') + ' ' + field.get('name') + ';\n')
+    #Priority Queue real crap way to split message_length: 15, is_emergency: 1;
+    f.seek(-3, 1)
+    f.write("\t: 15," "\n" + tab + tab + tab + tab +"is_emergency \t: 1;\n")
     f.write('} proto_header_t;\n\n')
     
     # checksum
@@ -57,7 +62,7 @@ def generate_message_file_include(directory, include_extension, src_extension):
     f.write(tab + 'proto_header_t header;\n')
     f.write(tab + 'proto_direction_t direction;\n')
     f.write(tab + 'uint8_t link_id;\n')
-    f.write(tab + 'uint8_t data[540];\n')
+    f.write(tab + 'uint8_t data[MAX_DATA_SIZE];\n')
     f.write(tab + 'uint16_t  tx_len;\n')
     f.write(tab + 'checksum_t checksum;\n')
     f.write('} proto_msg_t;\n\n')

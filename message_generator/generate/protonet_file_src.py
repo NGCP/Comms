@@ -49,7 +49,7 @@ def generate_protonet_file_src(directory, include_extension, src_extension):
 	this->node_id = node_id;
 
 	thread_create(&handler_thread, &node::handler_helper, this);
-	queue = proto_msg_queue();
+	
 }
 
 /* Create a node with a specified mode, TBD */
@@ -291,10 +291,12 @@ void* node::upkeep_helper(void* context)
         f.write(tab+'uint8_t dest_id,')
         for field in message:
             f.write('\n'+tab+field.get('type')+' '+ field.get('name')+',')
+        f.write('\n' + tab + 'bool is_emergency' + ',')
         f.seek(-1, 1)
         f.write(')\n')
         f.write('{\n')
         f.write(tab+'proto_msg_t proto_msg;\n')
+        f.write(tab + 'proto_msg.header.is_emergency = (uint16_t)is_emergency;\n')
         f.write(tab+type_t_name+' '+variable_name+';\n')
         for field in message:
             f.write(tab+variable_name+'.'+ field.get('name')+' = '+ field.get('name')+';\n')

@@ -30,7 +30,7 @@ def generate_proto_wrapper_src(directory, include_extension, src_extension):
     f.write(tab+'delete(node);\n}\n\n')
     f.write('void Node::Start()\n{\n')
     f.write(tab+'node->start();\n}\n\n')
-    #send_message methods
+    #send_message methods for over ridd with extra bool emergency argument
     for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_","")
@@ -40,14 +40,35 @@ def generate_proto_wrapper_src(directory, include_extension, src_extension):
         f.write(tab+'uint8_t dest_id,')
         for field in message:
             f.write('\n'+tab+field.get('type')+' '+ field.get('name')+',')
+        f.write('\n' + tab + 'bool emergency;')
         f.seek(-1, 1)
         f.write(')\n{\n')
         f.write(tab+'node->send_'+variable_name+'(\n')
         f.write(tab+'dest_id,')
         for field in message:
             f.write('\n'+tab+field.get('name')+',')
+        f.write('\n' + tab + 'emergency,')    
         f.seek(-1, 1)
-        f.write(');\n}\n\n')
+        f.write(');\n}\n\n')   
+    #send_message methods default
+    for message in protocol:
+        name = message.get('name')
+        cs_name = message.get('name').replace("_","")
+        variable_name = lower_case_acronym(name)
+        type_t_name = variable_name + "_t"
+        f.write('void Node::Send'+ cs_name+'(\n')
+        f.write(tab+'uint8_t dest_id,')
+        for field in message:
+            f.write('\n'+tab+field.get('type')+' '+ field.get('name')+',')
+        f.seek(-1, 1)        
+        f.write(')\n{\n')
+        f.write(tab+'node->send_'+variable_name+'(\n')
+        f.write(tab+'dest_id,')
+        for field in message:
+            f.write('\n'+tab+field.get('name')+',')
+        f.write('\n' + tab + '0,')    
+        f.seek(-1, 1)
+        f.write(');\n}\n\n')        
     #public native methods
     f.write(r'''void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port)
 {

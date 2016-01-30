@@ -31,7 +31,7 @@ node::node(uint8_t node_id)
 	this->node_id = node_id;
 
 	thread_create(&handler_thread, &node::handler_helper, this);
-	queue = proto_msg_queue();
+	
 }
 
 /* Create a node with a specified mode, TBD */
@@ -525,9 +525,11 @@ void node::handle_proto_msg_t(proto_msg_t* rx_msg, proto_msg_buf_t* rx_buf)
 
 void node::send_enter(
    uint8_t dest_id,
-   float64_t timestamp)
+   float64_t timestamp,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    enter_t enter;
    enter.timestamp = timestamp;
    encode_enter(this->node_id, dest_id, 3, 0, &enter, &proto_msg);
@@ -537,9 +539,11 @@ void node::send_enter(
 
 void node::send_exit(
    uint8_t dest_id,
-   float64_t timestamp)
+   float64_t timestamp,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    exit_t exit;
    exit.timestamp = timestamp;
    encode_exit(this->node_id, dest_id, 3, 0, &exit, &proto_msg);
@@ -549,9 +553,11 @@ void node::send_exit(
 
 void node::send_ping(
    uint8_t dest_id,
-   float64_t timestamp)
+   float64_t timestamp,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    ping_t ping;
    ping.timestamp = timestamp;
    encode_ping(this->node_id, dest_id, 3, 0, &ping, &proto_msg);
@@ -561,9 +567,11 @@ void node::send_ping(
 
 void node::send_pong(
    uint8_t dest_id,
-   float64_t timestamp)
+   float64_t timestamp,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    pong_t pong;
    pong.timestamp = timestamp;
    encode_pong(this->node_id, dest_id, 3, 0, &pong, &proto_msg);
@@ -576,9 +584,11 @@ void node::send_vehicle_identification(
    float64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t vehicle_type,
-   uint16_t owner_ID)
+   uint16_t owner_ID,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_identification_t vehicle_identification;
    vehicle_identification.timestamp = timestamp;
    vehicle_identification.vehicle_ID = vehicle_ID;
@@ -591,9 +601,11 @@ void node::send_vehicle_identification(
 
 void node::send_amy_stuff(
    uint8_t dest_id,
-   float64_t hello)
+   float64_t hello,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    amy_stuff_t amy_stuff;
    amy_stuff.hello = hello;
    encode_amy_stuff(this->node_id, dest_id, 3, 0, &amy_stuff, &proto_msg);
@@ -607,9 +619,11 @@ void node::send_vehicle_authorization_request(
    uint16_t vehicle_ID,
    uint8_t link_key,
    uint8_t requested_services,
-   uint8_t handover_node)
+   uint8_t handover_node,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_authorization_request_t vehicle_authorization_request;
    vehicle_authorization_request.timestamp = timestamp;
    vehicle_authorization_request.vehicle_ID = vehicle_ID;
@@ -627,9 +641,11 @@ void node::send_vehicle_authorization_reply(
    uint16_t vehicle_ID,
    uint8_t vehicle_type,
    uint8_t authorized_services,
-   uint8_t granted_services)
+   uint8_t granted_services,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_authorization_reply_t vehicle_authorization_reply;
    vehicle_authorization_reply.timestamp = timestamp;
    vehicle_authorization_reply.vehicle_ID = vehicle_ID;
@@ -645,9 +661,11 @@ void node::send_vehicle_mode_command(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t vehicle_mode)
+   uint8_t vehicle_mode,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_mode_command_t vehicle_mode_command;
    vehicle_mode_command.timestamp = timestamp;
    vehicle_mode_command.vehicle_ID = vehicle_ID;
@@ -661,9 +679,11 @@ void node::send_vehicle_termination_command(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t termination_mode)
+   uint8_t termination_mode,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_termination_command_t vehicle_termination_command;
    vehicle_termination_command.timestamp = timestamp;
    vehicle_termination_command.vehicle_ID = vehicle_ID;
@@ -677,9 +697,11 @@ void node::send_vehicle_telemetry_command(
    uint8_t dest_id,
    float64_t timestamp,
    uint8_t telemetry_select,
-   uint8_t telemetry_rate)
+   uint8_t telemetry_rate,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_telemetry_command_t vehicle_telemetry_command;
    vehicle_telemetry_command.timestamp = timestamp;
    vehicle_telemetry_command.telemetry_select = telemetry_select;
@@ -698,9 +720,11 @@ void node::send_vehicle_waypoint_command(
    int32_t altitude,
    int32_t heading,
    uint8_t waypoint_ID,
-   uint8_t waypoint_type)
+   uint8_t waypoint_type,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_waypoint_command_t vehicle_waypoint_command;
    vehicle_waypoint_command.timestamp = timestamp;
    vehicle_waypoint_command.vehicle_ID = vehicle_ID;
@@ -720,9 +744,11 @@ void node::send_vehicle_system_status(
    float64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t vehicle_mode,
-   uint8_t vehicle_state)
+   uint8_t vehicle_state,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_system_status_t vehicle_system_status;
    vehicle_system_status.timestamp = timestamp;
    vehicle_system_status.vehicle_ID = vehicle_ID;
@@ -751,9 +777,11 @@ void node::send_vehicle_inertial_state(
    float32_t yaw_rate,
    float32_t north_accel,
    float32_t east_accel,
-   float32_t vertical_accel)
+   float32_t vertical_accel,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_inertial_state_t vehicle_inertial_state;
    vehicle_inertial_state.timestamp = timestamp;
    vehicle_inertial_state.vehicle_ID = vehicle_ID;
@@ -787,9 +815,11 @@ void node::send_vehicle_global_position(
    int32_t heading,
    int16_t x_speed,
    int16_t y_speed,
-   int16_t z_speed)
+   int16_t z_speed,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_global_position_t vehicle_global_position;
    vehicle_global_position.timestamp = timestamp;
    vehicle_global_position.vehicle_ID = vehicle_ID;
@@ -814,9 +844,11 @@ void node::send_vehicle_body_sensed_state(
    int16_t z_accel,
    int16_t roll_rate,
    int16_t pitch_rate,
-   int16_t yaw_rate)
+   int16_t yaw_rate,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_body_sensed_state_t vehicle_body_sensed_state;
    vehicle_body_sensed_state.timestamp = timestamp;
    vehicle_body_sensed_state.vehicle_ID = vehicle_ID;
@@ -837,9 +869,11 @@ void node::send_vehicle_attitude(
    uint16_t vehicle_ID,
    float32_t roll,
    float32_t pitch,
-   float32_t yaw)
+   float32_t yaw,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_attitude_t vehicle_attitude;
    vehicle_attitude.timestamp = timestamp;
    vehicle_attitude.vehicle_ID = vehicle_ID;
@@ -864,9 +898,11 @@ void node::send_vehicle_ground_relative_state(
    float32_t north_ground_speed,
    float32_t east_ground_speed,
    float32_t barometric_pressure,
-   float32_t barometric_altitude)
+   float32_t barometric_altitude,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_ground_relative_state_t vehicle_ground_relative_state;
    vehicle_ground_relative_state.timestamp = timestamp;
    vehicle_ground_relative_state.vehicle_ID = vehicle_ID;
@@ -889,9 +925,11 @@ void node::send_payload_bay_command(
    uint8_t dest_id,
    float64_t timestamp,
    uint32_t payload_ID,
-   uint8_t payload_command)
+   uint8_t payload_command,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    payload_bay_command_t payload_bay_command;
    payload_bay_command.timestamp = timestamp;
    payload_bay_command.payload_ID = payload_ID;
@@ -905,9 +943,11 @@ void node::send_payload_bay_mode_command(
    uint8_t dest_id,
    float64_t timestamp,
    uint32_t payload_ID,
-   uint8_t payload_mode)
+   uint8_t payload_mode,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    payload_bay_mode_command_t payload_bay_mode_command;
    payload_bay_mode_command.timestamp = timestamp;
    payload_bay_mode_command.payload_ID = payload_ID;
@@ -926,9 +966,11 @@ void node::send_target_designation_command(
    uint8_t target_type,
    int32_t latitude,
    int32_t longitude,
-   int32_t altitude)
+   int32_t altitude,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    target_designation_command_t target_designation_command;
    target_designation_command.timestamp = timestamp;
    target_designation_command.vehicle_ID = vehicle_ID;
@@ -948,9 +990,11 @@ void node::send_UGV_joystick(
    float64_t timestamp,
    uint8_t vehicle_id,
    float32_t steering,
-   float32_t throttle)
+   float32_t throttle,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    UGV_joystick_t UGV_joystick;
    UGV_joystick.timestamp = timestamp;
    UGV_joystick.vehicle_id = vehicle_id;
@@ -971,9 +1015,11 @@ void node::send_UGV_battery_status(
    float32_t current_5V,
    float32_t current_12V,
    float32_t current_fore_motor,
-   float32_t current_aft_motor)
+   float32_t current_aft_motor,
+   bool is_emergency)
 {
    proto_msg_t proto_msg;
+   proto_msg.header.is_emergency = (uint16_t)is_emergency;
    UGV_battery_status_t UGV_battery_status;
    UGV_battery_status.timestamp = timestamp;
    UGV_battery_status.voltage_3_3V = voltage_3_3V;
