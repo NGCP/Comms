@@ -53,6 +53,7 @@ msg_offset pack_header(
    offset = pack_uint8_t(header->node_dest_id, offset);
    offset = pack_uint8_t(header->sequence_number, offset);
    offset = pack_uint8_t(header->message_ttl, offset);
+   offset = pack_uint8_t_ptr(header->iv, offset,16 );
    offset = pack_uint16_t(header->message_type, offset);
    offset = pack_uint16_t(merged_data, offset);
    return offset;
@@ -80,6 +81,7 @@ msg_offset unpack_header(
    offset = unpack_uint8_t(offset, &out_ptr->node_dest_id);
    offset = unpack_uint8_t(offset, &out_ptr->sequence_number);
    offset = unpack_uint8_t(offset, &out_ptr->message_ttl);
+   offset = unpack_uint8_t_ptr(offset, out_ptr->iv,16);
    offset = unpack_uint16_t(offset, &out_ptr->message_type);
    offset = unpack_uint16_t(offset, &merged_message);
    unpack_merged_variable(out_ptr, &merged_message);

@@ -29,8 +29,30 @@ def generate_protonet_file_include(directory, include_extension, src_extension):
     f.write("/*Include files*/ \n")
     f.write('#include <datalink' +include_extension+'>\n')
     f.write('#include <protonet_protocol' +include_extension+'>\n')
-    f.write('#include <queue' +include_extension+'>\n')
-    f.write('#include <thread' +include_extension+'>\n\n')
+    f.write('#include <pqueue' +include_extension+'>\n')
+    f.write('#include <thread' +include_extension+'>\n')
+    f.write("""
+/** include encryption header*/
+#include "aes.h"
+using CryptoPP::AES;
+
+//If creating C# wrapper define _CLR else leave comment
+//#define _CLR
+
+/** C# wrapper can not load fstream, to fix this problem if windows, then
+use managed c++ code to open and read file*/
+#ifdef _CLR
+    #using<system.dll>
+    using namespace System;
+    using namespace System::IO;
+    using namespace System::Runtime::InteropServices;
+#else
+    #include <fstream>
+    #include <string>
+#endif
+
+""")   
+    
     #declare name space
     f.write('namespace protonet\n')
     f.write('{\n')
@@ -110,7 +132,14 @@ def generate_protonet_file_include(directory, include_extension, src_extension):
     f.write(tab+tab+'thread_t datalink_threads[255];\n\n')
     
     f.write(tab + tab + "/**Private pointer to the message queue*/ \n")
-    f.write(tab+tab+'proto_msg_queue queue;\n')    
+    f.write(tab+tab+'proto_msg_queue queue;\n')
+    
+    f.write(tab+tab+'/**Add key to protonet class*/\n')
+    f.write(tab+tab+'uint8_t key[AES::DEFAULT_KEYLENGTH];\n')
+    
+    f.write(tab+tab+'/** Method to read key form text file*/\n')
+    f.write(tab+tab+'void readKey();\n')
+    
     f.write(tab + tab + "/**Private method to handle the message to determine the type of message and its following actions  */ \n")
     f.write(tab+tab+'void handle_proto_msg_t(proto_msg_t* rx_msg, proto_msg_buf_t* rx_buf);\n\n')
     

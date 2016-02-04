@@ -8,6 +8,11 @@
 #include <protonet_marshal.h>
 #include <protonet_message.h>
 
+#include"RandomIV.h"
+#include "aes.h"
+using CryptoPP::AES;
+#include "ccm.h"
+using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
    uint16_t vehicle_ID;
@@ -30,6 +35,7 @@ void encode_vehicle_authorization_reply(
    uint8_t msg_ttl,
    uint8_t seq_number,
    vehicle_authorization_reply_t* tx_msg,
-   proto_msg_t* msg);
+   proto_msg_t* msg,
+   uint8_t keyArr[]);//key for encryption CryptoPP
 
 #endif

@@ -27,6 +27,8 @@
 #include <message/TargetDesignationCommand.h>
 #include <message/UGVJoystick.h>
 #include <message/UGVBatteryStatus.h>
+const uint8_t MSG_DATA_OFFSET = 28;
+
 
 /**Global typdef union with all message types declared as proto_msg_bug_t.
 Used to easily transmit data as same variable. Could of used base class as message and created derived classes for polymorphism.

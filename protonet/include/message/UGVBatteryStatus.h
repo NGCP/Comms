@@ -8,6 +8,11 @@
 #include <protonet_marshal.h>
 #include <protonet_message.h>
 
+#include"RandomIV.h"
+#include "aes.h"
+using CryptoPP::AES;
+#include "ccm.h"
+using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
    float32_t voltage_3_3V;
@@ -34,6 +39,7 @@ void encode_UGV_battery_status(
    uint8_t msg_ttl,
    uint8_t seq_number,
    UGV_battery_status_t* tx_msg,
-   proto_msg_t* msg);
+   proto_msg_t* msg,
+   uint8_t keyArr[]);//key for encryption CryptoPP
 
 #endif

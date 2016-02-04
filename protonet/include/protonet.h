@@ -6,8 +6,27 @@
 /*Include files*/ 
 #include <datalink.h>
 #include <protonet_protocol.h>
-#include <queue.h>
+#include <pqueue.h>
 #include <thread.h>
+
+/** include encryption header*/
+#include "aes.h"
+using CryptoPP::AES;
+
+//If creating C# wrapper define _CLR else leave comment
+//#define _CLR
+
+/** C# wrapper can not load fstream, to fix this problem if windows, then
+use managed c++ code to open and read file*/
+#ifdef _CLR
+    #using<system.dll>
+    using namespace System;
+    using namespace System::IO;
+    using namespace System::Runtime::InteropServices;
+#else
+    #include <fstream>
+    #include <string>
+#endif
 
 namespace protonet
 {
@@ -383,6 +402,10 @@ namespace protonet
 
       /**Private pointer to the message queue*/ 
       proto_msg_queue queue;
+      /**Add key to protonet class*/
+      uint8_t key[AES::DEFAULT_KEYLENGTH];
+      /** Method to read key form text file*/
+      void readKey();
       /**Private method to handle the message to determine the type of message and its following actions  */ 
       void handle_proto_msg_t(proto_msg_t* rx_msg, proto_msg_buf_t* rx_buf);
 

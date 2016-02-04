@@ -8,6 +8,11 @@
 #include <protonet_marshal.h>
 #include <protonet_message.h>
 
+#include"RandomIV.h"
+#include "aes.h"
+using CryptoPP::AES;
+#include "ccm.h"
+using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
    uint8_t telemetry_select;
@@ -28,6 +33,7 @@ void encode_vehicle_telemetry_command(
    uint8_t msg_ttl,
    uint8_t seq_number,
    vehicle_telemetry_command_t* tx_msg,
-   proto_msg_t* msg);
+   proto_msg_t* msg,
+   uint8_t keyArr[]);//key for encryption CryptoPP
 
 #endif

@@ -6,7 +6,7 @@
 
 /* User Includes */
 #include <config.h>
-#include <queue.h>
+#include <pqueue.h>
 #include <thread.h>
 
 /* Legacy C interface, needs TLC Not documented in doxygen if c++ is defined*/

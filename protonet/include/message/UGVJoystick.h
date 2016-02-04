@@ -8,6 +8,11 @@
 #include <protonet_marshal.h>
 #include <protonet_message.h>
 
+#include"RandomIV.h"
+#include "aes.h"
+using CryptoPP::AES;
+#include "ccm.h"
+using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
    uint8_t vehicle_id;
@@ -29,6 +34,7 @@ void encode_UGV_joystick(
    uint8_t msg_ttl,
    uint8_t seq_number,
    UGV_joystick_t* tx_msg,
-   proto_msg_t* msg);
+   proto_msg_t* msg,
+   uint8_t keyArr[]);//key for encryption CryptoPP
 
 #endif

@@ -34,8 +34,13 @@ void encode_UGV_joystick(
    uint8_t msg_ttl,
    uint8_t seq_number,
    UGV_joystick_t* tx_msg,
-   proto_msg_t* msg)
+   proto_msg_t* msg,
+   uint8_t keyArr[])//key for encryption CryptoPP
+
 {
+   /** Random IV*/
+   gRandomIV.randomIV(msg->header.iv, AES::BLOCKSIZE);
+
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;
    start_offset = msg->data;
@@ -48,6 +53,13 @@ void encode_UGV_joystick(
    msg->header.message_type = Proto_UGV_Joystick;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
+
+   /** Encrypt */
+   /* Managed C (CLR) will freak out if you pass SecByteBlock as an argument this is my half ass fix MW*/
+   CryptoPP::SecByteBlock key(keyArr, AES::DEFAULT_KEYLENGTH);
+   CFB_Mode<AES>::Encryption cfbEncryption(key, key.size(), msg->header.iv);
+   cfbEncryption.ProcessData((byte*)offset, (byte*)offset, msg->header.message_length);
+
    offset = pack_UGV_joystick(tx_msg, offset);
    offset = pack_checksum(start_offset, offset);
    msg->tx_len = offset-start_offset;

@@ -21,7 +21,7 @@ def generate_protocol_file_src(directory, include_extension, src_extension):
     f.write('#include <protonet_protocol' +include_extension+'>\n\n')
     
     #declare msg_data_offset
-    f.write('const uint8_t msg_data_offset = 12;\n\n')
+    f.write('const uint8_t msg_data_offset = 28;\n\n')
     #create function unpack for all messages
     f.write('void unpack_proto_msg_t(\n')
     f.write(tab+ 'proto_msg_t* msg,\n')

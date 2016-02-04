@@ -31,6 +31,9 @@ def generate_protocol_file_include(directory, include_extension, src_extension):
         filename = name.replace("_", "")
         f.write('#include <message/'+filename+include_extension+'>\n')
     
+    #declare msg_data_offset should be size of header
+    f.write('const uint8_t MSG_DATA_OFFSET = 28;\n\n')
+    
     #create a union with all the message types as proto_msg_buf_t
     f.write("\n/**Global typdef union with all message types declared as proto_msg_bug_t.\n")
     f.write("Used to easily transmit data as same variable. Could of used base class as message and created derived classes for polymorphism.\n")

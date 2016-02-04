@@ -10,8 +10,11 @@
 #include <datalink.h>
 #include <serial.h>
 #include <udp.h>
-#include <queue.h>
+#include <pqueue.h>
 #include <thread.h>
+
+#include <fstream>
+#include <string>
 
 using namespace protonet;
 
@@ -29,6 +32,9 @@ node::node(uint8_t node_id)
 		return;
 	}
 	this->node_id = node_id;
+    
+    /* Load aes 128 bit key from file and store in private member variable*/
+	readKey();
 
 	thread_create(&handler_thread, &node::handler_helper, this);
 	
@@ -48,9 +54,12 @@ node::node(uint8_t node_id, int32_t mode)
 		return;
 	}
 	this->node_id = node_id;
+    
+    /* Load aes 128 bit key from file and store in private member variable*/
+	readKey(); //change
 
-	//thread_create(&handler_thread, &node::handler_helper, this);
-	queue = proto_msg_queue();
+	thread_create(&handler_thread, &node::handler_helper, this);
+	
 }
 node::~node()
 {
@@ -75,6 +84,73 @@ void node::start()
 	
 	}
 }
+
+/* Read key from text file*/
+void node::readKey()
+{
+/* C# cannot import fstream for some reason*/ 
+#ifdef _CLR
+	// compile with: /clr
+	String^ fileName = "key.txt";
+	String^ str;
+	try
+	{
+		StreamReader^ din = File::OpenText(fileName);
+		str = din->ReadLine();
+		if (str->Length - 1 == AES::DEFAULT_KEYLENGTH)
+		{
+			IntPtr^ ip = Marshal::StringToHGlobalAnsi(str);
+			if (ip != IntPtr::Zero)
+			{
+				const char *keyCast = reinterpret_cast<const char *>(ip->ToPointer());
+
+				for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
+				{
+					key[x] = keyCast[x];
+				}
+			}
+		}
+
+	}
+	catch (Exception^ e)
+	{
+		if (dynamic_cast<FileNotFoundException^>(e))
+			Console::WriteLine("file '{0}' not found", fileName);
+		else
+			Console::WriteLine("problem reading file '{0}'", fileName);
+	}
+
+
+
+#else
+	/**Load encryption key 128bits*/
+	std::ifstream keyFileInput("key.txt");
+	std::string inputString;	
+	if (keyFileInput.is_open())
+	{
+		std::getline(keyFileInput, inputString);
+
+		if (inputString.length() == AES::DEFAULT_KEYLENGTH)
+		{
+			for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
+			{
+				key[x] = inputString[x];
+			}
+		}
+		else
+		{
+			printf("key.txt characters mismatch.\nCharacters found: %d\nCharacters needed: %d\n", inputString.length(), AES::DEFAULT_KEYLENGTH);
+		}
+	}
+	else//file not open
+	{
+		printf("key.txt not found. \n");
+	}
+	keyFileInput.close();
+#endif
+
+}
+
 
 /* Entry point for the event handler that performs callbacks based on incoming messages */
 void* node::protonet_handler()
@@ -113,6 +189,13 @@ void* node::protonet_handler()
 						proto_msg_buf_t rx_buf;
 						/* Unpack and identify the type of incoming message */
 						unpack_proto_msg_t(&proto_msg, &rx_buf);
+                        
+                        /** Decrypt */	
+                        /* Managed C (CLR) will freak out if you pass SecByteBlock as an argument this is my half ass fix MW*/
+                        CryptoPP::SecByteBlock secKey(key, AES::DEFAULT_KEYLENGTH);                      
+						CFB_Mode<AES>::Decryption cfbDecryption(secKey, secKey.size(), proto_msg.header.iv);
+						cfbDecryption.ProcessData((byte*)proto_msg.data, (byte*)proto_msg.data, proto_msg.header.message_length);
+                        
 						/* Perform a callback based on message type */
 						handle_proto_msg_t(&proto_msg, &rx_buf);
 					}
@@ -532,7 +615,7 @@ void node::send_enter(
    proto_msg.header.is_emergency = (uint16_t)is_emergency;
    enter_t enter;
    enter.timestamp = timestamp;
-   encode_enter(this->node_id, dest_id, 3, 0, &enter, &proto_msg);
+   encode_enter(this->node_id, dest_id, 3, 0, &enter, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -546,7 +629,7 @@ void node::send_exit(
    proto_msg.header.is_emergency = (uint16_t)is_emergency;
    exit_t exit;
    exit.timestamp = timestamp;
-   encode_exit(this->node_id, dest_id, 3, 0, &exit, &proto_msg);
+   encode_exit(this->node_id, dest_id, 3, 0, &exit, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -560,7 +643,7 @@ void node::send_ping(
    proto_msg.header.is_emergency = (uint16_t)is_emergency;
    ping_t ping;
    ping.timestamp = timestamp;
-   encode_ping(this->node_id, dest_id, 3, 0, &ping, &proto_msg);
+   encode_ping(this->node_id, dest_id, 3, 0, &ping, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -574,7 +657,7 @@ void node::send_pong(
    proto_msg.header.is_emergency = (uint16_t)is_emergency;
    pong_t pong;
    pong.timestamp = timestamp;
-   encode_pong(this->node_id, dest_id, 3, 0, &pong, &proto_msg);
+   encode_pong(this->node_id, dest_id, 3, 0, &pong, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -594,7 +677,7 @@ void node::send_vehicle_identification(
    vehicle_identification.vehicle_ID = vehicle_ID;
    vehicle_identification.vehicle_type = vehicle_type;
    vehicle_identification.owner_ID = owner_ID;
-   encode_vehicle_identification(this->node_id, dest_id, 3, 0, &vehicle_identification, &proto_msg);
+   encode_vehicle_identification(this->node_id, dest_id, 3, 0, &vehicle_identification, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -608,7 +691,7 @@ void node::send_amy_stuff(
    proto_msg.header.is_emergency = (uint16_t)is_emergency;
    amy_stuff_t amy_stuff;
    amy_stuff.hello = hello;
-   encode_amy_stuff(this->node_id, dest_id, 3, 0, &amy_stuff, &proto_msg);
+   encode_amy_stuff(this->node_id, dest_id, 3, 0, &amy_stuff, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -630,7 +713,7 @@ void node::send_vehicle_authorization_request(
    vehicle_authorization_request.link_key = link_key;
    vehicle_authorization_request.requested_services = requested_services;
    vehicle_authorization_request.handover_node = handover_node;
-   encode_vehicle_authorization_request(this->node_id, dest_id, 3, 0, &vehicle_authorization_request, &proto_msg);
+   encode_vehicle_authorization_request(this->node_id, dest_id, 3, 0, &vehicle_authorization_request, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -652,7 +735,7 @@ void node::send_vehicle_authorization_reply(
    vehicle_authorization_reply.vehicle_type = vehicle_type;
    vehicle_authorization_reply.authorized_services = authorized_services;
    vehicle_authorization_reply.granted_services = granted_services;
-   encode_vehicle_authorization_reply(this->node_id, dest_id, 3, 0, &vehicle_authorization_reply, &proto_msg);
+   encode_vehicle_authorization_reply(this->node_id, dest_id, 3, 0, &vehicle_authorization_reply, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -670,7 +753,7 @@ void node::send_vehicle_mode_command(
    vehicle_mode_command.timestamp = timestamp;
    vehicle_mode_command.vehicle_ID = vehicle_ID;
    vehicle_mode_command.vehicle_mode = vehicle_mode;
-   encode_vehicle_mode_command(this->node_id, dest_id, 3, 0, &vehicle_mode_command, &proto_msg);
+   encode_vehicle_mode_command(this->node_id, dest_id, 3, 0, &vehicle_mode_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -688,7 +771,7 @@ void node::send_vehicle_termination_command(
    vehicle_termination_command.timestamp = timestamp;
    vehicle_termination_command.vehicle_ID = vehicle_ID;
    vehicle_termination_command.termination_mode = termination_mode;
-   encode_vehicle_termination_command(this->node_id, dest_id, 3, 0, &vehicle_termination_command, &proto_msg);
+   encode_vehicle_termination_command(this->node_id, dest_id, 3, 0, &vehicle_termination_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -706,7 +789,7 @@ void node::send_vehicle_telemetry_command(
    vehicle_telemetry_command.timestamp = timestamp;
    vehicle_telemetry_command.telemetry_select = telemetry_select;
    vehicle_telemetry_command.telemetry_rate = telemetry_rate;
-   encode_vehicle_telemetry_command(this->node_id, dest_id, 3, 0, &vehicle_telemetry_command, &proto_msg);
+   encode_vehicle_telemetry_command(this->node_id, dest_id, 3, 0, &vehicle_telemetry_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -734,7 +817,7 @@ void node::send_vehicle_waypoint_command(
    vehicle_waypoint_command.heading = heading;
    vehicle_waypoint_command.waypoint_ID = waypoint_ID;
    vehicle_waypoint_command.waypoint_type = waypoint_type;
-   encode_vehicle_waypoint_command(this->node_id, dest_id, 3, 0, &vehicle_waypoint_command, &proto_msg);
+   encode_vehicle_waypoint_command(this->node_id, dest_id, 3, 0, &vehicle_waypoint_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -754,7 +837,7 @@ void node::send_vehicle_system_status(
    vehicle_system_status.vehicle_ID = vehicle_ID;
    vehicle_system_status.vehicle_mode = vehicle_mode;
    vehicle_system_status.vehicle_state = vehicle_state;
-   encode_vehicle_system_status(this->node_id, dest_id, 3, 0, &vehicle_system_status, &proto_msg);
+   encode_vehicle_system_status(this->node_id, dest_id, 3, 0, &vehicle_system_status, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -800,7 +883,7 @@ void node::send_vehicle_inertial_state(
    vehicle_inertial_state.north_accel = north_accel;
    vehicle_inertial_state.east_accel = east_accel;
    vehicle_inertial_state.vertical_accel = vertical_accel;
-   encode_vehicle_inertial_state(this->node_id, dest_id, 3, 0, &vehicle_inertial_state, &proto_msg);
+   encode_vehicle_inertial_state(this->node_id, dest_id, 3, 0, &vehicle_inertial_state, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -830,7 +913,7 @@ void node::send_vehicle_global_position(
    vehicle_global_position.x_speed = x_speed;
    vehicle_global_position.y_speed = y_speed;
    vehicle_global_position.z_speed = z_speed;
-   encode_vehicle_global_position(this->node_id, dest_id, 3, 0, &vehicle_global_position, &proto_msg);
+   encode_vehicle_global_position(this->node_id, dest_id, 3, 0, &vehicle_global_position, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -858,7 +941,7 @@ void node::send_vehicle_body_sensed_state(
    vehicle_body_sensed_state.roll_rate = roll_rate;
    vehicle_body_sensed_state.pitch_rate = pitch_rate;
    vehicle_body_sensed_state.yaw_rate = yaw_rate;
-   encode_vehicle_body_sensed_state(this->node_id, dest_id, 3, 0, &vehicle_body_sensed_state, &proto_msg);
+   encode_vehicle_body_sensed_state(this->node_id, dest_id, 3, 0, &vehicle_body_sensed_state, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -880,7 +963,7 @@ void node::send_vehicle_attitude(
    vehicle_attitude.roll = roll;
    vehicle_attitude.pitch = pitch;
    vehicle_attitude.yaw = yaw;
-   encode_vehicle_attitude(this->node_id, dest_id, 3, 0, &vehicle_attitude, &proto_msg);
+   encode_vehicle_attitude(this->node_id, dest_id, 3, 0, &vehicle_attitude, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -916,7 +999,7 @@ void node::send_vehicle_ground_relative_state(
    vehicle_ground_relative_state.east_ground_speed = east_ground_speed;
    vehicle_ground_relative_state.barometric_pressure = barometric_pressure;
    vehicle_ground_relative_state.barometric_altitude = barometric_altitude;
-   encode_vehicle_ground_relative_state(this->node_id, dest_id, 3, 0, &vehicle_ground_relative_state, &proto_msg);
+   encode_vehicle_ground_relative_state(this->node_id, dest_id, 3, 0, &vehicle_ground_relative_state, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -934,7 +1017,7 @@ void node::send_payload_bay_command(
    payload_bay_command.timestamp = timestamp;
    payload_bay_command.payload_ID = payload_ID;
    payload_bay_command.payload_command = payload_command;
-   encode_payload_bay_command(this->node_id, dest_id, 3, 0, &payload_bay_command, &proto_msg);
+   encode_payload_bay_command(this->node_id, dest_id, 3, 0, &payload_bay_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -952,7 +1035,7 @@ void node::send_payload_bay_mode_command(
    payload_bay_mode_command.timestamp = timestamp;
    payload_bay_mode_command.payload_ID = payload_ID;
    payload_bay_mode_command.payload_mode = payload_mode;
-   encode_payload_bay_mode_command(this->node_id, dest_id, 3, 0, &payload_bay_mode_command, &proto_msg);
+   encode_payload_bay_mode_command(this->node_id, dest_id, 3, 0, &payload_bay_mode_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -980,7 +1063,7 @@ void node::send_target_designation_command(
    target_designation_command.latitude = latitude;
    target_designation_command.longitude = longitude;
    target_designation_command.altitude = altitude;
-   encode_target_designation_command(this->node_id, dest_id, 3, 0, &target_designation_command, &proto_msg);
+   encode_target_designation_command(this->node_id, dest_id, 3, 0, &target_designation_command, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -1000,7 +1083,7 @@ void node::send_UGV_joystick(
    UGV_joystick.vehicle_id = vehicle_id;
    UGV_joystick.steering = steering;
    UGV_joystick.throttle = throttle;
-   encode_UGV_joystick(this->node_id, dest_id, 3, 0, &UGV_joystick, &proto_msg);
+   encode_UGV_joystick(this->node_id, dest_id, 3, 0, &UGV_joystick, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }
@@ -1030,7 +1113,7 @@ void node::send_UGV_battery_status(
    UGV_battery_status.current_12V = current_12V;
    UGV_battery_status.current_fore_motor = current_fore_motor;
    UGV_battery_status.current_aft_motor = current_aft_motor;
-   encode_UGV_battery_status(this->node_id, dest_id, 3, 0, &UGV_battery_status, &proto_msg);
+   encode_UGV_battery_status(this->node_id, dest_id, 3, 0, &UGV_battery_status, &proto_msg, key);
    queue.add(&proto_msg);
    return;
 }

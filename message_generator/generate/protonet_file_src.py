@@ -29,8 +29,11 @@ def generate_protonet_file_src(directory, include_extension, src_extension):
     f.write('#include <datalink' +include_extension+'>\n')
     f.write('#include <serial' +include_extension+'>\n')
     f.write('#include <udp' +include_extension+'>\n')
-    f.write('#include <queue' +include_extension+'>\n')
+    f.write('#include <pqueue' +include_extension+'>\n')
     f.write('#include <thread' +include_extension+'>\n\n')
+    f.write('#include <fstream>\n')
+    f.write('#include <string>\n\n')
+    
     f.write('using namespace protonet;\n\n')
     # native methods
     f.write(r'''node::node(uint8_t node_id)
@@ -47,6 +50,9 @@ def generate_protonet_file_src(directory, include_extension, src_extension):
 		return;
 	}
 	this->node_id = node_id;
+    
+    /* Load aes 128 bit key from file and store in private member variable*/
+	readKey();
 
 	thread_create(&handler_thread, &node::handler_helper, this);
 	
@@ -66,9 +72,12 @@ node::node(uint8_t node_id, int32_t mode)
 		return;
 	}
 	this->node_id = node_id;
+    
+    /* Load aes 128 bit key from file and store in private member variable*/
+	readKey(); //change
 
-	//thread_create(&handler_thread, &node::handler_helper, this);
-	queue = proto_msg_queue();
+	thread_create(&handler_thread, &node::handler_helper, this);
+	
 }
 node::~node()
 {
@@ -93,6 +102,73 @@ void node::start()
 	
 	}
 }
+
+/* Read key from text file*/
+void node::readKey()
+{
+/* C# cannot import fstream for some reason*/ 
+#ifdef _CLR
+	// compile with: /clr
+	String^ fileName = "key.txt";
+	String^ str;
+	try
+	{
+		StreamReader^ din = File::OpenText(fileName);
+		str = din->ReadLine();
+		if (str->Length - 1 == AES::DEFAULT_KEYLENGTH)
+		{
+			IntPtr^ ip = Marshal::StringToHGlobalAnsi(str);
+			if (ip != IntPtr::Zero)
+			{
+				const char *keyCast = reinterpret_cast<const char *>(ip->ToPointer());
+
+				for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
+				{
+					key[x] = keyCast[x];
+				}
+			}
+		}
+
+	}
+	catch (Exception^ e)
+	{
+		if (dynamic_cast<FileNotFoundException^>(e))
+			Console::WriteLine("file '{0}' not found", fileName);
+		else
+			Console::WriteLine("problem reading file '{0}'", fileName);
+	}
+
+
+
+#else
+	/**Load encryption key 128bits*/
+	std::ifstream keyFileInput("key.txt");
+	std::string inputString;	
+	if (keyFileInput.is_open())
+	{
+		std::getline(keyFileInput, inputString);
+
+		if (inputString.length() == AES::DEFAULT_KEYLENGTH)
+		{
+			for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
+			{
+				key[x] = inputString[x];
+			}
+		}
+		else
+		{
+			printf("key.txt characters mismatch.\nCharacters found: %d\nCharacters needed: %d\n", inputString.length(), AES::DEFAULT_KEYLENGTH);
+		}
+	}
+	else//file not open
+	{
+		printf("key.txt not found. \n");
+	}
+	keyFileInput.close();
+#endif
+
+}
+
 
 /* Entry point for the event handler that performs callbacks based on incoming messages */
 void* node::protonet_handler()
@@ -131,6 +207,13 @@ void* node::protonet_handler()
 						proto_msg_buf_t rx_buf;
 						/* Unpack and identify the type of incoming message */
 						unpack_proto_msg_t(&proto_msg, &rx_buf);
+                        
+                        /** Decrypt */	
+                        /* Managed C (CLR) will freak out if you pass SecByteBlock as an argument this is my half ass fix MW*/
+                        CryptoPP::SecByteBlock secKey(key, AES::DEFAULT_KEYLENGTH);                      
+						CFB_Mode<AES>::Decryption cfbDecryption(secKey, secKey.size(), proto_msg.header.iv);
+						cfbDecryption.ProcessData((byte*)proto_msg.data, (byte*)proto_msg.data, proto_msg.header.message_length);
+                        
 						/* Perform a callback based on message type */
 						handle_proto_msg_t(&proto_msg, &rx_buf);
 					}
@@ -300,7 +383,7 @@ void* node::upkeep_helper(void* context)
         f.write(tab+type_t_name+' '+variable_name+';\n')
         for field in message:
             f.write(tab+variable_name+'.'+ field.get('name')+' = '+ field.get('name')+';\n')
-        f.write(tab+'encode_'+variable_name+'(this->node_id, dest_id, 3, 0, &'+variable_name+', &proto_msg);\n')
+        f.write(tab+'encode_'+variable_name+'(this->node_id, dest_id, 3, 0, &'+variable_name+', &proto_msg, key);\n')
         f.write(tab+'queue.add(&proto_msg);\n')
         f.write(tab+'return;\n')
         f.write('}\n\n')

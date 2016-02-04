@@ -2,7 +2,7 @@
 
 #include <protonet_protocol.h>
 
-const uint8_t msg_data_offset = 12;
+const uint8_t msg_data_offset = 28;
 
 void unpack_proto_msg_t(
    proto_msg_t* msg,

@@ -45,7 +45,10 @@ def generate_proto_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+'public ref struct Header\n'+tab+'{\n')
     #create header struct
     for field in header:
-        f.write(tab+tab+field.get('type')+' '+ field.get('name')+';\n')
+        if(field.get('type').endswith('*')):
+            f.write(tab+tab+'array<' +field.get('type')[:-1] + '> ^'+' '+ field.get('name')+' = gcnew array<' + field.get('type')[:-1] + '>(' + field.get('length') + ');\n')
+        else:            
+            f.write(tab+tab+field.get('type')+' '+ field.get('name')+';\n')
     #manual priority variable because c++ struct is special
     f.write(tab+tab+ 'bool is_mergency;\n')
     #header constructors
@@ -59,7 +62,10 @@ def generate_proto_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+tab+'Header(const proto_header_t to_copy)\n')
     f.write(tab+tab+'{\n')
     for field in header:
-        f.write(tab+tab+tab+field.get('name')+' = '+ 'to_copy.'+field.get('name')+';\n')
+        if(field.get('type').endswith('*')):
+            f.write(tab+tab+tab+'System::Runtime::InteropServices::Marshal::Copy(IntPtr((void *)to_copy.' + field.get('name') + '), ' + field.get('name') + ', 0, ' + field.get('length') + ');\n')
+        else:
+            f.write(tab+tab+tab+field.get('name')+' = '+ 'to_copy.'+field.get('name')+';\n')
     f.write(tab+tab+'}\n')
     f.write(tab+'};\n\n')
     

@@ -32,6 +32,12 @@ def generate_message_includes(directory, include_extension, src_extension):
         # protonet includes
         f.write('#include <protonet_marshal'+include_extension+'>\n')
         f.write('#include <protonet_message'+include_extension+'>\n\n')
+        f.write('#include"RandomIV.h"\n')
+        f.write('#include "aes.h"\n')
+        f.write('using CryptoPP::AES;\n')
+        f.write('#include "ccm.h"\n')
+        f.write('using CryptoPP::CFB_Mode;\n')
+        
         # message structure
         f.write('typedef struct {\n')
         for field in message:
@@ -57,7 +63,8 @@ def generate_message_includes(directory, include_extension, src_extension):
         f.write(tab + 'uint8_t msg_ttl,\n')
         f.write(tab + 'uint8_t seq_number,\n')
         f.write(tab + type_t_name+'* tx_msg,\n')
-        f.write(tab + 'proto_msg_t* msg);\n\n')
+        f.write(tab + 'proto_msg_t* msg,\n')
+        f.write(tab + "uint8_t keyArr[]);//key for encryption CryptoPP\n\n")
         
         # include guard #endif
         f.write('#endif')

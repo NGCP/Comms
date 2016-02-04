@@ -2,8 +2,6 @@ import os
 import shutil
 
 #import all files with desired functions to create header and source code        
-from message_file_include import *
-from message_file_src import *
 from message_includes import *
 from message_sources import *
 from native import *
@@ -11,6 +9,8 @@ from protocol_file_include import *
 from protocol_file_src import *
 from protonet_file_include import *
 from protonet_file_src import *
+from protonet_message_include import *
+from protonet_message_src import *
 
 def generate_protonet(directory, include_extension, src_extension):
     """
