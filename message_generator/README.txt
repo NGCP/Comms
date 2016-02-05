@@ -1,3 +1,4 @@
+Python 3.5 (tested)
 Python 2.7 (tested)
 
 
