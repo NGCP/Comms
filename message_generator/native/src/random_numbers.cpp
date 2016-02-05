@@ -15,7 +15,8 @@ RandomNumberGen::RandomNumberGen(void) : RandomNumberGen(SEEDXDEFAULT,
 /** Generates the pseudorandom number for use. Currently only supports numbers between 0 and 1000. */
 int RandomNumberGen::generate_random(void) { 
    size_t number = 0;
-   number = (seed * random_array[51] ^ random_array[101]) | static_cast<size_t>(std::time(0));
+   size_t index = (static_cast<size_t>(seed * 51 ^ 101) | std::time(0)) % 993;
+   number = random_array[index];
    calculate_new_seed();
    return number % 1000;
 }
