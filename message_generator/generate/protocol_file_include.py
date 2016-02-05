@@ -1,4 +1,4 @@
-from lower_case_acronym import *
+from .lower_case_acronym import *
 
 def generate_protocol_file_include(directory, include_extension, src_extension):
     """

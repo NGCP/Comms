@@ -16,4 +16,7 @@ from generate.generate_proto_wrapper import *
 generate_protonet("../protonet/", ".h", ".cpp")
 generate_proto_wrapper("../protowrapper/", ".h", ".cpp")
 #wait for enter to exit
-raw_input("Press Enter to exit...")
+if( sys.version_info >= (3,0)):
+    input("Press Enter to exit...")
+else:
+    raw_input("Press Enter to exit...")

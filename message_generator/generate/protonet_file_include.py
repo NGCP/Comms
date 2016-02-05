@@ -1,4 +1,4 @@
-from lower_case_acronym import *
+from .lower_case_acronym import *
 
 def generate_protonet_file_include(directory, include_extension, src_extension):
     """
@@ -105,11 +105,12 @@ use managed c++ code to open and read file*/
         f.write(tab + tab + "/**Public definition of the send " + name + " message which will be put into the message queue.*/ \n")
         f.write(tab+tab+'void send_'+ variable_name+'(\n')
         f.write(tab+tab+tab+'uint8_t dest_id,')
-        for field in message:
-            f.write('\n'+tab+tab+tab+field.get('type')+' '+ field.get('name')+',')
+        for field in message:            
+            f.write('\n'+tab+tab+tab+field.get('type')+' '+ field.get('name'))
+            if(field != message[-1]):
+                f.write(',')            
         #update Priority queue to add send bool is emergency as last argument with default value of false
-        f.write('\n' + tab + tab + tab + 'bool is_emergency = false' + ',')
-        f.seek(-1, 1)
+        f.write(',\n' + tab + tab + tab + 'bool is_emergency = false')        
         f.write(');\n\n')
     #declare register_on_message
     for message in protocol:

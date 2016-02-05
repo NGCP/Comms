@@ -8,7 +8,7 @@
 #include <protonet_marshal.h>
 #include <protonet_message.h>
 
-#include"RandomIV.h"
+#include"random_numbers.h"
 #include "aes.h"
 using CryptoPP::AES;
 #include "ccm.h"

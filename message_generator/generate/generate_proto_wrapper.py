@@ -2,8 +2,8 @@ import os
 import shutil
 
 #import all files with desired functions to create header and source code        
-from proto_wrapper_src import *
-from proto_wrapper_include import *
+from .proto_wrapper_src import *
+from .proto_wrapper_include import *
 
 def generate_proto_wrapper(directory, include_extension, src_extension):
     """

@@ -1,5 +1,5 @@
-from lower_case_acronym import *
-from check_valid_type import *
+from .lower_case_acronym import *
+from .check_valid_type import *
 
 def generate_message_includes(directory, include_extension, src_extension):
     """
@@ -32,7 +32,7 @@ def generate_message_includes(directory, include_extension, src_extension):
         # protonet includes
         f.write('#include <protonet_marshal'+include_extension+'>\n')
         f.write('#include <protonet_message'+include_extension+'>\n\n')
-        f.write('#include"RandomIV.h"\n')
+        f.write('#include"random_numbers.h"\n')
         f.write('#include "aes.h"\n')
         f.write('using CryptoPP::AES;\n')
         f.write('#include "ccm.h"\n')
@@ -42,7 +42,7 @@ def generate_message_includes(directory, include_extension, src_extension):
         f.write('typedef struct {\n')
         for field in message:
             if(check_valid_type(field.get('type')) == 0):
-                print 'error: field: '+ field.get('name') + ' in message: '+ name+ ' has invalid type.'
+                print ('error: field: '+ field.get('name') + ' in message: '+ name+ ' has invalid type.')
             f.write(tab + field.get('type') + ' ' + field.get('name') + ';\n')
             
             

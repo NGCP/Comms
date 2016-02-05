@@ -47,7 +47,8 @@ void encode_vehicle_waypoint_command(
 
 {
    /** Random IV*/
-   gRandomIV.randomIV(msg->header.iv, AES::BLOCKSIZE);
+   Random::RandomNumberGen randIV = Random::RandomNumberGen();
+   randIV.generate_numbers<uint8_t>(msg->header.iv,0, AES::BLOCKSIZE,0,255);
 
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;

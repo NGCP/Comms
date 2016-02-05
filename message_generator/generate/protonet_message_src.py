@@ -1,5 +1,5 @@
 
-from check_valid_type import *
+from .check_valid_type import *
 
 def generate_message_file_src(directory, include_extension, src_extension):
     """
@@ -74,7 +74,7 @@ def generate_message_file_src(directory, include_extension, src_extension):
     f.write(tab + "uint16_t merged_data = LSHIFT_BIT_1(header->message_length) | header->is_emergency;\n\n")
     for field in header:
         if(check_valid_type(field.get('type')) == 0):
-            print 'error: field: '+ field.get('name') + ' in header has invalid type.'
+            print ('error: field: '+ field.get('name') + ' in header has invalid type.')
         #check for for prioirty special case merged_data replaces message_length    
         if(field.get('name') == 'message_length'):
             f.write(tab + 'offset = pack_uint16_t(merged_data, offset);\n')
@@ -109,7 +109,7 @@ def generate_message_file_src(directory, include_extension, src_extension):
     f.write(tab + 'uint16_t merged_message;\n')
     for field in header:
         if(check_valid_type(field.get('type')) == 0):
-            print 'error: field: '+ field.get('name') + ' in header has invalid type.'
+            print ('error: field: '+ field.get('name') + ' in header has invalid type.')
         #check for for prioirty special case merged_data replaces message_length    
         if(field.get('name') == 'message_length'):
             f.write(tab +'offset = unpack_uint16_t(offset, &merged_message);\n' + tab + 'unpack_merged_variable(out_ptr, &merged_message);\n')

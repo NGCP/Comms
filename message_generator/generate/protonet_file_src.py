@@ -1,4 +1,4 @@
-from lower_case_acronym import *
+from .lower_case_acronym import *
 
 def generate_protonet_file_src(directory, include_extension, src_extension):
     """
@@ -373,9 +373,10 @@ void* node::upkeep_helper(void* context)
         f.write('void node::send_'+ variable_name+'(\n')
         f.write(tab+'uint8_t dest_id,')
         for field in message:
-            f.write('\n'+tab+field.get('type')+' '+ field.get('name')+',')
-        f.write('\n' + tab + 'bool is_emergency' + ',')
-        f.seek(-1, 1)
+            f.write('\n'+tab+field.get('type')+' '+ field.get('name'))
+            if(field != message[-1]):
+                f.write(',')
+        f.write(',\n' + tab + 'bool is_emergency')        
         f.write(')\n')
         f.write('{\n')
         f.write(tab+'proto_msg_t proto_msg;\n')
