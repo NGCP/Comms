@@ -107,8 +107,7 @@ void node::start()
 void node::readKey()
 {
 /* C# cannot import fstream for some reason*/ 
-#ifdef _CLR
-	// compile with: /clr
+#ifdef _MANAGED
 	String^ fileName = "key.txt";
 	String^ str;
 	try
