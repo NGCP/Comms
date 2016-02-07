@@ -41,7 +41,7 @@ using CryptoPP::AES;
 
 /** C# wrapper can not load fstream, to fix this problem if windows, then
 use managed c++ code to open and read file*/
-#ifdef _CLR
+#ifdef _MANAGED
     #using<system.dll>
     using namespace System;
     using namespace System::IO;
