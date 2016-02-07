@@ -21,7 +21,7 @@ def generate_message_file_include(directory, include_extension, src_extension):
     header = tree.find('header')
     tab = '   '        
     #open file
-    f = open(directory + "include/" + 'protonet_message' + include_extension, 'w')
+    f = open(directory + "/include/" + 'protonet_message' + include_extension, 'w')
     # warning
     f.write('/** @file This file was auto generated. All changes will be undone. */\n\n')
     # include guards

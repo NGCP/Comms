@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <protocol> 
-
+    <paths>
+        <field
+            cppPath = "../Protonet"
+            csharpPath = "../ProtoWrapper"
+            nativePath = "native"
+        ></field>    
+    </paths> 
+    
     <!-- to create a pointer or array use uint8_t* and length data -->
     <header>
         <field type = "uint8_t" name = "node_src_id"></field>
