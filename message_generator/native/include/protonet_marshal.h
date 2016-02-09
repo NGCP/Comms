@@ -52,8 +52,20 @@ msg_offset unpack_functional_status(
 msg_offset pack_uint8_t(
         uint8_t pack_data,
         msg_offset offset);
+        
+/** 8-bit Unsigned Integer array Marshaling pack*/        
+msg_offset pack_uint8_t_ptr(
+        uint8_t *pack_data,
+        msg_offset offset,
+        uint8_t length);        
+        
+/** 8-bit Unsigned Integer aray Marshaling unpack*/
+msg_offset unpack_uint8_t_ptr(
+        msg_offset offset,
+        uint8_t* out_ptr,
+        uint8_t length);        
 		
-/** 8-bit Unsigned Integer Marshaling unpack*/
+/** 8-bit Unsigned Integer  Marshaling unpack*/
 msg_offset unpack_uint8_t(
         msg_offset offset,
         uint8_t* out_ptr);

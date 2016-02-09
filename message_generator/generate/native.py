@@ -12,13 +12,13 @@ import os
 ACCEPTABLE_FILE_TYPES = ('.cpp', '.h', '.txt')
 
 
-def generate_native(directory):
+def generate_native(outputDirectory, inputDirectory):
     """
     Function will copy all files in "native/src/" and "native/include"
     to directory/include & directory/src/
     """   
-    copyFiles("native/src/", directory + "src/")
-    copyFiles("native/include/", directory + "include/")
+    copyFiles(inputDirectory + "/src/", outputDirectory + "/src/")
+    copyFiles(inputDirectory + "/include/", outputDirectory + "/include/")
 
 
 def copyFiles(source_directory, destination_directory):

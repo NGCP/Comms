@@ -1,4 +1,4 @@
-from check_valid_type import *
+from .check_valid_type import *
 
 def generate_message_file_include(directory, include_extension, src_extension):
     """
@@ -21,7 +21,7 @@ def generate_message_file_include(directory, include_extension, src_extension):
     header = tree.find('header')
     tab = '   '        
     #open file
-    f = open(directory + "include/" + 'protonet_message' + include_extension, 'w')
+    f = open(directory + "/include/" + 'protonet_message' + include_extension, 'w')
     # warning
     f.write('/** @file This file was auto generated. All changes will be undone. */\n\n')
     # include guards
@@ -40,11 +40,16 @@ def generate_message_file_include(directory, include_extension, src_extension):
     for field in header:
         if(check_valid_type(field.get('type')) == 0):
             print ('error: field: '+ field.get('name') + ' in header has invalid type.')
-        f.write(tab + field.get('type') + ' ' + field.get('name') + ';\n')
-    #Priority Queue real crap way to split message_length: 15, is_emergency: 1;
-    f.seek(-3, 1)
-    f.write("\t: 15," "\n" + tab + tab + tab + tab +"is_emergency \t: 1;\n")
+        if(field.get('name') == "message_length"):
+        #Priority Queue real crap way to split message_length: 15, is_emergency: 1;
+            f.write(tab + field.get('type') + ' ' + field.get('name'));            
+            f.write("\t: 15," "\n" + tab + tab + tab + tab +"is_emergency \t: 1;\n")
+        elif(field.get('type').endswith('*')):                                 
+            f.write(tab + field.get('type')[:-1] + ' ' + field.get("name") + '[' + field.get("length")+  ']'+ ';\n')                
+        else:
+            f.write(tab + field.get('type') + ' ' + field.get('name') + ';\n')
     f.write('} proto_header_t;\n\n')
+    
     
     # checksum
     f.write("/**Global typdef which hold checksum value.*/\n")

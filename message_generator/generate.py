@@ -13,7 +13,10 @@ from generate.generate_protonet import *
 from generate.generate_proto_wrapper import *    
     
 #function calls   
-generate_protonet("../protonet/", ".h", ".cpp")
-generate_proto_wrapper("../protowrapper/", ".h", ".cpp")
+generate_protonet("../protonet", ".h", ".cpp", "native")
+generate_proto_wrapper("../protowrapper", ".h", ".cpp", True)
 #wait for enter to exit
-raw_input("Press Enter to exit...")
+if( sys.version_info >= (3,0)):
+    input("Press Enter to exit...")
+else:
+    raw_input("Press Enter to exit...")

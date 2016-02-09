@@ -9,6 +9,8 @@ Global functions to parse message by using a checksum*/
 /* User Includes */
 #include <protonet_message.h>
 
+
+
 /**Global Typedef to keep track of the bytes we are parsing */
 typedef enum parse_state_e{
 	WAIT_SYNC_C = 0, /* CPP\0 is the sync byte */

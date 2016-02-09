@@ -5,7 +5,8 @@
 /* User Includes */
 #include <protonet_parser.h>
 #include <protonet_message.h>
-
+/** inlucde proto protocol for const MSG_DATA_OFFSET*/
+#include <protonet_protocol.h>
 
 int32_t parse_init(parse_data_t* parse_data)
 {
@@ -65,7 +66,7 @@ int32_t parse_message(
 	}
 	case WAIT_MESSAGE_DATA:
 	{
-		rx_msg->data[parse_data->parse_count+12] = rx_byte;
+		rx_msg->data[parse_data->parse_count+MSG_DATA_OFFSET] = rx_byte;
 		parse_data->parse_sum += rx_byte;
 		/* Increment parser count until the size of the data section is received */
 		parse_data->parse_state = parse_data->parse_count < rx_msg->header.message_length-1 ? WAIT_MESSAGE_DATA: WAIT_MESSAGE_CHECKSUM;
@@ -75,7 +76,7 @@ int32_t parse_message(
 	case WAIT_MESSAGE_CHECKSUM:
 	{
 		rx_msg->checksum = rx_byte;
-		rx_msg->data[rx_msg->header.message_length+12] = rx_byte;
+		rx_msg->data[rx_msg->header.message_length+MSG_DATA_OFFSET] = rx_byte;
 		rx_msg->direction = Proto_In;
 		parse_data->parse_state = WAIT_SYNC_C;
 		/* The checksum is a two's complement, when added to the sum of bytes, valid messages evaluate to 0 */

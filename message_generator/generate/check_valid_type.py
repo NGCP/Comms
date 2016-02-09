@@ -17,4 +17,5 @@ def check_valid_type(type_string):
         'float64_t': 1,
         'int32_t': 1,
         'string': 1,
+        'uint8_t*': 1,        
         }.get(type_string, 0) 

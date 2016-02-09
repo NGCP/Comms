@@ -72,6 +72,31 @@ msg_offset unpack_uint8_t(
 	return offset+1;
 }
 
+
+/* 8-bit Unsigned Integer array Marshaling*/
+msg_offset pack_uint8_t_ptr(
+        uint8_t *pack_data,
+        msg_offset offset,
+        uint8_t length)
+{      
+    memcpy(offset, pack_data , length);    
+	return offset+length;
+}
+        
+        
+/* 8-bit Unsigned Integer array Marshaling unpack*/
+msg_offset unpack_uint8_t_ptr(
+        msg_offset offset,
+        uint8_t* out_ptr,
+        uint8_t length)
+ {	
+	memcpy(out_ptr,offset, length);    
+	return offset+length;
+ }
+  
+
+
+
 #ifdef LITTLE_ENDIAN
 
 /* 16-bit Unsigned Integer Marshaling for LE*/

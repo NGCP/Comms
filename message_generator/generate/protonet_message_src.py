@@ -1,5 +1,5 @@
 
-from check_valid_type import *
+from .check_valid_type import *
 
 def generate_message_file_src(directory, include_extension, src_extension):
     """
@@ -13,7 +13,7 @@ def generate_message_file_src(directory, include_extension, src_extension):
     import xml.etree.ElementTree as ET
     tree = ET.parse('message_definition.xml')
     protocol = tree.findall('message')
-    header = tree.find('header')
+    header = tree.find('header')    
     tab = '   '            
     #open file
     f = open(directory + "/src/" + 'protonet_message' + src_extension, 'w')
@@ -78,6 +78,8 @@ def generate_message_file_src(directory, include_extension, src_extension):
         #check for for prioirty special case merged_data replaces message_length    
         if(field.get('name') == 'message_length'):
             f.write(tab + 'offset = pack_uint16_t(merged_data, offset);\n')
+        elif(field.get('type').endswith('*')):            
+            f.write(tab + 'offset = pack_'+field.get('type')[:-1] + '_ptr' + '(header->' + field.get('name')  + ', offset,' + field.get('length') +' );\n')               
         else: 
             f.write(tab + 'offset = pack_'+field.get('type') + '(header->' + field.get('name') + ', offset);\n')    
     f.write(tab+ 'return offset;\n')
@@ -111,6 +113,8 @@ def generate_message_file_src(directory, include_extension, src_extension):
         #check for for prioirty special case merged_data replaces message_length    
         if(field.get('name') == 'message_length'):
             f.write(tab +'offset = unpack_uint16_t(offset, &merged_message);\n' + tab + 'unpack_merged_variable(out_ptr, &merged_message);\n')
+        elif(field.get('type').endswith('*')):            
+            f.write(tab + 'offset = unpack_'+field.get('type')[:-1] + '_ptr' + '(offset, out_ptr->' + field.get('name') + ',' + field.get('length') + ');\n')    
         else:    
             f.write(tab + 'offset = unpack_'+field.get('type') + '(offset, &out_ptr->' + field.get('name') + ');\n')    
     f.write(tab+ 'return offset;\n')
