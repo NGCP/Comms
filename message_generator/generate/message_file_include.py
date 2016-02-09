@@ -39,7 +39,7 @@ def generate_message_file_include(directory, include_extension, src_extension):
     f.write('typedef struct {\n')
     for field in header:
         if(check_valid_type(field.get('type')) == 0):
-            print 'error: field: '+ field.get('name') + ' in header has invalid type.'
+            print ('error: field: '+ field.get('name') + ' in header has invalid type.')
         f.write(tab + field.get('type') + ' ' + field.get('name') + ';\n')
     #Priority Queue real crap way to split message_length: 15, is_emergency: 1;
     f.seek(-3, 1)
