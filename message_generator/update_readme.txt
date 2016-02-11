@@ -5,8 +5,6 @@
 ---------------------------------------------------------------------------------------------
 *** AES CFB Mode 128 Bit Encryption Update Notes
 ---------------------------------------------------------------------------------------------
-*If creating C# wrapper define _CLR in protonet.h else leave comment  (#define _CLR)
-*Add #define to C# include protonet.h if header files are needed
 *key.txt file must be with c# binary or it wont be found
 *C++ codem ust include cryptlib.lib
 
