@@ -1,3 +1,7 @@
+#updated python to run on version 2 or 3
+#updated python with gui default output, intput directories are in .xml
+
+
 ---------------------------------------------------------------------------------------------
 *** AES CFB Mode 128 Bit Encryption Update Notes
 ---------------------------------------------------------------------------------------------

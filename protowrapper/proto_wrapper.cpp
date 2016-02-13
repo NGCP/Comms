@@ -23,6 +23,7 @@ void Node::SendEnter(
    float64_t timestamp,
    bool emergency)
 {
+
    node->send_enter(
    dest_id,
    timestamp,
@@ -34,6 +35,7 @@ void Node::SendExit(
    float64_t timestamp,
    bool emergency)
 {
+
    node->send_exit(
    dest_id,
    timestamp,
@@ -45,6 +47,7 @@ void Node::SendPing(
    float64_t timestamp,
    bool emergency)
 {
+
    node->send_ping(
    dest_id,
    timestamp,
@@ -56,6 +59,7 @@ void Node::SendPong(
    float64_t timestamp,
    bool emergency)
 {
+
    node->send_pong(
    dest_id,
    timestamp,
@@ -70,6 +74,7 @@ void Node::SendVehicleIdentification(
    uint16_t owner_ID,
    bool emergency)
 {
+
    node->send_vehicle_identification(
    dest_id,
    timestamp,
@@ -84,6 +89,7 @@ void Node::SendAmyStuff(
    float64_t hello,
    bool emergency)
 {
+
    node->send_amy_stuff(
    dest_id,
    hello,
@@ -99,6 +105,7 @@ void Node::SendVehicleAuthorizationRequest(
    uint8_t handover_node,
    bool emergency)
 {
+
    node->send_vehicle_authorization_request(
    dest_id,
    timestamp,
@@ -118,6 +125,7 @@ void Node::SendVehicleAuthorizationReply(
    uint8_t granted_services,
    bool emergency)
 {
+
    node->send_vehicle_authorization_reply(
    dest_id,
    timestamp,
@@ -135,6 +143,7 @@ void Node::SendVehicleModeCommand(
    uint8_t vehicle_mode,
    bool emergency)
 {
+
    node->send_vehicle_mode_command(
    dest_id,
    timestamp,
@@ -150,6 +159,7 @@ void Node::SendVehicleTerminationCommand(
    uint8_t termination_mode,
    bool emergency)
 {
+
    node->send_vehicle_termination_command(
    dest_id,
    timestamp,
@@ -165,6 +175,7 @@ void Node::SendVehicleTelemetryCommand(
    uint8_t telemetry_rate,
    bool emergency)
 {
+
    node->send_vehicle_telemetry_command(
    dest_id,
    timestamp,
@@ -185,6 +196,7 @@ void Node::SendVehicleWaypointCommand(
    uint8_t waypoint_type,
    bool emergency)
 {
+
    node->send_vehicle_waypoint_command(
    dest_id,
    timestamp,
@@ -206,6 +218,7 @@ void Node::SendVehicleSystemStatus(
    uint8_t vehicle_state,
    bool emergency)
 {
+
    node->send_vehicle_system_status(
    dest_id,
    timestamp,
@@ -236,6 +249,7 @@ void Node::SendVehicleInertialState(
    float32_t vertical_accel,
    bool emergency)
 {
+
    node->send_vehicle_inertial_state(
    dest_id,
    timestamp,
@@ -271,6 +285,7 @@ void Node::SendVehicleGlobalPosition(
    int16_t z_speed,
    bool emergency)
 {
+
    node->send_vehicle_global_position(
    dest_id,
    timestamp,
@@ -297,6 +312,7 @@ void Node::SendVehicleBodySensedState(
    int16_t yaw_rate,
    bool emergency)
 {
+
    node->send_vehicle_body_sensed_state(
    dest_id,
    timestamp,
@@ -319,6 +335,7 @@ void Node::SendVehicleAttitude(
    float32_t yaw,
    bool emergency)
 {
+
    node->send_vehicle_attitude(
    dest_id,
    timestamp,
@@ -345,6 +362,7 @@ void Node::SendVehicleGroundRelativeState(
    float32_t barometric_altitude,
    bool emergency)
 {
+
    node->send_vehicle_ground_relative_state(
    dest_id,
    timestamp,
@@ -369,6 +387,7 @@ void Node::SendPayloadBayCommand(
    uint8_t payload_command,
    bool emergency)
 {
+
    node->send_payload_bay_command(
    dest_id,
    timestamp,
@@ -384,6 +403,7 @@ void Node::SendPayloadBayModeCommand(
    uint8_t payload_mode,
    bool emergency)
 {
+
    node->send_payload_bay_mode_command(
    dest_id,
    timestamp,
@@ -404,6 +424,7 @@ void Node::SendTargetDesignationCommand(
    int32_t altitude,
    bool emergency)
 {
+
    node->send_target_designation_command(
    dest_id,
    timestamp,
@@ -425,6 +446,7 @@ void Node::SendUGVJoystick(
    float32_t throttle,
    bool emergency)
 {
+
    node->send_UGV_joystick(
    dest_id,
    timestamp,
@@ -447,6 +469,7 @@ void Node::SendUGVBatteryStatus(
    float32_t current_aft_motor,
    bool emergency)
 {
+
    node->send_UGV_battery_status(
    dest_id,
    timestamp,

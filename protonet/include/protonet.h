@@ -13,12 +13,12 @@
 #include "aes.h"
 using CryptoPP::AES;
 
-//If creating C# wrapper define _CLR else leave comment
-//#define _CLR
+//If creating C# wrapper 
+//#define _MANAGED
 
 /** C# wrapper can not load fstream, to fix this problem if windows, then
 use managed c++ code to open and read file*/
-#ifdef _CLR
+#ifdef _MANAGED
     #using<system.dll>
     using namespace System;
     using namespace System::IO;
