@@ -150,7 +150,7 @@ void* node::upkeep_handler()
 		_sleep(5000);
 #endif
 #ifdef __unix__
-		delay(5000);
+		sleep(5000);
 #endif
 	}
 	return 0;
