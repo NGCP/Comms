@@ -10,8 +10,8 @@ using namespace protonet;
 	}
 	proto_msg_queue::~proto_msg_queue()
 	{
-    	printf("Queue is deleted!!");
-		queue->is_empty();
+    		printf("Queue is deleted!!");
+		delete queue;
 	}
 	void proto_msg_queue::add(proto_msg_t* msg)
 	{
