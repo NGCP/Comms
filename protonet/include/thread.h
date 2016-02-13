@@ -20,6 +20,7 @@ typedef HANDLE thread_t;
 
 #ifdef __unix__
 #include <pthread.h>
+#include <stdint.h>
 /** Define Linux typedef of threading data type*/
 typedef pthread_t thread_t;
 #endif
