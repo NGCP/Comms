@@ -33,6 +33,8 @@ void encode_vehicle_termination_command(
    uint8_t seq_number,
    vehicle_termination_command_t* tx_msg,
    proto_msg_t* msg)
+
+
 {
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;
@@ -46,6 +48,7 @@ void encode_vehicle_termination_command(
    msg->header.message_type = Proto_Vehicle_Termination_Command;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
+
    offset = pack_vehicle_termination_command(tx_msg, offset);
    offset = pack_checksum(start_offset, offset);
    msg->tx_len = offset-start_offset;

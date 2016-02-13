@@ -51,6 +51,8 @@ void encode_vehicle_ground_relative_state(
    uint8_t seq_number,
    vehicle_ground_relative_state_t* tx_msg,
    proto_msg_t* msg)
+
+
 {
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;
@@ -64,6 +66,7 @@ void encode_vehicle_ground_relative_state(
    msg->header.message_type = Proto_Vehicle_Ground_Relative_State;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
+
    offset = pack_vehicle_ground_relative_state(tx_msg, offset);
    offset = pack_checksum(start_offset, offset);
    msg->tx_len = offset-start_offset;

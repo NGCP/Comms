@@ -29,5 +29,4 @@ void encode_payload_bay_mode_command(
    uint8_t seq_number,
    payload_bay_mode_command_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

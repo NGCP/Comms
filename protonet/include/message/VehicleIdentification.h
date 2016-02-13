@@ -30,5 +30,4 @@ void encode_vehicle_identification(
    uint8_t seq_number,
    vehicle_identification_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

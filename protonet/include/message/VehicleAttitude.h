@@ -31,5 +31,4 @@ void encode_vehicle_attitude(
    uint8_t seq_number,
    vehicle_attitude_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

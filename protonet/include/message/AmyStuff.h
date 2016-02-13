@@ -27,5 +27,4 @@ void encode_amy_stuff(
    uint8_t seq_number,
    amy_stuff_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -43,5 +43,4 @@ void encode_vehicle_inertial_state(
    uint8_t seq_number,
    vehicle_inertial_state_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

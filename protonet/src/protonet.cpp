@@ -10,8 +10,11 @@
 #include <datalink.h>
 #include <serial.h>
 #include <udp.h>
-#include <queue.h>
+#include <pqueue.h>
 #include <thread.h>
+
+#include <fstream>
+#include <string>
 
 using namespace protonet;
 
@@ -49,8 +52,8 @@ node::node(uint8_t node_id, int32_t mode)
 	}
 	this->node_id = node_id;
 
-	//thread_create(&handler_thread, &node::handler_helper, this);
-	queue = proto_msg_queue();
+	thread_create(&handler_thread, &node::handler_helper, this);
+	
 }
 node::~node()
 {
@@ -113,6 +116,7 @@ void* node::protonet_handler()
 						proto_msg_buf_t rx_buf;
 						/* Unpack and identify the type of incoming message */
 						unpack_proto_msg_t(&proto_msg, &rx_buf);
+                                                
 						/* Perform a callback based on message type */
 						handle_proto_msg_t(&proto_msg, &rx_buf);
 					}
@@ -132,7 +136,7 @@ void* node::upkeep_handler()
 		_sleep(5000);
 #endif
 #ifdef __unix__
-		delay(5000);
+		sleep(5000);
 #endif
 	}
 	return 0;

@@ -35,5 +35,4 @@ void encode_vehicle_global_position(
    uint8_t seq_number,
    vehicle_global_position_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -34,5 +34,4 @@ void encode_vehicle_body_sensed_state(
    uint8_t seq_number,
    vehicle_body_sensed_state_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -45,6 +45,8 @@ void encode_UGV_battery_status(
    uint8_t seq_number,
    UGV_battery_status_t* tx_msg,
    proto_msg_t* msg)
+
+
 {
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;
@@ -58,6 +60,7 @@ void encode_UGV_battery_status(
    msg->header.message_type = Proto_UGV_Battery_Status;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
+
    offset = pack_UGV_battery_status(tx_msg, offset);
    offset = pack_checksum(start_offset, offset);
    msg->tx_len = offset-start_offset;

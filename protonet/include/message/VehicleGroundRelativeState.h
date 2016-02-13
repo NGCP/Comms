@@ -38,5 +38,4 @@ void encode_vehicle_ground_relative_state(
    uint8_t seq_number,
    vehicle_ground_relative_state_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

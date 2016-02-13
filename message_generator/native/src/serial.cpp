@@ -191,6 +191,8 @@ int32_t serial_read(
 	*rx_len = dwBytesRead;
     return 0;
 }
+#endif //_WIN32
+
 Serial::Serial()
 {
 	/* IMPORTANT! Ensure all structs are zeroed out */
@@ -257,4 +259,3 @@ int32_t Serial::establish(uint8_t node_id)
 	return 0;
 }
 
-#endif

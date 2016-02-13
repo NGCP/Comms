@@ -27,5 +27,4 @@ void encode_enter(
    uint8_t seq_number,
    enter_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -30,5 +30,4 @@ void encode_vehicle_system_status(
    uint8_t seq_number,
    vehicle_system_status_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

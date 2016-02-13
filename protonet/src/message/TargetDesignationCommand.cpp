@@ -43,6 +43,8 @@ void encode_target_designation_command(
    uint8_t seq_number,
    target_designation_command_t* tx_msg,
    proto_msg_t* msg)
+
+
 {
    msg_offset start_offset, offset;
    msg->direction = Proto_Out;
@@ -56,6 +58,7 @@ void encode_target_designation_command(
    msg->header.message_type = Proto_Target_Designation_Command;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
+
    offset = pack_target_designation_command(tx_msg, offset);
    offset = pack_checksum(start_offset, offset);
    msg->tx_len = offset-start_offset;

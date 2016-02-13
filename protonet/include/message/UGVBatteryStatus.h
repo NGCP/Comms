@@ -35,5 +35,4 @@ void encode_UGV_battery_status(
    uint8_t seq_number,
    UGV_battery_status_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

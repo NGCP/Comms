@@ -34,5 +34,4 @@ void encode_target_designation_command(
    uint8_t seq_number,
    target_designation_command_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

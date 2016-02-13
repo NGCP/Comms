@@ -27,5 +27,4 @@ void encode_pong(
    uint8_t seq_number,
    pong_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -29,5 +29,4 @@ void encode_vehicle_termination_command(
    uint8_t seq_number,
    vehicle_termination_command_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

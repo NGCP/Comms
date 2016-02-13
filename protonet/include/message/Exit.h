@@ -27,5 +27,4 @@ void encode_exit(
    uint8_t seq_number,
    exit_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -30,5 +30,4 @@ void encode_UGV_joystick(
    uint8_t seq_number,
    UGV_joystick_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

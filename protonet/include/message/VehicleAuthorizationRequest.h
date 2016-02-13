@@ -31,5 +31,4 @@ void encode_vehicle_authorization_request(
    uint8_t seq_number,
    vehicle_authorization_request_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -6,9 +6,8 @@
 /*Include files*/ 
 #include <datalink.h>
 #include <protonet_protocol.h>
-#include <queue.h>
+#include <pqueue.h>
 #include <thread.h>
-
 namespace protonet
 {
    /*Let compiler know class node exists some where else */ 

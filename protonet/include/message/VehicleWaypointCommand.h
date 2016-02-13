@@ -34,5 +34,4 @@ void encode_vehicle_waypoint_command(
    uint8_t seq_number,
    vehicle_waypoint_command_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

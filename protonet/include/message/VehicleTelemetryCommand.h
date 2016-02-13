@@ -29,5 +29,4 @@ void encode_vehicle_telemetry_command(
    uint8_t seq_number,
    vehicle_telemetry_command_t* tx_msg,
    proto_msg_t* msg);
-
 #endif

@@ -27,5 +27,4 @@ void encode_ping(
    uint8_t seq_number,
    ping_t* tx_msg,
    proto_msg_t* msg);
-
 #endif
