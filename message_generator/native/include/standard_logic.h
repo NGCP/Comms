@@ -81,8 +81,8 @@
 #define RSHIFT_BITS(x, num)      (x >> num)
 
 /** MAX VALUE FOR EACH BIT SIZE.*/
-#define UBIT8_MAX                 255ui8
-#define UBIT16_MAX                0xffffui16
-#define UBIT32_MAX                0x7fffffffui32
+#define UBIT8_MAX                 255
+#define UBIT16_MAX                0xffff
+#define UBIT32_MAX                0x7fffffff
 
 #endif /* _STD_LOGIC_H_ */
