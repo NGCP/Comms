@@ -1,0 +1,5 @@
+
+from this dir
+
+cmake "Makefile" ../..
+make VERBOSE=1
