@@ -48,11 +48,11 @@ int32_t udp_open(sock_fd_t* fd, udp_address_t* config)
 	setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 	if(*fd == -1)
 	{
-		printf("error opening socket1");
+		printf("error opening socket");
 	}
 	if(bind(*fd, (struct sockaddr *)&addr, sizeof(addr)))
 	{
-		printf("error binding socket2:  %d\n", errno);
+		printf("error binding socket:  %d\n", errno);
 		return -1;
 	}
 	return 0;
