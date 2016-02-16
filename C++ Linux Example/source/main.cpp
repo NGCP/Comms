@@ -82,14 +82,14 @@ void* rx_thread(){
 	char * address1 = "127.0.0.1";
 
 	/* Instead of Port: 1337, create a datalink at 1338 */
-	uav_node.add_udp(&udp_1, 1337, address1);
+	uav_node.add_udp(&udp_1, 1360, address1);
 
 	/*
 	Map Node ID 1 to the IP address/port of the other datalink.
 	This way, when a message is sent to Node 1, it'll be
 	sent to the right IP address/port.
 	*/
-	uav_node.establish_udp(udp_1, 2, 1337, address1);
+	uav_node.establish_udp(udp_1, 2, 1360, address1);
 
 	/*
 	This node will receive a ping from Node 1, so
@@ -113,16 +113,16 @@ void* tx_thread(){
 	/* Handle for the UDP Datalink */
 	int8_t udp_1 = 0;
 
-	char *address2 = "192.168.1.102";
+	char *address2 = "127.0.0.1";
 	/* Instead of Port: 1337, create a datalink at 1338 */
-	gcs_node.add_udp(&udp_1, 1339, address2);
+	gcs_node.add_udp(&udp_1, 1340, address2);
 
 	/*
 	Map Node ID 1 to the IP address/port of the other datalink.
 	This way, when a message is sent to Node 1, it'll be
 	sent to the right IP address/port.
 	*/
-	gcs_node.establish_udp(udp_1, 1, 1339, address2);
+	gcs_node.establish_udp(udp_1, 1, 1340, address2);
 
 	/*
 	This node will receive a ping from Node 1, so

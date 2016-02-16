@@ -5,9 +5,11 @@ project("ProtonetTest")
 
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
 
+get_filename_component(PARENT_DIR ${CMAKE_SOURCE_DIR} DIRECTORY)
 
-include_directories(protonet/include/
-		    protonet/include/message/
+
+include_directories(${PARENT_DIR}/protonet/include/
+		    ${PARENT_DIR}/protonet/include/message/
 		    /source/)
 
 
