@@ -25,7 +25,7 @@ project("NGCP COM")
 include_directories(protonet/src/
 		    protonet/src/message/
 		    protonet/include/
-		    protonet/include/message/))
+		    protonet/include/message/)
 
 
 add_library(NGCP_COM
