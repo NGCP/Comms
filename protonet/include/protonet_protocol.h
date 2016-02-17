@@ -27,7 +27,7 @@
 #include <message/TargetDesignationCommand.h>
 #include <message/UGVJoystick.h>
 #include <message/UGVBatteryStatus.h>
-const uint8_t MSG_DATA_OFFSET = 28;
+const uint8_t MSG_DATA_OFFSET = 12;
 
 
 /**Global typdef union with all message types declared as proto_msg_bug_t.

@@ -24,28 +24,24 @@ int32_t parse_message(
 	case WAIT_SYNC_C :
 	{
 		if(rx_byte == 'C') parse_data->parse_state = WAIT_SYNC_P1;
-		parse_data->parse_sum = rx_byte;
 		rx_msg->data[0] = rx_byte;
 		break;
 	}
 	case WAIT_SYNC_P1 :
 	{
 		parse_data->parse_state = (rx_byte == 'P') ? WAIT_SYNC_P2 : WAIT_SYNC_C;
-		parse_data->parse_sum += rx_byte;
 		rx_msg->data[1] = rx_byte;
 		break;
 	}
 	case WAIT_SYNC_P2 :
 	{
 		parse_data->parse_state = (rx_byte == 'P') ? WAIT_SYNC_NULL : WAIT_SYNC_C;
-		parse_data->parse_sum += rx_byte;
 		rx_msg->data[2] = rx_byte;
 		break;
 	}
 	case WAIT_SYNC_NULL :
 	{
 		parse_data->parse_state = (rx_byte == 0) ? WAIT_MESSAGE_HEADER : WAIT_SYNC_C;
-		parse_data->parse_sum += rx_byte;
 		rx_msg->data[3] = rx_byte;
 		parse_data->parse_count = 0;
 		break;
@@ -53,7 +49,6 @@ int32_t parse_message(
 	case WAIT_MESSAGE_HEADER:
 	{
 		rx_msg->data[parse_data->parse_count+4] = rx_byte;
-		parse_data->parse_sum += rx_byte;	
 		++parse_data->parse_count;			/* Store parser count to keep track of header length */
 		if(parse_data->parse_count == sizeof(proto_header_t))
 		{
@@ -67,23 +62,33 @@ int32_t parse_message(
 	case WAIT_MESSAGE_DATA:
 	{
 		rx_msg->data[parse_data->parse_count+MSG_DATA_OFFSET] = rx_byte;
-		parse_data->parse_sum += rx_byte;
 		/* Increment parser count until the size of the data section is received */
 		parse_data->parse_state = parse_data->parse_count < rx_msg->header.message_length-1 ? WAIT_MESSAGE_DATA: WAIT_MESSAGE_CHECKSUM;
-		++parse_data->parse_count;
+		if (parse_data->parse_state == WAIT_MESSAGE_CHECKSUM)parse_data->parse_count = 0;
+		else ++parse_data->parse_count;
 		break;
 	}
 	case WAIT_MESSAGE_CHECKSUM:
 	{
-		rx_msg->checksum = rx_byte;
-		rx_msg->data[rx_msg->header.message_length+MSG_DATA_OFFSET] = rx_byte;
-		rx_msg->direction = Proto_In;
-		parse_data->parse_state = WAIT_SYNC_C;
-		/* The checksum is a two's complement, when added to the sum of bytes, valid messages evaluate to 0 */
-		if((rx_msg->checksum+parse_data->parse_sum) == 0)
-		{
-			return 1;
+		rx_msg->data[rx_msg->header.message_length + MSG_DATA_OFFSET + parse_data->parse_count] = rx_byte;
+		parse_data->parse_state = WAIT_MESSAGE_CHECKSUM;
+		if (parse_data->parse_count > 0)
+		{	
+            unpack_checksum(rx_msg->data + (rx_msg->header.message_length + MSG_DATA_OFFSET), &rx_msg->checksum);			
+			rx_msg->direction = Proto_In;
+			parse_data->parse_state = WAIT_SYNC_C;		
+			checksum_t sum = fletcher16((msg_offset)rx_msg->data, (msg_offset)rx_msg->data + rx_msg->header.message_length + MSG_DATA_OFFSET);
+			if ((rx_msg->checksum - sum) == 0)
+			{
+				return 1;
+			}
+			else
+			{
+				printf("Parse Fail");
+			}									  
+
 		}
+		parse_data->parse_count++;
 		break;
 	}
 	default :

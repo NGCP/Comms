@@ -1,0 +1,653 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly NGCP_COM, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class Protonet.Header: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(proto_header_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.Header): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte node_src_id : Public
+    Byte node_dest_id : Public
+    Byte sequence_number : Public
+    Byte message_ttl : Public
+    UInt16 message_type : Public
+    UInt16 message_length : Public
+    Boolean is_mergency : Public
+Class Protonet.Enter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(enter_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.Enter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+Class Protonet.Exit: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(exit_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.Exit): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+Class Protonet.Ping: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(ping_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.Ping): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+Class Protonet.Pong: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(pong_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.Pong): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+Class Protonet.VehicleIdentification: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_identification_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleIdentification): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte vehicle_type : Public
+    UInt16 owner_ID : Public
+Class Protonet.AmyStuff: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(amy_stuff_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.AmyStuff): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double hello : Public
+Class Protonet.VehicleAuthorizationRequest: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_authorization_request_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleAuthorizationRequest): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte link_key : Public
+    Byte requested_services : Public
+    Byte handover_node : Public
+Class Protonet.VehicleAuthorizationReply: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_authorization_reply_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleAuthorizationReply): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte vehicle_type : Public
+    Byte authorized_services : Public
+    Byte granted_services : Public
+Class Protonet.VehicleModeCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_mode_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleModeCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte vehicle_mode : Public
+Class Protonet.VehicleTerminationCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_termination_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleTerminationCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte termination_mode : Public
+Class Protonet.VehicleTelemetryCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_telemetry_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleTelemetryCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    Byte telemetry_select : Public
+    Byte telemetry_rate : Public
+Class Protonet.VehicleWaypointCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_waypoint_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleWaypointCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Int32 latitude : Public
+    Int32 longitude : Public
+    Int32 altitude : Public
+    Int32 heading : Public
+    Byte waypoint_ID : Public
+    Byte waypoint_type : Public
+Class Protonet.VehicleSystemStatus: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_system_status_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleSystemStatus): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte vehicle_mode : Public
+    Byte vehicle_state : Public
+Class Protonet.VehicleInertialState: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_inertial_state_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleInertialState): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Double latitude : Public
+    Double longitude : Public
+    Single altitude : Public
+    Single roll : Public
+    Single pitch : Public
+    Single heading : Public
+    Single north_speed : Public
+    Single east_speed : Public
+    Single vertical_speed : Public
+    Single roll_rate : Public
+    Single pitch_rate : Public
+    Single yaw_rate : Public
+    Single north_accel : Public
+    Single east_accel : Public
+    Single vertical_accel : Public
+Class Protonet.VehicleGlobalPosition: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_global_position_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleGlobalPosition): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Int32 latitude : Public
+    Int32 longitude : Public
+    Int32 altitude : Public
+    Int32 heading : Public
+    Int16 x_speed : Public
+    Int16 y_speed : Public
+    Int16 z_speed : Public
+Class Protonet.VehicleBodySensedState: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_body_sensed_state_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleBodySensedState): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Int16 x_accel : Public
+    Int16 y_accel : Public
+    Int16 z_accel : Public
+    Int16 roll_rate : Public
+    Int16 pitch_rate : Public
+    Int16 yaw_rate : Public
+Class Protonet.VehicleAttitude: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_attitude_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleAttitude): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Single roll : Public
+    Single pitch : Public
+    Single yaw : Public
+Class Protonet.VehicleGroundRelativeState: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_ground_relative_state_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.VehicleGroundRelativeState): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Single angle_of_attack : Public
+    Single angle_of_sideslip : Public
+    Single true_airspeed : Public
+    Single indicated_airspeed : Public
+    Single north_wind_speed : Public
+    Single east_wind_speed : Public
+    Single north_ground_speed : Public
+    Single east_ground_speed : Public
+    Single barometric_pressure : Public
+    Single barometric_altitude : Public
+Class Protonet.PayloadBayCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(payload_bay_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.PayloadBayCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt32 payload_ID : Public
+    Byte payload_command : Public
+Class Protonet.PayloadBayModeCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(payload_bay_mode_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.PayloadBayModeCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt32 payload_ID : Public
+    Byte payload_mode : Public
+Class Protonet.TargetDesignationCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(target_designation_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.TargetDesignationCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte payload_ID : Public
+    Byte target_ID : Public
+    Byte target_type : Public
+    Int32 latitude : Public
+    Int32 longitude : Public
+    Int32 altitude : Public
+Class Protonet.UGVJoystick: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(UGV_joystick_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.UGVJoystick): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    Byte vehicle_id : Public
+    Single steering : Public
+    Single throttle : Public
+Class Protonet.UGVBatteryStatus: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(UGV_battery_status_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Protonet.UGVBatteryStatus): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    Single voltage_3_3V : Public
+    Single voltage_5V : Public
+    Single voltage_12V : Public
+    Single current_3_3V : Public
+    Single current_5V : Public
+    Single current_12V : Public
+    Single current_fore_motor : Public
+    Single current_aft_motor : Public
+Class Protonet.EnterCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, enter_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, enter_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.ExitCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, exit_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, exit_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.PingCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, ping_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, ping_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.PongCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, pong_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, pong_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleIdentificationCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_identification_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_identification_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.AmyStuffCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, amy_stuff_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, amy_stuff_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleAuthorizationRequestCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_authorization_request_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_authorization_request_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleAuthorizationReplyCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_authorization_reply_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_authorization_reply_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleModeCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_mode_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_mode_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleTerminationCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_termination_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_termination_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleTelemetryCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_telemetry_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_telemetry_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleWaypointCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_waypoint_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_waypoint_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleSystemStatusCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_system_status_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_system_status_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleInertialStateCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_inertial_state_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_inertial_state_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleGlobalPositionCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_global_position_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_global_position_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleBodySensedStateCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_body_sensed_state_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_body_sensed_state_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleAttitudeCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_attitude_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_attitude_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.VehicleGroundRelativeStateCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, vehicle_ground_relative_state_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, vehicle_ground_relative_state_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.PayloadBayCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, payload_bay_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, payload_bay_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.PayloadBayModeCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, payload_bay_mode_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, payload_bay_mode_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.TargetDesignationCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, target_designation_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, target_designation_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.UGVJoystickCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, UGV_joystick_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, UGV_joystick_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.UGVBatteryStatusCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, proto_header_t, UGV_battery_status_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, proto_header_t, UGV_battery_status_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+    Start(): PrivateScope, Public, HideBySig
+    AddUDPDatalink(SByte&(Out), UInt16, String): PrivateScope, Public, HideBySig
+    AddUDPDatalink(SByte&(Out), UInt16): PrivateScope, Public, HideBySig
+    EstablishUDPEndpoint(SByte, Byte, UInt16, String): PrivateScope, Public, HideBySig
+    AddSerialDatalink(SByte&(Out), UInt32, String): PrivateScope, Public, HideBySig
+    EstablishSerialEndpoint(SByte, Byte): PrivateScope, Public, HideBySig
+    SendEnter(Byte, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendEnter(Byte, Double): PrivateScope, Public, HideBySig
+    SendExit(Byte, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendExit(Byte, Double): PrivateScope, Public, HideBySig
+    SendPing(Byte, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendPing(Byte, Double): PrivateScope, Public, HideBySig
+    SendPong(Byte, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendPong(Byte, Double): PrivateScope, Public, HideBySig
+    SendVehicleIdentification(Byte, Double, UInt16, Byte, UInt16, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleIdentification(Byte, Double, UInt16, Byte, UInt16): PrivateScope, Public, HideBySig
+    SendAmyStuff(Byte, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendAmyStuff(Byte, Double): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationRequest(Byte, Double, UInt16, Byte, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationRequest(Byte, Double, UInt16, Byte, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationReply(Byte, Double, UInt16, Byte, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationReply(Byte, Double, UInt16, Byte, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleModeCommand(Byte, Double, UInt16, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleModeCommand(Byte, Double, UInt16, Byte): PrivateScope, Public, HideBySig
+    SendVehicleTerminationCommand(Byte, Double, UInt16, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleTerminationCommand(Byte, Double, UInt16, Byte): PrivateScope, Public, HideBySig
+    SendVehicleTelemetryCommand(Byte, Double, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleTelemetryCommand(Byte, Double, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleWaypointCommand(Byte, Double, UInt16, Int32, Int32, Int32, Int32, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleWaypointCommand(Byte, Double, UInt16, Int32, Int32, Int32, Int32, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleSystemStatus(Byte, Double, UInt16, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleSystemStatus(Byte, Double, UInt16, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleInertialState(Byte, Double, UInt16, Double, Double, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleInertialState(Byte, Double, UInt16, Double, Double, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single): PrivateScope, Public, HideBySig
+    SendVehicleGlobalPosition(Byte, Double, UInt16, Int32, Int32, Int32, Int32, Int16, Int16, Int16, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleGlobalPosition(Byte, Double, UInt16, Int32, Int32, Int32, Int32, Int16, Int16, Int16): PrivateScope, Public, HideBySig
+    SendVehicleBodySensedState(Byte, Double, UInt16, Int16, Int16, Int16, Int16, Int16, Int16, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleBodySensedState(Byte, Double, UInt16, Int16, Int16, Int16, Int16, Int16, Int16): PrivateScope, Public, HideBySig
+    SendVehicleAttitude(Byte, Double, UInt16, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleAttitude(Byte, Double, UInt16, Single, Single, Single): PrivateScope, Public, HideBySig
+    SendVehicleGroundRelativeState(Byte, Double, UInt16, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleGroundRelativeState(Byte, Double, UInt16, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single): PrivateScope, Public, HideBySig
+    SendPayloadBayCommand(Byte, Double, UInt32, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendPayloadBayCommand(Byte, Double, UInt32, Byte): PrivateScope, Public, HideBySig
+    SendPayloadBayModeCommand(Byte, Double, UInt32, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendPayloadBayModeCommand(Byte, Double, UInt32, Byte): PrivateScope, Public, HideBySig
+    SendTargetDesignationCommand(Byte, Double, UInt16, Byte, Byte, Byte, Int32, Int32, Int32, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendTargetDesignationCommand(Byte, Double, UInt16, Byte, Byte, Byte, Int32, Int32, Int32): PrivateScope, Public, HideBySig
+    SendUGVJoystick(Byte, Double, Byte, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendUGVJoystick(Byte, Double, Byte, Single, Single): PrivateScope, Public, HideBySig
+    SendUGVBatteryStatus(Byte, Double, Single, Single, Single, Single, Single, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendUGVBatteryStatus(Byte, Double, Single, Single, Single, Single, Single, Single, Single, Single): PrivateScope, Public, HideBySig
+    RegisterEnterEvent(EnterDelegate): PrivateScope, Public, HideBySig
+    RegisterExitEvent(ExitDelegate): PrivateScope, Public, HideBySig
+    RegisterPingEvent(PingDelegate): PrivateScope, Public, HideBySig
+    RegisterPongEvent(PongDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleIdentificationEvent(VehicleIdentificationDelegate): PrivateScope, Public, HideBySig
+    RegisterAmyStuffEvent(AmyStuffDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleModeCommandEvent(VehicleModeCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleTerminationCommandEvent(VehicleTerminationCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleTelemetryCommandEvent(VehicleTelemetryCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleSystemStatusEvent(VehicleSystemStatusDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleInertialStateEvent(VehicleInertialStateDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleGlobalPositionEvent(VehicleGlobalPositionDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleBodySensedStateEvent(VehicleBodySensedStateDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleAttitudeEvent(VehicleAttitudeDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleGroundRelativeStateEvent(VehicleGroundRelativeStateDelegate): PrivateScope, Public, HideBySig
+    RegisterPayloadBayCommandEvent(PayloadBayCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterPayloadBayModeCommandEvent(PayloadBayModeCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate): PrivateScope, Public, HideBySig
+    RegisterUGVJoystickEvent(UGVJoystickDelegate): PrivateScope, Public, HideBySig
+    RegisterUGVBatteryStatusEvent(UGVBatteryStatusDelegate): PrivateScope, Public, HideBySig
+Class Protonet.Node+EnterDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, Enter&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, Enter&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, Enter&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+ExitDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, Exit&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, Exit&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, Exit&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+PingDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, Ping&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, Ping&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, Ping&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+PongDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, Pong&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, Pong&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, Pong&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleIdentificationDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleIdentification&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleIdentification&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleIdentification&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+AmyStuffDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, AmyStuff&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, AmyStuff&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, AmyStuff&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleAuthorizationRequestDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleAuthorizationRequest&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleAuthorizationRequest&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleAuthorizationRequest&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleAuthorizationReplyDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleAuthorizationReply&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleAuthorizationReply&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleAuthorizationReply&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleModeCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleModeCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleModeCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleModeCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleTerminationCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleTerminationCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleTerminationCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleTerminationCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleTelemetryCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleTelemetryCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleTelemetryCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleTelemetryCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleWaypointCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleWaypointCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleWaypointCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleWaypointCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleSystemStatusDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleSystemStatus&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleSystemStatus&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleSystemStatus&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleInertialStateDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleInertialState&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleInertialState&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleInertialState&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleGlobalPositionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleGlobalPosition&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleGlobalPosition&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleGlobalPosition&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleBodySensedStateDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleBodySensedState&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleBodySensedState&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleBodySensedState&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleAttitudeDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleAttitude&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleAttitude&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleAttitude&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+VehicleGroundRelativeStateDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleGroundRelativeState&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleGroundRelativeState&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleGroundRelativeState&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+PayloadBayCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, PayloadBayCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, PayloadBayCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, PayloadBayCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+PayloadBayModeCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, PayloadBayModeCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, PayloadBayModeCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, PayloadBayModeCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+TargetDesignationCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, TargetDesignationCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, TargetDesignationCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, TargetDesignationCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+UGVJoystickDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, UGVJoystick&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, UGVJoystick&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, UGVJoystick&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Protonet.Node+UGVBatteryStatusDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, UGVBatteryStatus&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, UGVBatteryStatus&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, UGVBatteryStatus&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
