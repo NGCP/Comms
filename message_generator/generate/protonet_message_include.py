@@ -53,7 +53,10 @@ def generate_message_file_include(directory, include_extension, src_extension):
     
     # checksum
     f.write("/**Global typdef which hold checksum value.*/\n")
-    f.write('typedef int8_t checksum_t;\n\n')
+    f.write('typedef int16_t checksum_t;\n\n')
+    #fletcher16
+    f.write('/** Fletcher 16 for checksum of input stream of data */\n')
+    f.write('checksum_t fletcher16(msg_offset start, msg_offset end);\n\n')
     # direction
     f.write("/**Global enum to determine if message destination is input or output.*/\n")
     f.write('typedef enum proto_direction {\n')
@@ -72,13 +75,19 @@ def generate_message_file_include(directory, include_extension, src_extension):
     f.write(tab + 'checksum_t checksum;\n')
     f.write('} proto_msg_t;\n\n')
     
-    #pack sync functions
+    #pack sync function
     f.write("/**Global variable for message offset used to pack data for to transmit*/\n")
     f.write('msg_offset pack_sync(msg_offset offset);\n\n')
+    #pack checksum
     f.write("/**Global function pack checksum*/\n")
     f.write('msg_offset pack_checksum(\n')
     f.write(tab + 'const msg_offset start,\n')
     f.write(tab + 'const msg_offset end);\n\n')
+    #unpack checksum
+    f.write('/** Global unpack checksum*/\n')
+    f.write('msg_offset unpack_checksum(\n')
+    f.write(tab + 'msg_offset offset,\n')
+    f.write(tab + 'checksum_t* out_ptr);\n\n')
     #pack header
     f.write("/**Global function to pack header*/\n")
     f.write('msg_offset pack_header(\n')

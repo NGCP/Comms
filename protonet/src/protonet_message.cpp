@@ -15,19 +15,36 @@ msg_offset pack_sync(msg_offset offset)
    return offset+4;
 }
 
+checksum_t fletcher16(msg_offset start, msg_offset end)
+    {
+        uint8_t count = end - start;
+        uint16_t sum1 = 0;
+        uint16_t sum2 = 0;
+        int index;
+
+        for (index = 0; index < count; ++index)
+        {
+            sum1 = (sum1 + start[index]) % 255;
+            sum2 = (sum2 + sum1) % 255;
+        }
+
+        return (sum2 << 8) | sum1;
+    }
+
 msg_offset pack_checksum(
    const msg_offset start,
    const msg_offset end)
 {
-	msg_offset current = start;
-	checksum_t checksum = 0;
-	while(current != end )
-	{
-		checksum += *current;
-		current++;
-	}
-	*end = (int8_t)(~checksum)+1;
-	return current+1;
+checksum_t sum = fletcher16(start, end);
+return pack_uint16_t(sum, end);
+
+}
+
+msg_offset unpack_checksum(
+   msg_offset offset,
+   checksum_t* out_ptr)
+{
+   return unpack_uint16_t(offset, (uint16_t*)out_ptr);
 }
 
 msg_offset pack_header(
