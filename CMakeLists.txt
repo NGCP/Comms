@@ -22,6 +22,7 @@ protonet/src/random_numbers.cpp
 protonet/src/protonet.cpp
 protonet/src/pqueue.cpp
 protonet/src/serial.cpp
+protonet/src/rand_array.cpp
 protonet/src/udp.cpp
 protonet/src/datalink.cpp
 protonet/src/protonet_message.cpp
