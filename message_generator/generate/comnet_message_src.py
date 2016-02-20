@@ -36,22 +36,38 @@ def generate_message_file_src(directory, include_extension, src_extension):
     f.write(tab + 'return offset+4;\n')
     f.write('}\n\n')
     
+    #Fletcher 16
+    f.write('''checksum_t fletcher16(msg_offset start, msg_offset end)
+    {
+        uint8_t count = end - start;
+        uint16_t sum1 = 0;
+        uint16_t sum2 = 0;
+        int index;
+
+        for (index = 0; index < count; ++index)
+        {
+            sum1 = (sum1 + start[index]) % 255;
+            sum2 = (sum2 + sum1) % 255;
+        }
+
+        return (sum2 << 8) | sum1;
+    }''')
+    f.write('\n\n')
     #pack checksum function
     f.write('msg_offset pack_checksum(\n')
     f.write(tab + 'const msg_offset start,\n')
     f.write(tab + 'const msg_offset end)\n')
     f.write('{\n')
-    f.write('''	msg_offset current = start;
-	checksum_t checksum = 0;
-	while(current != end )
-	{
-		checksum += *current;
-		current++;
-	}
-	*end = (int8_t)(~checksum)+1;
-	return current+1;''')
+    f.write('checksum_t sum = fletcher16(start, end);\n')
+    f.write('return pack_uint16_t(sum, end);\n')
     f.write('\n}\n\n')
-
+    #unpack checksum function
+    f.write('msg_offset unpack_checksum(\n')
+    f.write(tab + 'msg_offset offset,\n')
+    f.write(tab + 'checksum_t* out_ptr)\n')
+    f.write('{\n')
+    f.write(tab + 'return unpack_uint16_t(offset, (uint16_t*)out_ptr);\n')
+    f.write('}\n\n')
     #pack header function
     f.write('msg_offset pack_header(\n')
     f.write(tab + 'com_header_t* header,\n')

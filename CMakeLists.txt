@@ -10,7 +10,6 @@ include_directories(comnet/src/
 		    comnet/include/
 		    comnet/include/message/))
 
-
 add_library(NGCP_COM
 comnet/src/comnet.cpp
 comnet/src/comnet_marshal.cpp

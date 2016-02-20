@@ -32,7 +32,7 @@ def generate_protocol_file_include(directory, include_extension, src_extension):
         f.write('#include <message/'+filename+include_extension+'>\n')
     
     #declare msg_data_offset should be size of header
-    f.write('const uint8_t MSG_DATA_OFFSET = 28;\n\n')
+    f.write('const uint8_t MSG_DATA_OFFSET = 12;\n\n')
     
     #create a union with all the message types as proto_msg_buf_t
     f.write("\n/**Global typdef union with all message types declared as proto_msg_bug_t.\n")

@@ -20,7 +20,10 @@ typedef struct {
 } com_header_t;
 
 /**Global typdef which hold checksum value.*/
-typedef int8_t checksum_t;
+typedef int16_t checksum_t;
+
+/** Fletcher 16 for checksum of input stream of data */
+checksum_t fletcher16(msg_offset start, msg_offset end);
 
 /**Global enum to determine if message destination is input or output.*/
 typedef enum com_direction {
@@ -45,6 +48,11 @@ msg_offset pack_sync(msg_offset offset);
 msg_offset pack_checksum(
    const msg_offset start,
    const msg_offset end);
+
+/** Global unpack checksum*/
+msg_offset unpack_checksum(
+   msg_offset offset,
+   checksum_t* out_ptr);
 
 /**Global function to pack header*/
 msg_offset pack_header(
