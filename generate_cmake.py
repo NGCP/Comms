@@ -7,8 +7,8 @@ ACCEPTABLE_FILE_TYPES = ('.cpp', '.h', '.txt')
 
 
 
-fastqS = [f for f in os.listdir("protonet/src/") if f.endswith('.cpp')]
-fastqSM = [f for f in os.listdir("protonet/src/message/") if f.endswith('.cpp')]
+fastqS = [f for f in os.listdir("comnet/src/") if f.endswith('.cpp')]
+fastqSM = [f for f in os.listdir("comnet/src/message/") if f.endswith('.cpp')]
 
 
 f = open('CMakeLists.txt', 'w+')
@@ -22,20 +22,20 @@ SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
 
 project("NGCP COM")
 
-include_directories(protonet/src/
-		    protonet/src/message/
-		    protonet/include/
-		    protonet/include/message/))
+include_directories(comnet/src/
+		    comnet/src/message/
+		    comnet/include/
+		    comnet/include/message/))
 
 
 add_library(NGCP_COM
 """)
 
 for fileToWrite in fastqS:
-	f.write("protonet/src/" + fileToWrite + '\n')
+	f.write("comnet/src/" + fileToWrite + '\n')
 
 for fileToWrite in fastqSM:
-	f.write("protonet/src/message/" + fileToWrite + '\n')
+	f.write("comnet/src/message/" + fileToWrite + '\n')
 
 f.write(")\n")
 

@@ -2,8 +2,8 @@
 <protocol> 
     <paths>
         <field
-            cppPath = "../Protonet"
-            csharpPath = "../ProtoWrapper"
+            cppPath = "../comnet"
+            csharpPath = "../comwrapper"
             nativePath = "native"
         ></field>    
     </paths> 
