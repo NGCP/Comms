@@ -1,7 +1,7 @@
 ﻿/*
 Include NGCP_COM.dll
 
-Protosharp is a sample C# program using a Protonet session.
+Protosharp is a sample C# program using a Comnet session.
 The periodic node entry messages and two sample messages
 are displayed in the console.
 */
@@ -12,21 +12,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Protonet;
+using Comnet;
 
-namespace protosharp
+namespace comsharp
 {
     /*Hold all state and behavior data in this callback class*/
-    public class ProtonetCallbacks
+    public class ComnetCallbacks
     {
-        public ProtonetCallbacks()
+        public ComnetCallbacks()
         {
         }
         public void OnPing(
             sbyte link_id,
             ref Protonet.Header header,
             ref Protonet.Ping rx_msg,
-            Protonet.Node node)
+            Comnet.Node node)
         {
             Console.WriteLine("Output stuff");
         }
@@ -34,7 +34,7 @@ namespace protosharp
             sbyte link_id,
             ref Protonet.Header header,
             ref Protonet.Pong rx_msg,
-            Protonet.Node node)
+            Comnet.Node node)
         {
             
         }
@@ -44,11 +44,11 @@ namespace protosharp
     {
         static void Main(string[] args)
         {
-            /*Create a protonet node at specified node id (2)*/
-            Protonet.Node UgvNode = new Protonet.Node(2);
+            /*Create a comnet node at specified node id (2)*/
+            Comnet.Node UgvNode = new Comnet.Node(2);
 
             /*Construct class to hold all callbacks and behaviors*/
-            ProtonetCallbacks UgvCallbacks = new ProtonetCallbacks();
+            ComnetCallbacks UgvCallbacks = new ComnetCallbacks();
 
             /*Create a link id variable to reference a created datalink*/
             sbyte link_id = 0;
