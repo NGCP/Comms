@@ -182,4 +182,4 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
         f.write(tab+tab+'void* '+cs_name+'Helper(int8_t link_id, com_header_t header, '+type_t_name+' '+variable_name+', comnet::node* ptr);\n')
     f.write('\n'+tab+'};\n}\n#endif')
     
-    print("Created: " + 'proto_wrapper' + src_extension)
+    print("Created: " + 'com_wrapper' + src_extension)

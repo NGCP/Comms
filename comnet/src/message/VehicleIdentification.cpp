@@ -46,7 +46,7 @@ void encode_vehicle_identification(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 13.0;
+   msg->header.message_length = 13;
    msg->header.message_type = Com_Vehicle_Identification;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

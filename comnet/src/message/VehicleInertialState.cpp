@@ -72,7 +72,7 @@ void encode_vehicle_inertial_state(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 78.0;
+   msg->header.message_length = 78;
    msg->header.message_type = Com_Vehicle_Inertial_State;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

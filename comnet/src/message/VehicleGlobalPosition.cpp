@@ -56,7 +56,7 @@ void encode_vehicle_global_position(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 32.0;
+   msg->header.message_length = 32;
    msg->header.message_type = Com_Vehicle_Global_Position;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);
