@@ -13,10 +13,10 @@ document all files on subdirectory windows: python -m pydoc -w .\
 
 
 *Files created with messages are:
-	- protonet .h & .cpp
-	- protonet_message .h & .cpp
-	- protonet_protocol .h & .cpp
-	- proto_wrapper .h & .cpp
+	- comnet .h & .cpp
+	- comnet_message .h & .cpp
+	- comnet_comcol .h & .cpp
+	- com_wrapper .h & .cpp
 	- all files in:
 		- ..\include\message
 		- ..\src\message
@@ -28,8 +28,8 @@ document all files on subdirectory windows: python -m pydoc -w .\
 
 generate.py - 	Generates files for c++ \ c# code with messages
 		File location will be
-		\..\protogen\ 
-		\..\protowrapper\
+		\..\comgen\ 
+		\..\comwrapper\
 
 
 
@@ -38,17 +38,17 @@ Corresponding c++ / c# with its python file 	"...\message_generator\generate\"
 -----------------------------------------------------------------------------------------
 		c++ 				->		python
 -----------------------------------------------------------------------------------------
-...\protonet\include\message\******.h		->	message_include.py
-...\protonet\include\protonet_message.h		->	message_file_include.py
-...\protonet\include\protonet.h			->	protonet_file_include.py
-...\protonet\include\protonet_protocol.h	->	protocol_file_include.py
+...\comnet\include\message\******.h		->	message_include.py
+...\comnet\include\comnet_message.h		->	message_file_include.py
+...\comnet\include\comnet.h			->	comnet_file_include.py
+...\comnet\include\comnet_comcol.h	->	comcol_file_include.py
 
-...\protonet\src\message\*****.cpp		->	message_sources.py
-...\protonet\src\protonet_message		->	message_file_sources.py
-...\protonet\src\protonet.cpp			->	protonet_file_src.py
-...\protonet\src\protonet.protocol.cpp		->	protocol_file_src.py
+...\comnet\src\message\*****.cpp		->	message_sources.py
+...\comnet\src\comnet_message		->	message_file_sources.py
+...\comnet\src\comnet.cpp			->	comnet_file_src.py
+...\comnet\src\comnet.comcol.cpp		->	comcol_file_src.py
 ------------------------------------------------------------------------------------------
 		c#				->			python
 ------------------------------------------------------------------------------------------
-...\protowrapper\proto_wrapper.h		->	proto_wrapper_include.py
-...\protowrapper\proto_wrapper.cpp		->	proto_wrapper_src.py
+...\comwrapper\com_wrapper.h		->	com_wrapper_include.py
+...\comwrapper\com_wrapper.cpp		->	com_wrapper_src.py

@@ -1,7 +1,7 @@
 ﻿/*
 Include NGCP_COM.dll
 
-Protosharp is a sample C# program using a Protonet session.
+Comsharp is a sample C# program using a Comnet session.
 The periodic node entry messages and two sample messages
 are displayed in the console.
 */
@@ -12,29 +12,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Protonet;
+using Comnet;
 
-namespace protosharp
+namespace comsharp
 {
     /*Hold all state and behavior data in this callback class*/
-    public class ProtonetCallbacks
+    public class ComnetCallbacks
     {
-        public ProtonetCallbacks()
+        public ComnetCallbacks()
         {
         }
         public void OnPing(
             sbyte link_id,
-            ref Protonet.Header header,
-            ref Protonet.Ping rx_msg,
-            Protonet.Node node)
+            ref Comnet.Header header,
+            ref Comnet.Ping rx_msg,
+            Comnet.Node node)
         {
             Console.WriteLine("Output stuff");
         }
         public void OnPong(
             sbyte link_id,
-            ref Protonet.Header header,
-            ref Protonet.Pong rx_msg,
-            Protonet.Node node)
+            ref Comnet.Header header,
+            ref Comnet.Pong rx_msg,
+            Comnet.Node node)
         {
             
         }
@@ -44,17 +44,17 @@ namespace protosharp
     {
         static void Main(string[] args)
         {
-            /*Create a protonet node at specified node id (2)*/
-            Protonet.Node UgvNode = new Protonet.Node(2);
+            /*Create a comnet node at specified node id (2)*/
+            Comnet.Node UgvNode = new Comnet.Node(2);
 
             /*Construct class to hold all callbacks and behaviors*/
-            ProtonetCallbacks UgvCallbacks = new ProtonetCallbacks();
+            ComnetCallbacks UgvCallbacks = new ComnetCallbacks();
 
             /*Create a link id variable to reference a created datalink*/
             sbyte link_id = 0;
 
             /*
-            Register the methods of the callback class with Protonet
+            Register the methods of the callback class with Comnet
             Note that this is not a HARDWARE register. It passes the callback
             so the handler can execute it when the respective message is received
             */
@@ -62,7 +62,7 @@ namespace protosharp
             UgvNode.RegisterPongEvent(UgvCallbacks.OnPong);
 
 
-            /*Add a new datalink to the Protonet session and establish an endpoint*/
+            /*Add a new datalink to the Comnet session and establish an endpoint*/
             UgvNode.AddUDPDatalink(out link_id, 1337);
             UgvNode.EstablishUDPEndpoint(link_id, 2,1337, "127.0.0.1");
             

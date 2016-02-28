@@ -4,8 +4,8 @@
 #include <chrono>
 
 
-/* Include protonet.h for communication system API */
-#include <protonet.h>
+/* Include comnet.h for communication system API */
+#include <comnet.h>
 
 /*------
 When a Ping is received, we want to send a Pong back to the sender of the Ping.
@@ -21,19 +21,19 @@ Parameters:
 
 int8_t link_id: Provides the ID of the datalink the message was received from
 
-proto_header_t: The header of a protonet message, defined in the communication spec
+com_header_t: The header of a comnet message, defined in the communication spec
 
 ping_t ping: The data section of the message; the ping message provides a timestamp
 
-protonet::node* node: A pointer to the ProtoNet session that received the message.
-This allows the user to access ProtoNet functions from inside
+comnet::node* node: A pointer to the ComNet session that received the message.
+This allows the user to access ComNet functions from inside
 the callback, such as sending messages or adding datalinks.
 */
 void* on_ping(
 int8_t link_id,
-proto_header_t header,
+com_header_t header,
 ping_t ping,
-protonet::node* node)
+comnet::node* node)
 {
 /* Send a pong message back to the sender of the ping */
 //node->send_pong(header.node_src_id,100);
@@ -43,9 +43,9 @@ return 0;
 
 void* on_enter(
 	int8_t link_id,
-	proto_header_t header,
+	com_header_t header,
 	enter_t enter,
-	protonet::node* node)
+	comnet::node* node)
 {
 	/* Send a pong message back to the sender of the ping */
 	//node->send_pong(header.node_src_id,100);
@@ -60,9 +60,9 @@ ensure that Pong messages are handled
 
 void* on_pong(
 	int8_t link_id,
-	proto_header_t header,
+	com_header_t header,
 	pong_t pong,
-	protonet::node* node)
+	comnet::node* node)
 {
 	/*Acknowledge that a Pong was received */
 	//printf("Got pong from Node %d\n", header.node_src_id);
@@ -74,7 +74,7 @@ void* on_pong(
 
 void* rx_thread(){
 	/* Create the UAV node at node 2*/
-	protonet::node uav_node(1);
+	comnet::node uav_node(1);
 
 	/* Handle for the UDP Datalink */
 	int8_t udp_1 = 0;
@@ -108,7 +108,7 @@ void* rx_thread(){
 
 void* tx_thread(){
 	/* Create the UAV node at node 2*/
-	protonet::node gcs_node(2);
+	comnet::node gcs_node(2);
 
 	/* Handle for the UDP Datalink */
 	int8_t udp_1 = 0;

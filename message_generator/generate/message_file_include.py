@@ -17,11 +17,11 @@ def generate_message_file_include(directory, include_extension, src_extension):
     #load header structure and the messages in variables from xml file
     import xml.etree.ElementTree as ET
     tree = ET.parse('message_definition.xml')
-    protocol = tree.findall('message')
+    comcol = tree.findall('message')
     header = tree.find('header')
     tab = '   '        
     #open file
-    f = open(directory + "include/" + 'protonet_message' + include_extension, 'w')
+    f = open(directory + "include/" + 'comnet_message' + include_extension, 'w')
     # warning
     f.write('/** @file This file was auto generated. All changes will be undone. */\n\n')
     # include guards
@@ -30,7 +30,7 @@ def generate_message_file_include(directory, include_extension, src_extension):
     # includes
     f.write('#include <stdint.h>\n')
     f.write('#include <stdio.h>\n')
-    f.write('#include <protonet_marshal'+include_extension+'>\n\n')
+    f.write('#include <comnet_marshal'+include_extension+'>\n\n')
     
     #define max data zize 
     f.write("#define MAX_DATA_SIZE               540\n")
@@ -44,28 +44,28 @@ def generate_message_file_include(directory, include_extension, src_extension):
     #Priority Queue real crap way to split message_length: 15, is_emergency: 1;
     f.seek(-3, 1)
     f.write("\t: 15," "\n" + tab + tab + tab + tab +"is_emergency \t: 1;\n")
-    f.write('} proto_header_t;\n\n')
+    f.write('} com_header_t;\n\n')
     
     # checksum
     f.write("/**Global typdef which hold checksum value.*/\n")
     f.write('typedef int8_t checksum_t;\n\n')
     # direction
     f.write("/**Global enum to determine if message destination is input or output.*/\n")
-    f.write('typedef enum proto_direction {\n')
-    f.write(tab+ 'Proto_Out = 0,\n')
-    f.write(tab+ 'Proto_In = 1\n')
-    f.write('} proto_direction_t;\n\n')
+    f.write('typedef enum com_direction {\n')
+    f.write(tab+ 'Com_Out = 0,\n')
+    f.write(tab+ 'Com_In = 1\n')
+    f.write('} com_direction_t;\n\n')
     
     #msg_t struct
     f.write("/**Global typdef struct of the data packet which contains typdef header, enum direction, and typdef checksum. */\n")
     f.write('typedef struct {\n')
-    f.write(tab + 'proto_header_t header;\n')
-    f.write(tab + 'proto_direction_t direction;\n')
+    f.write(tab + 'com_header_t header;\n')
+    f.write(tab + 'com_direction_t direction;\n')
     f.write(tab + 'uint8_t link_id;\n')
     f.write(tab + 'uint8_t data[MAX_DATA_SIZE];\n')
     f.write(tab + 'uint16_t  tx_len;\n')
     f.write(tab + 'checksum_t checksum;\n')
-    f.write('} proto_msg_t;\n\n')
+    f.write('} com_msg_t;\n\n')
     
     #pack sync functions
     f.write("/**Global variable for message offset used to pack data for to transmit*/\n")
@@ -77,22 +77,22 @@ def generate_message_file_include(directory, include_extension, src_extension):
     #pack header
     f.write("/**Global function to pack header*/\n")
     f.write('msg_offset pack_header(\n')
-    f.write(tab + 'proto_header_t* header,\n')
+    f.write(tab + 'com_header_t* header,\n')
     f.write(tab + 'msg_offset offset);\n\n')
     #unpack header
     f.write("/**Global function to unpack header*/\n")
     f.write('msg_offset unpack_header(\n')
     f.write(tab + 'msg_offset offset,\n')
-    f.write(tab + 'proto_header_t* out_ptr);\n\n')        
+    f.write(tab + 'com_header_t* out_ptr);\n\n')        
     
     # message type enum
-    f.write("/**Global enum auto created to id proto message type*/\n")
+    f.write("/**Global enum auto created to id com message type*/\n")
     f.write('typedef enum {\n')    
-    for message in protocol:
-        f.write(tab+'Proto_'+ message.get('name') + ' = ' + message.get('id') + ',\n')
-    f.write('} proto_msg_type_t;\n\n')
+    for message in comcol:
+        f.write(tab+'Com_'+ message.get('name') + ' = ' + message.get('id') + ',\n')
+    f.write('} com_msg_type_t;\n\n')
     
     # include guard #endif
     f.write('#endif')
     
-    print("Created: " + 'protonet_message' + include_extension)
+    print("Created: " + 'comnet_message' + include_extension)
