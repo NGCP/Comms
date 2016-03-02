@@ -25,7 +25,7 @@ project("NGCP COM")
 include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
-		    comnet/include/message/))
+		    comnet/include/message/)
 
 add_library(NGCP_COM
 """)

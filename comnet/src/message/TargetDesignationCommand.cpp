@@ -54,7 +54,7 @@ void encode_target_designation_command(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 25.0;
+   msg->header.message_length = 25;
    msg->header.message_type = Com_Target_Designation_Command;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

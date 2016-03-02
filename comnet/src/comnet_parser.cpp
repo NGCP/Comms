@@ -74,7 +74,7 @@ int32_t parse_message(
 		parse_data->parse_state = WAIT_MESSAGE_CHECKSUM;
 		if (parse_data->parse_count > 0)
 		{	
-            unpack_checksum(rx_msg->data + (rx_msg->header.message_length + MSG_DATA_OFFSET), &rx_msg->checksum);			
+         unpack_checksum(rx_msg->data + (rx_msg->header.message_length + MSG_DATA_OFFSET), &rx_msg->checksum);			
 			rx_msg->direction = Com_In;
 			parse_data->parse_state = WAIT_SYNC_C;		
 			checksum_t sum = fletcher16((msg_offset)rx_msg->data, (msg_offset)rx_msg->data + rx_msg->header.message_length + MSG_DATA_OFFSET);
