@@ -23,7 +23,7 @@ namespace Comnet
       uint8_t message_ttl;
       uint16_t message_type;
       uint16_t message_length;
-      bool is_mergency;
+      bool is_emergency;
       Header(){}
       Header(const Header% to_copy)
       {
@@ -33,6 +33,7 @@ namespace Comnet
          message_ttl = to_copy.message_ttl;
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
+         is_emergency = to_copy.is_emergency;
       }
       Header(const com_header_t to_copy)
       {
@@ -42,6 +43,7 @@ namespace Comnet
          message_ttl = to_copy.message_ttl;
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
+         is_emergency = to_copy.is_emergency;
       }
    };
 
