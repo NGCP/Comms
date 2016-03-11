@@ -1,6 +1,5 @@
-﻿/*
-Include NGCP_COM.dll
-
+﻿
+/*
 Comsharp is a sample C# program using a Comnet session.
 The periodic node entry messages and two sample messages
 are displayed in the console.
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Comnet;
 
-namespace comsharp
+namespace Comsharp
 {
     /*Hold all state and behavior data in this callback class*/
     public class ComnetCallbacks
@@ -28,7 +27,7 @@ namespace comsharp
             ref Comnet.Ping rx_msg,
             Comnet.Node node)
         {
-            Console.WriteLine("Output stuff");
+            
         }
         public void OnPong(
             sbyte link_id,
@@ -44,7 +43,7 @@ namespace comsharp
     {
         static void Main(string[] args)
         {
-            /*Create a comnet node at specified node id (2)*/
+            /*Create a Comnet node at specified node id (2)*/
             Comnet.Node UgvNode = new Comnet.Node(2);
 
             /*Construct class to hold all callbacks and behaviors*/
@@ -63,15 +62,15 @@ namespace comsharp
 
 
             /*Add a new datalink to the Comnet session and establish an endpoint*/
-            UgvNode.AddUDPDatalink(out link_id, 1337);
-            UgvNode.EstablishUDPEndpoint(link_id, 2,1337, "127.0.0.1");
+            UgvNode.AddZigBeeDatalink(out link_id, 57600, "5");
+            UgvNode.EstablishZigBeeEndpoint(link_id, 1, "0013A2004091798F");
             
 
             /*Loop forever*/
             while (true)
             {
                 System.Threading.Thread.Sleep(1000);
-                UgvNode.SendPing(2, 0);
+                UgvNode.SendPing(1, 0);
 
             }
         }

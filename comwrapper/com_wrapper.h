@@ -737,6 +737,8 @@ namespace Comnet
       void Start();
       void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port);
       void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port, String^ addr);
+      void AddZigBeeDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint16_t baudRate, String^device_path);
+      void EstablishZigBeeEndpoint(int8_t link_id, uint8_t node_id, String^ addr64);
       void EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, String^ addr);
       void AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint32_t baud_rate, String^ device_path);
       void EstablishSerialEndpoint(int8_t link_id, uint8_t node_id);

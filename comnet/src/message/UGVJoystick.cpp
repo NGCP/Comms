@@ -50,7 +50,7 @@ void encode_UGV_joystick(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 17.0;
+   msg->header.message_length = 17;
    msg->header.message_type = Com_UGV_Joystick;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

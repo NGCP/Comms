@@ -30,7 +30,8 @@ def generate_comnet_file_src(directory, include_extension, src_extension):
     f.write('#include <serial' +include_extension+'>\n')
     f.write('#include <udp' +include_extension+'>\n')
     f.write('#include <pqueue' +include_extension+'>\n')
-    f.write('#include <thread' +include_extension+'>\n\n')
+    f.write('#include <threadCom' +include_extension+'>\n')
+    f.write('#include <zigBee.h>\n\n')
     f.write('#include <fstream>\n')
     f.write('#include <string>\n\n')
     
@@ -286,6 +287,28 @@ void node::add_udp(int8_t* link_id, uint16_t port, char addr[16])
 		datalinks[num_datalinks]->run();
 		*link_id = num_datalinks;
 		num_datalinks++;
+	}
+}
+
+void node::add_zigBee(int8_t* link_id, uint32_t baudRate, char device_path[50])
+{
+	datalinks[num_datalinks] = new ZigBee(baudRate, device_path);
+
+	if (datalinks[num_datalinks]->is_connected())
+	{
+		datalinks[num_datalinks]->set_link_id(num_datalinks);
+		datalinks[num_datalinks]->set_queue(&this->queue);
+		datalinks[num_datalinks]->run();//doesnt do any thing
+		*link_id = num_datalinks;
+		num_datalinks++;
+	}
+}
+
+void node::establish_zigBee(int8_t link_id, uint8_t node_id, std::string address64Hex)
+{
+	if (datalinks[link_id]->get_datalink_type() == ZIGBEE_TYPE && datalinks[link_id]->is_connected())
+	{
+		((ZigBee*)datalinks[link_id])->establish(node_id, address64Hex);
 	}
 }
 

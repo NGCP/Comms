@@ -50,7 +50,7 @@ void encode_vehicle_system_status(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 12.0;
+   msg->header.message_length = 12;
    msg->header.message_type = Com_Vehicle_System_Status;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

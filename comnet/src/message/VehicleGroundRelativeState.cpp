@@ -66,7 +66,7 @@ void encode_vehicle_ground_relative_state(
    msg->header.node_dest_id = dest_id;
    msg->header.message_ttl = msg_ttl;
    msg->header.sequence_number = seq_number;
-   msg->header.message_length = 50.0;
+   msg->header.message_length = 50;
    msg->header.message_type = Com_Vehicle_Ground_Relative_State;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

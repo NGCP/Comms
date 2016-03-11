@@ -28,9 +28,9 @@ def generate_comnet_file_include(directory, include_extension, src_extension):
     #include files
     f.write("/*Include files*/ \n")
     f.write('#include <datalink' +include_extension+'>\n')
-    f.write('#include <comnet_comcol' +include_extension+'>\n')
+    f.write('#include <comnet_protocol' +include_extension+'>\n')
     f.write('#include <pqueue' +include_extension+'>\n')
-    f.write('#include <thread' +include_extension+'>\n')
+    f.write('#include <threadCom' +include_extension+'>\n')
     f.write("""
 /** include encryption header*/
 #include "aes.h"
@@ -85,6 +85,10 @@ use managed c++ code to open and read file*/
     f.write(tab+tab+'void add_udp(int8_t* link_id, uint16_t port);\n')
     f.write(tab + tab + "/** Public method used to add UDP communication*/ \n")
     f.write(tab+tab+'void add_udp(int8_t* link_id, uint16_t port, char addr[16]);\n\n')
+    f.write(tab + tab + "/** Public method used to add ZigBee communication*/ \n")
+    f.write(tab+tab+'void add_zigBee(int8_t* link_id, uint32_t baudRate, char device_path[50]);\n')
+    f.write(tab + tab + "/** Public method used to establish ZigBee communication*/ \n")
+    f.write(tab+tab + " void establish_zigBee(int8_t link_id, uint8_t node_id, std::string address64Hex);\n")
     f.write(tab + tab + "/** Public method used to establish serial communication*/ \n")
     f.write(tab+tab+'void establish_serial(int8_t link_id, uint8_t node_id);\n')
     f.write(tab + tab + "/** Public method used to establish UDP communication*/ \n")

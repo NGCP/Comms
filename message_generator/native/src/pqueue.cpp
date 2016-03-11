@@ -1,5 +1,5 @@
 #include <pqueue.h>
-#include <mutex.h>
+#include <mutexCom.h>
 using namespace comnet;
 
 	com_msg_queue::com_msg_queue()

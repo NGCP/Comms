@@ -6,7 +6,7 @@
 #include <comnet_parser.h>
 #include <comnet_message.h>
 /** inlucde com comcol for const MSG_DATA_OFFSET*/
-#include <comnet_comcol.h>
+#include <comnet_protocol.h>
 
 int32_t parse_init(parse_data_t* parse_data)
 {

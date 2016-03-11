@@ -6,7 +6,7 @@
 
 /* User Includes */
 #include <cond.h>
-#include <mutex.h>
+#include <mutexCom.h>
 #include <comnet_message.h>
 #include <priority_queue.h>
 #include <queue>
