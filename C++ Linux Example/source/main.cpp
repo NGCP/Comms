@@ -83,7 +83,7 @@ void* tx_thread(){
 
 	char *address2 = "0013A20040917974";
 	/* id, baudrate, comport  */
-	gcs_node.add_zigBee(&zigBee_2, 57600, "0");
+	gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
 
 	/*
 	create zig bee connection
@@ -119,7 +119,7 @@ void* rx_thread(){
 
 	char *address1 = "0013A20040917A31";
 	/* id, baudrate, comport  */
-	uav_node.add_zigBee(&zigBee_1, 57600, "1");
+	uav_node.add_zigBee(&zigBee_1, 57600, "/dev/ttyUSB1");
 
 	/*
 	create zig bee connection

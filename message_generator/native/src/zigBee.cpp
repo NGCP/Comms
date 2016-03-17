@@ -32,9 +32,7 @@ int32_t ZigBee::open(uint32_t baud_rate, char device_path[50])
 #ifdef _WIN32
 	sprintf(port_name, "\\\\.\\COM%s", device_path);//change to com
 #endif
-#ifdef __unix__
-	sprintf(port_name, "/dev/ttyUSB", device_path);
-#endif
+
 
 	if ((ret = xbee_setup(&xbee, "xbee5", port_name, baud_rate)) != XBEE_ENONE) {
 		printf("Construct ret: %d (%s)\n", ret, xbee_errorToStr(ret));

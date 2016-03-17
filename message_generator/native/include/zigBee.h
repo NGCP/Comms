@@ -3,7 +3,7 @@
 
 #include <config.h>
 #include <datalink.h>
-#include <string.h>
+#include <string>
 #include <stdio.h>
 #include <xbee.h>
 
