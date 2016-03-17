@@ -28,7 +28,8 @@ include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
 		    comnet/include/message/
-		    cryptopp563/include/)
+		    cryptopp563/include/
+		    libxbee3-3.0.11/include/)
 
 
 add_library(NGCP_COM
@@ -46,6 +47,8 @@ f.write('''
 target_link_libraries (NGCP_COM ${CMAKE_THREAD_LIBS_INIT})
 
 target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/cryptopp563/linux/libcryptopp.a)
+
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/linux/libxbee.so)
 
 ''')
 

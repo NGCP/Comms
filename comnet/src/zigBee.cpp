@@ -1,6 +1,8 @@
 #include <zigBee.h>
-#include <string>
+#include <string.h>
 #include <stdint.h>
+
+
 
 	
 ZigBee::ZigBee(uint32_t baud_rate, char device_path[50])
@@ -15,7 +17,10 @@ ZigBee::ZigBee(uint32_t baud_rate, char device_path[50])
 	connected = 0;
 
 	link_id = 0;
-	open(baud_rate, device_path);
+
+
+	this->open(baud_rate, device_path);
+
 
 }
 
@@ -33,8 +38,10 @@ int32_t ZigBee::open(uint32_t baud_rate, char device_path[50])
 	sprintf(port_name, "\\\\.\\COM%s", device_path);//change to com
 #endif
 #ifdef __unix__
-	sprintf(port_name, "/dev/ttyUSB", device_path);
+	sprintf(port_name, "/dev/ttyUSB%s", device_path);
 #endif
+
+
 
 	if ((ret = xbee_setup(&xbee, "xbee5", port_name, baud_rate)) != XBEE_ENONE) {
 		printf("Construct ret: %d (%s)\n", ret, xbee_errorToStr(ret));

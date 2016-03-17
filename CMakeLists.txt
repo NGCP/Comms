@@ -11,24 +11,26 @@ include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
 		    comnet/include/message/
-		    cryptopp563/include/)
+		    cryptopp563/include/
+		    libxbee3-3.0.11/include/)
 
 
 add_library(NGCP_COM
-comnet/src/mutex.cpp
-comnet/src/comnet_marshal.cpp
-comnet/src/thread.cpp
+comnet/src/comnet_protocol.cpp
+comnet/src/threadCom.cpp
 comnet/src/random_numbers.cpp
-comnet/src/comnet.cpp
+comnet/src/comnet_parser.cpp
 comnet/src/pqueue.cpp
+comnet/src/zigBee.cpp
+comnet/src/comnet_marshal.cpp
 comnet/src/serial.cpp
 comnet/src/rand_array.cpp
 comnet/src/udp.cpp
+comnet/src/mutexCom.cpp
 comnet/src/datalink.cpp
-comnet/src/comnet_message.cpp
-comnet/src/comnet_parser.cpp
+comnet/src/comnet.cpp
 comnet/src/cond.cpp
-comnet/src/comnet_comcol.cpp
+comnet/src/comnet_message.cpp
 comnet/src/message/Pong.cpp
 comnet/src/message/VehicleGroundRelativeState.cpp
 comnet/src/message/UGVJoystick.cpp
@@ -57,4 +59,6 @@ comnet/src/message/TargetDesignationCommand.cpp
 target_link_libraries (NGCP_COM ${CMAKE_THREAD_LIBS_INIT})
 
 target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/cryptopp563/linux/libcryptopp.a)
+
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/linux/libxbee.so)
 

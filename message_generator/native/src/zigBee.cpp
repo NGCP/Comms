@@ -1,5 +1,5 @@
 #include <zigBee.h>
-#include <string>
+#include <string.h>
 #include <stdint.h>
 
 	

@@ -85,29 +85,19 @@ void* tx_thread()
 	A handle to reference the datalink by.
 	This is similar to a socket or file descriptor
 	*/
-	int8_t udp_1 = 0;
+	int8_t zigBee_1 = 0;
 
 	/*
-	Add a UDP datalink to the comNet session.
-	The handle is passed in, so we can later establish
-	that nodes are connected to the interface at a specified
-	port and IP.
-
-	Both the receiver and transmitter datalinks are bound to the same
-	IP address, but given different ports to distinguish them apart.
+	Add a zigBee data link
+	id, baud rate, com port
 	*/
 	gcs_node.add_zigBee(&udp_1, 57600, "6");
 
 	/*
-	Any message that is sent or addressed to node 2 is directly
-	sent to Port: 1338, IP: 127.0.0.1, which will be set as
-	the address of the receiver.
-
-	The udp_1 link handle is passed in to denote that this is
-	the datalink that is connected to node through via
-	the IP/Port mapping.
+	establish zigBee connection
+	id, dest id, hex 64 bit address in char
 	*/
-	gcs_node.establish_zigBee(udp_1, 2, "0013A20040917A31");
+	gcs_node.establish_zigBee(zigBee_1, 2, "0013A20040917A31");
 
 	/*
 	Since this node is pinging, it can expect a pong back.
@@ -141,10 +131,10 @@ void* rx_thread(){
 	
 	comnet::node uav_node(2);
 	
-	int8_t udp_1 = 0;
+	int8_t zigBee_2 = 0;
 
 	
-	uav_node.add_zigBee(&udp_1, 57600, "COM6");
+	uav_node.add_zigBee(&zigBee_2, 57600, "5");
 
 	uav_node.establish_zigBee(udp_1, 1, "0013A20040917A31");
 
