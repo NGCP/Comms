@@ -20,13 +20,16 @@ cmake_minimum_required(VERSION 3.0)
 
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
 
-project("NGCP COM")
+project("NGCP_COM")
+
+get_filename_component(PARENT_DIR ${CMAKE_SOURCE_DIR} DIRECTORY)
 
 include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
 		    comnet/include/message/
-            libxbee3-3.0.11/include/)
+		    libxbee3-3.0.11/include/)
+
 
 add_library(NGCP_COM
 """)
@@ -38,6 +41,13 @@ for fileToWrite in fastqSM:
 	f.write("comnet/src/message/" + fileToWrite + '\n')
 
 f.write(")\n")
+
+f.write('''
+target_link_libraries (NGCP_COM ${CMAKE_THREAD_LIBS_INIT})
+
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/linux/libxbee.so)
+
+''')
 
 
 

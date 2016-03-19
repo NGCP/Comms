@@ -3,22 +3,27 @@ cmake_minimum_required(VERSION 3.0)
 
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
 
-project("NGCP COM")
+project("NGCP_COM")
+
+get_filename_component(PARENT_DIR ${CMAKE_SOURCE_DIR} DIRECTORY)
 
 include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
-		    comnet/include/message/)
+		    comnet/include/message/
+		    libxbee3-3.0.11/include/)
+
 
 add_library(NGCP_COM
 comnet/src/comnet_protocol.cpp
-comnet/src/mutex.cpp
-comnet/src/thread.cpp
+comnet/src/threadCom.cpp
 comnet/src/comnet_parser.cpp
 comnet/src/pqueue.cpp
+comnet/src/zigBee.cpp
 comnet/src/comnet_marshal.cpp
 comnet/src/serial.cpp
 comnet/src/udp.cpp
+comnet/src/mutexCom.cpp
 comnet/src/datalink.cpp
 comnet/src/comnet.cpp
 comnet/src/cond.cpp
@@ -47,3 +52,8 @@ comnet/src/message/VehicleSystemStatus.cpp
 comnet/src/message/VehicleAttitude.cpp
 comnet/src/message/TargetDesignationCommand.cpp
 )
+
+target_link_libraries (NGCP_COM ${CMAKE_THREAD_LIBS_INIT})
+
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/linux/libxbee.so)
+

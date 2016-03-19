@@ -8,6 +8,7 @@
 #include <comnet_protocol.h>
 #include <pqueue.h>
 #include <threadCom.h>
+#include <string>
 namespace comnet
 {
    /*Let compiler know class node exists some where else */ 

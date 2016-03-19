@@ -19,10 +19,8 @@ add_executable(comnetTest
 		source/main.cpp)
 
 target_link_libraries (comnetTest ${CMAKE_THREAD_LIBS_INIT})
-
-target_link_libraries (comnetTest ${PARENT_DIR}/build/linux/libNGCP_COM.a
-${PARENT_DIR}/libxbee3-3.0.11/linux/libxbee.so
-)
+target_link_libraries (comnetTest ${PARENT_DIR}/build/linux/libNGCP_COM.a)
+target_link_libraries (comnetTest ${PARENT_DIR}/libxbee3-3.0.11/linux/libxbee.a)
 
 
 
