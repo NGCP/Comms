@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -pthread    CMakeFiles/comnetTest.dir/source/main.cpp.o  -o comnetTest -rdynamic /home/bender/Documents/Comms/build/linux/libNGCP_COM.a /home/bender/Documents/Comms/cryptopp563/linux/libcryptopp.a /home/bender/Documents/Comms/libxbee3-3.0.11/linux/libxbee.so -Wl,-rpath,/home/bender/Documents/Comms/libxbee3-3.0.11/linux 
