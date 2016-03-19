@@ -25,7 +25,8 @@ project("NGCP COM")
 include_directories(comnet/src/
 		    comnet/src/message/
 		    comnet/include/
-		    comnet/include/message/)
+		    comnet/include/message/
+            libxbee3-3.0.11/include/)
 
 add_library(NGCP_COM
 """)

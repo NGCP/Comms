@@ -922,6 +922,28 @@ void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id
 	link_id = link_data;
 }
 
+void Node::AddZigBeeDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint16_t baudRate, String^device_path)
+{
+	IntPtr addr_ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(device_path);
+	if (sizeof(addr_ptr)>16)
+	{
+		return;
+	}
+	int8_t link_data;
+	node->add_zigBee(&link_data, baudRate, static_cast<char*>(addr_ptr.ToPointer()));
+	link_id = link_data;
+}
+
+void Node::EstablishZigBeeEndpoint(int8_t link_id, uint8_t node_id, String^ addr64)
+{
+	IntPtr addr_ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(addr64);
+	if (sizeof(addr_ptr)>16)
+	{
+		return;
+	}
+	node->establish_zigBee(link_id, node_id, static_cast<char*>(addr_ptr.ToPointer()));
+}
+
 void Node::EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, String^ addr)
 {
 	IntPtr addr_ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(addr);

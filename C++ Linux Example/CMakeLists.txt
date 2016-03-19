@@ -10,7 +10,9 @@ get_filename_component(PARENT_DIR ${CMAKE_SOURCE_DIR} DIRECTORY)
 
 include_directories(${PARENT_DIR}/comnet/include/
 		    ${PARENT_DIR}/comnet/include/message/
-		    /source/)
+		    ${PARENT_DIR}/libxbee3-3.0.11/include/
+		    /source/
+)
 
 
 add_executable(comnetTest
@@ -18,7 +20,9 @@ add_executable(comnetTest
 
 target_link_libraries (comnetTest ${CMAKE_THREAD_LIBS_INIT})
 
-target_link_libraries (comnetTest ${CMAKE_CURRENT_SOURCE_DIR}/lib/libNGCP_COM.a)
+target_link_libraries (comnetTest ${PARENT_DIR}/build/linux/libNGCP_COM.a
+${PARENT_DIR}/libxbee3-3.0.11/linux/libxbee.so
+)
 
 
 

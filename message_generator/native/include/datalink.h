@@ -7,7 +7,7 @@
 /* User Includes */
 #include <config.h>
 #include <pqueue.h>
-#include <thread.h>
+#include <threadCom.h>
 
 /* Legacy C interface, needs TLC Not documented in doxygen if c++ is defined*/
 #ifndef __cplusplus
@@ -23,7 +23,8 @@ typedef enum datalink_status_e
 typedef enum datalink_type_e
 {
 	UDP,
-	SERIAL
+	SERIAL,
+    ZIGBEE
 } datalink_type_t;
 
 
@@ -65,7 +66,7 @@ namespace comnet
 	{
 		UDP_TYPE,
 		SERIAL_TYPE,
-		XBEE_TYPE,
+		ZIGBEE_TYPE,
 		UNINIT_TYPE
 	} datalink_type_t;
 
