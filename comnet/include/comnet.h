@@ -7,7 +7,8 @@
 #include <datalink.h>
 #include <comnet_protocol.h>
 #include <pqueue.h>
-#include <thread.h>
+#include <threadCom.h>
+#include <string>
 namespace comnet
 {
    /*Let compiler know class node exists some where else */ 
@@ -77,6 +78,10 @@ namespace comnet
       /** Public method used to add UDP communication*/ 
       void add_udp(int8_t* link_id, uint16_t port, char addr[16]);
 
+      /** Public method used to add Zigbee communication*/
+      void add_zigBee(int8_t* link_id, uint32_t baudRate, char device_path[50]);
+      /** Public method used to establixh Zigbee connection*/
+      void establish_zigBee(int8_t link_id, uint8_t node_id, std::string address64Hex); 
       /** Public method used to establish serial communication*/ 
       void establish_serial(int8_t link_id, uint8_t node_id);
       /** Public method used to establish UDP communication*/ 

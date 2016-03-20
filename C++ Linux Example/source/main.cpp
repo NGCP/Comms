@@ -6,6 +6,7 @@
 
 /* Include comnet.h for communication system API */
 #include <comnet.h>
+#include <xbee.h>
 
 /*------
 When a Ping is received, we want to send a Pong back to the sender of the Ping.
@@ -21,7 +22,7 @@ Parameters:
 
 int8_t link_id: Provides the ID of the datalink the message was received from
 
-proto_header_t: The header of a comnet message, defined in the communication spec
+com_header_t: The header of a comnet message, defined in the communication spec
 
 ping_t ping: The data section of the message; the ping message provides a timestamp
 
@@ -72,57 +73,23 @@ void* on_pong(
 }
 
 
-void* rx_thread(){
-	/* Create the UAV node at node 2*/
-	comnet::node uav_node(1);
-
-	/* Handle for the UDP Datalink */
-	int8_t udp_1 = 0;
-
-	char * address1 = "127.0.0.1";
-
-	/* Instead of Port: 1337, create a datalink at 1338 */
-	uav_node.add_udp(&udp_1, 1360, address1);
-
-	/*
-	Map Node ID 1 to the IP address/port of the other datalink.
-	This way, when a message is sent to Node 1, it'll be
-	sent to the right IP address/port.
-	*/
-	uav_node.establish_udp(udp_1, 2, 1360, address1);
-
-	/*
-	This node will receive a ping from Node 1, so
-	the Ping needs to be handled as the Pong was above
-	*/
-	uav_node.register_on_ping(on_ping);
-	uav_node.register_on_enter(on_enter);
-
-	std::chrono::milliseconds dura(500);
-	while (1)
-	{
-		std::this_thread::sleep_for(dura);
-	}
-	return 0;
-}
 
 void* tx_thread(){
 	/* Create the UAV node at node 2*/
 	comnet::node gcs_node(2);
 
 	/* Handle for the UDP Datalink */
-	int8_t udp_1 = 0;
+	int8_t zigBee_2 = 0;
 
-	char *address2 = "127.0.0.1";
-	/* Instead of Port: 1337, create a datalink at 1338 */
-	gcs_node.add_udp(&udp_1, 1340, address2);
+	char *address2 = "0013A20040917974";
+	/* id, baudrate, comport  */
+	gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
 
 	/*
-	Map Node ID 1 to the IP address/port of the other datalink.
-	This way, when a message is sent to Node 1, it'll be
-	sent to the right IP address/port.
+	create zig bee connection
+	id, dest id, 64 bit hex address in char
 	*/
-	gcs_node.establish_udp(udp_1, 1, 1340, address2);
+	gcs_node.establish_zigBee(zigBee_2, 1, address2);
 
 	/*
 	This node will receive a ping from Node 1, so
@@ -142,20 +109,51 @@ void* tx_thread(){
 	return 0;
 }
 
+
+void* rx_thread(){
+	/* Create the UAV node at node 1*/
+	comnet::node uav_node(1);
+
+	/* Handle for the UDP Datalink */
+	int8_t zigBee_1 = 0;
+
+	char *address1 = "0013A20040917A31";
+	/* id, baudrate, comport  */
+	uav_node.add_zigBee(&zigBee_1, 57600, "/dev/ttyUSB1");
+
+	/*
+	create zig bee connection
+	id, dest id, 64 bit hex address in char
+	*/
+	uav_node.establish_zigBee(zigBee_1, 1, address1);
+
+	/*
+	This node will receive a ping from Node 2, so
+	the Ping needs to be handled as the Pong was above
+	*/
+
+
+	std::chrono::milliseconds dura(1000);
+	while (1)
+	{
+		std::this_thread::sleep_for(dura);
+	}
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
 	/* Create both threads */
-
-	std::thread rx(rx_thread);
 	std::thread tx(tx_thread);
+	std::thread rx(rx_thread);
 
 	/*
 	Join threads to ensure main doesn't quit
 	and the std::thread API is satisfied
 	*/
 
-	rx.join();
 	tx.join();
+	rx.join();
 
 	return 0;
 }

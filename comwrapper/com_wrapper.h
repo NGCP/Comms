@@ -23,7 +23,7 @@ namespace Comnet
       uint8_t message_ttl;
       uint16_t message_type;
       uint16_t message_length;
-      bool is_emergency;
+      bool is_mergency;
       Header(){}
       Header(const Header% to_copy)
       {
@@ -33,7 +33,6 @@ namespace Comnet
          message_ttl = to_copy.message_ttl;
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
-         is_emergency = to_copy.is_emergency;
       }
       Header(const com_header_t to_copy)
       {
@@ -43,7 +42,6 @@ namespace Comnet
          message_ttl = to_copy.message_ttl;
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
-         is_emergency = to_copy.is_emergency;
       }
    };
 
@@ -736,6 +734,8 @@ namespace Comnet
       void Start();
       void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port);
       void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port, String^ addr);
+      void AddZigBeeDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint16_t baudRate, String^device_path);
+      void EstablishZigBeeEndpoint(int8_t link_id, uint8_t node_id, String^ addr64);
       void EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, String^ addr);
       void AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint32_t baud_rate, String^ device_path);
       void EstablishSerialEndpoint(int8_t link_id, uint8_t node_id);

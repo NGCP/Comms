@@ -1,5 +1,5 @@
 #include <pqueue.h>
-#include <mutex.h>
+#include <mutexCom.h>
 using namespace comnet;
 
 	com_msg_queue::com_msg_queue()
@@ -10,8 +10,8 @@ using namespace comnet;
 	}
 	com_msg_queue::~com_msg_queue()
 	{
-    	printf("Queue is deleted!!");
-		queue->is_empty();
+    		printf("Queue is deleted!!");
+		delete queue;
 	}
 	void com_msg_queue::add(com_msg_t* msg)
 	{

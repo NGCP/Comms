@@ -112,6 +112,8 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+tab+'void Start();\n')
     f.write(tab+tab+'void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port);\n')
     f.write(tab+tab+'void AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port, String^ addr);\n')
+    f.write(tab+tab+'void AddZigBeeDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint16_t baudRate, String^device_path);\n')
+    f.write(tab+tab+'void EstablishZigBeeEndpoint(int8_t link_id, uint8_t node_id, String^ addr64);\n')
     f.write(tab+tab+'void EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, String^ addr);\n')
     f.write(tab+tab+'void AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint32_t baud_rate, String^ device_path);\n')
     f.write(tab+tab+'void EstablishSerialEndpoint(int8_t link_id, uint8_t node_id);\n\n')
