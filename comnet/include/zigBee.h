@@ -6,6 +6,7 @@
 #include <string>
 #include <stdio.h>
 #include <xbee.h>
+#include <ctype.h>
 
 #ifdef _WIN32
 #include <Windows.h>
