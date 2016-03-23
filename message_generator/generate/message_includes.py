@@ -12,10 +12,10 @@ def generate_message_includes(directory, include_extension, src_extension):
     #load header structure and the messages in variables from xml file
     import xml.etree.ElementTree as ET
     tree = ET.parse('message_definition.xml')
-    protocol = tree.findall('message')
+    comcol = tree.findall('message')
     header = tree.find('header')
     tab = '   '
-    for message in protocol:#for each message
+    for message in comcol:#for each message
         #declare message variables from xml
         name = message.get('name')        
         variable_name = lower_case_acronym(name)
@@ -29,9 +29,9 @@ def generate_message_includes(directory, include_extension, src_extension):
         # include guards
         f.write('#ifndef ' + '_' + name.upper()+'_H_\n')
         f.write('#define ' + '_' + name.upper()+'_H_\n\n')
-        # protonet includes
-        f.write('#include <protonet_marshal'+include_extension+'>\n')
-        f.write('#include <protonet_message'+include_extension+'>\n\n')
+        # comnet includes
+        f.write('#include <comnet_marshal'+include_extension+'>\n')
+        f.write('#include <comnet_message'+include_extension+'>\n\n')
         f.write('#include"random_numbers.h"\n')
         f.write('#include "aes.h"\n')
         f.write('using CryptoPP::AES;\n')
@@ -63,7 +63,7 @@ def generate_message_includes(directory, include_extension, src_extension):
         f.write(tab + 'uint8_t msg_ttl,\n')
         f.write(tab + 'uint8_t seq_number,\n')
         f.write(tab + type_t_name+'* tx_msg,\n')
-        f.write(tab + 'proto_msg_t* msg,\n')
+        f.write(tab + 'com_msg_t* msg,\n')
         f.write(tab + "uint8_t keyArr[]);//key for encryption CryptoPP\n\n")
         
         # include guard #endif

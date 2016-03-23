@@ -9,12 +9,12 @@ import sys
 #prevent compiled files being created
 sys.dont_write_bytecode = True
 
-from generate.generate_protonet import *
-from generate.generate_proto_wrapper import *    
+from generate.generate_comnet import *
+from generate.generate_com_wrapper import *    
     
 #function calls   
-generate_protonet("../protonet", ".h", ".cpp", "native")
-generate_proto_wrapper("../protowrapper", ".h", ".cpp", True)
+generate_comnet("../comnet", ".h", ".cpp", "native")
+generate_com_wrapper("../comwrapper", ".h", ".cpp", True)
 #wait for enter to exit
 if( sys.version_info >= (3,0)):
     input("Press Enter to exit...")

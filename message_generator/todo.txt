@@ -1,4 +1,4 @@
-In proto_wrapper.h didnt comment node class because c++ node class has been documented.
+In com_wrapper.h didnt comment node class because c++ node class has been documented.
 
 Not all cpp files have comments
 

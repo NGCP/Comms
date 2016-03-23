@@ -1,7 +1,7 @@
 """
 Author: Michael Wallace
 Project: Python 3+ Tkinter GUI for code generation of NGCP project
-         which is a simple message queue communication protocol.
+         which is a simple message queue communication comcol.
          GUI will allow:
                 Selection of native code file location path
                 Selection of output file location for c++ code
@@ -17,8 +17,8 @@ import sys #check what version ptyhon 2 & 3 header files differ. This is not nee
 #prevent compiled files being created
 sys.dont_write_bytecode = True
 
-from generate.generate_protonet import *
-from generate.generate_proto_wrapper import *    
+from generate.generate_comnet import *
+from generate.generate_com_wrapper import *    
 
 if(sys.version_info >= (3,0)):
     from tkinter import Tk, Frame, BOTH, filedialog, messagebox, Entry, E, S, W, END, Button, Label, Checkbutton, BooleanVar
@@ -55,8 +55,8 @@ class GenerateGui(Frame):
         except:    
             messagebox.showerror("Missing", "message_definition.xml not found!") 
         
-            defaultCppOuputText = "../protonet"
-            defaultCsharpWrapperText = "../protowrapper"
+            defaultCppOuputText = "../comnet"
+            defaultCsharpWrapperText = "../comwrapper"
             defaultNativeText = "../native"
         
         padSize = 12        
@@ -137,8 +137,8 @@ class GenerateGui(Frame):
             messagebox.showerror("Error", "Missing path for native files input directory")    
         else:
             #function calls   
-            generate_protonet(cppOutputEntry.get(), ".h", ".cpp", nativeInputEntry.get())
-            generate_proto_wrapper(csharpOutputEntry.get(), ".h", ".cpp", not checkBoxBool)
+            generate_comnet(cppOutputEntry.get(), ".h", ".cpp", nativeInputEntry.get())
+            generate_com_wrapper(csharpOutputEntry.get(), ".h", ".cpp", not checkBoxBool)
             messagebox.showinfo("Success", "Message Generation Complete!")
         
    
