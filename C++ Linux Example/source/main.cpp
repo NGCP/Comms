@@ -92,7 +92,7 @@ void* tx_thread()
     the datalink that is connected to node through via
     the IP/Port mapping.
     */
-    gcs_node.establish_udp(udp_1, 2, 1401, "127.0.0.1");
+    gcs_node.establish_udp(udp_1, 2, 1402, "127.0.0.1");
     
     /* 
     Since this node is pinging, it can expect a pong back.
@@ -130,7 +130,7 @@ void* rx_thread(){
     This way, when a message is sent to Node 1, it'll be
     sent to the right IP address/port.    
     */
-    uav_node.establish_udp(udp_1, 1, 1402, "127.0.0.1");
+    uav_node.establish_udp(udp_1, 1, 1401, "127.0.0.1");
     
     /* 
     This node will receive a ping from Node 1, so

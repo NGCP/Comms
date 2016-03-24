@@ -43,7 +43,7 @@ ping_t ping,
 comnet::node* node)
 {
 /* Send a pong message back to the sender of the ping */
-//node->send_pong(header.node_src_id,100);
+    node->send_pong(header.node_src_id,100);
 	//printf("Priotiry: %d\n", header.is_emergency);
 return 0;
 }
@@ -56,7 +56,7 @@ void* on_enter(
 {
 	/* Send a pong message back to the sender of the ping */
 	node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
+	printf("Priotiry: %d\n", header.is_emergency);
 	return 0;
 }
 
@@ -72,8 +72,8 @@ void* on_pong(
 	comnet::node* node)
 {
 	/*Acknowledge that a Pong was received */
-	//printf("Got pong from Node %d\n", header.node_src_id);
-	//printf("Timestamp: %f\n", pong.timestamp);
+	printf("Got pong from Node %d\n", header.node_src_id);
+	printf("Timestamp: %f\n", pong.timestamp);
 	
 	return 0;
 }
@@ -94,7 +94,7 @@ void* rx_thread(){
 	This way, when a message is sent to Node 1, it'll be
 	sent to the right IP address/port.
 	*/
-	uav_node.establish_udp(udp_1, 2, 1337, "127.0.0.1");
+	uav_node.establish_udp(udp_1, 2, 1338, "127.0.0.1");
 
 	/*
 	This node will receive a ping from Node 1, so
@@ -133,7 +133,8 @@ void* tx_thread(){
 	the Ping needs to be handled as the Pong was above
 	*/
 
-
+    gcs_node.register_on_pong(on_pong);
+    
 	std::chrono::milliseconds dura(1000);
 	while (1)
 	{
