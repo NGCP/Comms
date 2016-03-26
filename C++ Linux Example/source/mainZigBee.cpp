@@ -37,8 +37,8 @@ ping_t ping,
 comnet::node* node)
 {
 /* Send a pong message back to the sender of the ping */
-//node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
+	node->send_pong(header.node_src_id,100);
+	printf("Priotiry: %d\n", header.is_emergency);
 return 0;
 }
 
@@ -49,8 +49,8 @@ void* on_enter(
 	comnet::node* node)
 {
 	/* Send a pong message back to the sender of the ping */
-	//node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
+	node->send_pong(header.node_src_id,100);
+	printf("Priotiry: %d\n", header.is_emergency);
 	return 0;
 }
 
@@ -66,8 +66,8 @@ void* on_pong(
 	comnet::node* node)
 {
 	/*Acknowledge that a Pong was received */
-	//printf("Got pong from Node %d\n", header.node_src_id);
-	//printf("Timestamp: %f\n", pong.timestamp);
+	printf("Got pong from Node %d\n", header.node_src_id);
+	printf("Timestamp: %f\n", pong.timestamp);
 
 	return 0;
 }

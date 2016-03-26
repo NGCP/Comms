@@ -1,12 +1,10 @@
 /* System Includes */
 #include <stdio.h>
-#include <thread>
-#include <chrono>
+#include <threadCom>
 
 
 /* Include comnet.h for communication system API */
 #include <comnet.h>
-#include <xbee.h>
 
 /*------
 When a Ping is received, we want to send a Pong back to the sender of the Ping.
@@ -26,8 +24,8 @@ com_header_t: The header of a comnet message, defined in the communication spec
 
 ping_t ping: The data section of the message; the ping message provides a timestamp
 
-comnet::node* node: A pointer to the ComNet session that received the message.
-This allows the user to access ComNet functions from inside
+comnet::node* node: A pointer to the comNet session that received the message.
+This allows the user to access comNet functions from inside
 the callback, such as sending messages or adding datalinks.
 */
 void* on_ping(
@@ -36,9 +34,9 @@ com_header_t header,
 ping_t ping,
 comnet::node* node)
 {
-/* Send a pong message back to the sender of the ping */
-//node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
+	/* Send a pong message back to the sender of the ping */
+	node->send_pong(header.node_src_id,100);
+	printf("Priotiry: %d\n", header.is_emergency);
 return 0;
 }
 
@@ -49,8 +47,8 @@ void* on_enter(
 	comnet::node* node)
 {
 	/* Send a pong message back to the sender of the ping */
-	//node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
+	node->send_pong(header.node_src_id,100);
+	printf("Priotiry: %d\n", header.is_emergency);
 	return 0;
 }
 
@@ -66,80 +64,89 @@ void* on_pong(
 	comnet::node* node)
 {
 	/*Acknowledge that a Pong was received */
-	//printf("Got pong from Node %d\n", header.node_src_id);
-	//printf("Timestamp: %f\n", pong.timestamp);
-
+	printf("Got pong from Node %d\n", header.node_src_id);
+	printf("Timestamp: %f\n", pong.timestamp);
+	
 	return 0;
 }
 
 
-
-void* tx_thread(){
-	/* Create the UAV node at node 2*/
-	comnet::node gcs_node(2);
-
-	/* Handle for the UDP Datalink */
-	int8_t zigBee_2 = 0;
-
-	char *address2 = "0013A20040917974";
-	/* id, baudrate, comport  */
-	gcs_node.add_zigBee(&zigBee_2, 57600, "7");
+/* Create a sample thread to transmit messages */
+void* tx_thread()
+{
+	/*
+	Create a comNet session at node ID 1.
+	Imagine that this is a system, say the GCS
+	that is trying to ping the UAV.
+	*/
+	comnet::node gcs_node(1);
 
 	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
+	A handle to reference the datalink by.
 	*/
-	gcs_node.establish_zigBee(zigBee_2, 1, address2);
+	int8_t zigBee_1 = 0;
 
 	/*
-	This node will receive a ping from Node 1, so
-	the Ping needs to be handled as the Pong was above
+	Add a zigBee data link
+	id, baud rate, com port
 	*/
+	gcs_node.add_zigBee(&udp_1, 57600, "6");
+
+	/*
+	establish zigBee connection
+	id, dest id, hex 64 bit address in char
+	*/
+	gcs_node.establish_zigBee(zigBee_1, 2, "0013A20040917A31");
+
+	/*
+	Since this node is pinging, it can expect a pong back.
+
+	In order to handle the inbound messages, one must pass in
+	the user defined callback using the register_on_[message_type]
+	functions defined in the API.
+	*/
+	gcs_node.register_on_pong(on_pong);
+	gcs_node.register_on_ping(on_ping);
 
 
+	/* Define a sleep duration of 1 second */
 	std::chrono::milliseconds dura(1000);
-	while (1)
+	int x = 0;
+	while (true)
 	{
-		for (int x = 0; x < 5; x++)
-			gcs_node.send_ping(1, 0, false);
+		/* Send a Ping to the UAV node */
+		gcs_node.send_ping(2,5,0);
 
-		gcs_node.send_enter(1, 0, true);
+		
+		/* Sleep for a second */
 		std::this_thread::sleep_for(dura);
 	}
 	return 0;
 }
+
 
 
 void* rx_thread(){
-	/* Create the UAV node at node 1*/
-	comnet::node uav_node(1);
+	
+	comnet::node uav_node(2);
+	
+	int8_t zigBee_2 = 0;
 
-	/* Handle for the UDP Datalink */
-	int8_t zigBee_1 = 0;
+	
+	uav_node.add_zigBee(&zigBee_2, 57600, "5");
 
-	char *address1 = "0013A20040917A31";
-	/* id, baudrate, comport  */
-	uav_node.add_zigBee(&zigBee_1, 57600, "5");
+	uav_node.establish_zigBee(udp_1, 1, "0013A20040917A31");
 
-	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
-	*/
-	uav_node.establish_zigBee(zigBee_1, 1, address1);
+	uav_node.register_on_ping(on_ping);
 
-	/*
-	This node will receive a ping from Node 2, so
-	the Ping needs to be handled as the Pong was above
-	*/
-
-
-	std::chrono::milliseconds dura(1000);
+	std::chrono::milliseconds dura(500);
 	while (1)
 	{
 		std::this_thread::sleep_for(dura);
 	}
 	return 0;
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -149,9 +156,8 @@ int main(int argc, char *argv[])
 
 	/*
 	Join threads to ensure main doesn't quit
-	and the std::thread API is satisfied
+	and the std::thread API is zsatisfied
 	*/
-
 	tx.join();
 	rx.join();
 

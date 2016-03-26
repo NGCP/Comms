@@ -85,7 +85,7 @@ void* tx_thread()
     
     /*
     Any message that is sent or addressed to node 2 is directly
-    sent to Port: 1338, IP: 127.0.0.1, which will be set as 
+    sent to Port: 1402, IP: 127.0.0.1, which will be set as 
     the address of the receiver.
     
     The udp_1 link handle is passed in to denote that this is
@@ -122,7 +122,7 @@ void* rx_thread(){
     /* Handle for the UDP Datalink */
     int8_t udp_1 = 0;
     
-    /* Instead of Port: 1337, create a datalink at 1338 */
+    /* Instead of Port: 1401, create a datalink at 1402 */
     uav_node.add_udp(&udp_1, 1402, "127.0.0.1");
     
     /* 

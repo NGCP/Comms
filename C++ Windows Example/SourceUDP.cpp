@@ -8,12 +8,6 @@
 
 
 
-
-
-
-
-
-
 /*------
 When a Ping is received, we want to send a Pong back to the sender of the Ping.
 
@@ -42,10 +36,10 @@ com_header_t header,
 ping_t ping,
 comnet::node* node)
 {
-/* Send a pong message back to the sender of the ping */
-    node->send_pong(header.node_src_id,100);
-	//printf("Priotiry: %d\n", header.is_emergency);
-return 0;
+	/* Send a pong message back to the sender of the ping */
+	node->send_pong(header.node_src_id,100);
+	printf("Priotiry: %d\n", header.is_emergency);
+	return 0;
 }
 
 void* on_enter(
@@ -80,18 +74,18 @@ void* on_pong(
 
 
 void* rx_thread(){
-	/* Create the UAV node at node 2*/
+	/* Create the UAV node at node 1*/
 	comnet::node uav_node(1);
 
 	/* Handle for the UDP Datalink */
 	int8_t udp_1 = 0;
 
-	/* Instead of Port: 1337, create a datalink at 1338 */
+	/* Ceate a datalink at 1337 */
 	uav_node.add_udp(&udp_1, 1337, "127.0.0.1");
 
 	/*
-	Map Node ID 1 to the IP address/port of the other datalink.
-	This way, when a message is sent to Node 1, it'll be
+	Map Node ID 2 to the IP address/port of the other datalink.
+	This way, when a message is sent to Node 2, it'll be
 	sent to the right IP address/port.
 	*/
 	uav_node.establish_udp(udp_1, 2, 1338, "127.0.0.1");
@@ -133,15 +127,12 @@ void* tx_thread(){
 	the Ping needs to be handled as the Pong was above
 	*/
 
-    gcs_node.register_on_pong(on_pong);
-    
+
 	std::chrono::milliseconds dura(1000);
 	while (1)
 	{
-		for (int x = 0; x < 5; x++)
-			gcs_node.send_ping(1, 0, false);
 
-		gcs_node.send_enter(1, 0, true);
+		gcs_node.send_ping(1, 0, false);
 		std::this_thread::sleep_for(dura);
 	}
 	return 0;
