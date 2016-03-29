@@ -1,7 +1,7 @@
 /** @file This file was auto generated. All changes will be undone. */
 
-#ifndef _PROTONET_MSG_H_
-#define _PROTONET_MSG_H_
+#ifndef _COMNET_MSG_H_
+#define _COMNET_MSG_H_
 
 #include <stdint.h>
 #include <stdio.h>

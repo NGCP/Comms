@@ -25,8 +25,8 @@ def generate_message_file_include(directory, include_extension, src_extension):
     # warning
     f.write('/** @file This file was auto generated. All changes will be undone. */\n\n')
     # include guards
-    f.write('#ifndef _PROTONET_MSG_H_\n')
-    f.write('#define _PROTONET_MSG_H_\n\n')
+    f.write('#ifndef _COMNET_MSG_H_\n')
+    f.write('#define _COMNET_MSG_H_\n\n')
     # includes
     f.write('#include <stdint.h>\n')
     f.write('#include <stdio.h>\n')
