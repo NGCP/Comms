@@ -29,8 +29,6 @@ msg_offset unpack_payload_bay_mode_command(
 void encode_payload_bay_mode_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    payload_bay_mode_command_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[])//key for encryption CryptoPP
@@ -46,8 +44,6 @@ void encode_payload_bay_mode_command(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 13;
    msg->header.message_type = Com_Payload_Bay_Mode_Command;
    offset = pack_sync(offset);

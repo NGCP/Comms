@@ -39,8 +39,6 @@ msg_offset unpack_target_designation_command(
 void encode_target_designation_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    target_designation_command_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[])//key for encryption CryptoPP
@@ -56,8 +54,6 @@ void encode_target_designation_command(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 25;
    msg->header.message_type = Com_Target_Designation_Command;
    offset = pack_sync(offset);

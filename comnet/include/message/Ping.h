@@ -28,8 +28,6 @@ msg_offset unpack_ping(
 void encode_ping(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    ping_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[]);//key for encryption CryptoPP

@@ -28,8 +28,6 @@ msg_offset unpack_amy_stuff(
 void encode_amy_stuff(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    amy_stuff_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[]);//key for encryption CryptoPP

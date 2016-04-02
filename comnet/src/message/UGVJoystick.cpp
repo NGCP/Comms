@@ -31,8 +31,6 @@ msg_offset unpack_UGV_joystick(
 void encode_UGV_joystick(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    UGV_joystick_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[])//key for encryption CryptoPP
@@ -48,8 +46,6 @@ void encode_UGV_joystick(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 17;
    msg->header.message_type = Com_UGV_Joystick;
    offset = pack_sync(offset);

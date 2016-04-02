@@ -47,8 +47,6 @@ msg_offset unpack_vehicle_ground_relative_state(
 void encode_vehicle_ground_relative_state(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_ground_relative_state_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[])//key for encryption CryptoPP
@@ -64,8 +62,6 @@ void encode_vehicle_ground_relative_state(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 50;
    msg->header.message_type = Com_Vehicle_Ground_Relative_State;
    offset = pack_sync(offset);

@@ -30,8 +30,6 @@ msg_offset unpack_vehicle_telemetry_command(
 void encode_vehicle_telemetry_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_telemetry_command_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[]);//key for encryption CryptoPP

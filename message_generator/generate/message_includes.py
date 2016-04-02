@@ -60,8 +60,6 @@ def generate_message_includes(directory, include_extension, src_extension):
         f.write('void encode_' + variable_name+'(\n')
         f.write(tab + 'uint8_t src_id,\n')
         f.write(tab + 'uint8_t dest_id,\n')
-        f.write(tab + 'uint8_t msg_ttl,\n')
-        f.write(tab + 'uint8_t seq_number,\n')
         f.write(tab + type_t_name+'* tx_msg,\n')
         f.write(tab + 'com_msg_t* msg,\n')
         f.write(tab + "uint8_t keyArr[]);//key for encryption CryptoPP\n\n")

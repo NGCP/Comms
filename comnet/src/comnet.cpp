@@ -637,7 +637,7 @@ void node::send_enter(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    enter_t enter;
    enter.timestamp = timestamp;
-   encode_enter(this->node_id, dest_id, 3, 0, &enter, &com_msg, key);
+   encode_enter(this->node_id, dest_id, &enter, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -651,7 +651,7 @@ void node::send_exit(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    exit_t exit;
    exit.timestamp = timestamp;
-   encode_exit(this->node_id, dest_id, 3, 0, &exit, &com_msg, key);
+   encode_exit(this->node_id, dest_id, &exit, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -665,7 +665,7 @@ void node::send_ping(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    ping_t ping;
    ping.timestamp = timestamp;
-   encode_ping(this->node_id, dest_id, 3, 0, &ping, &com_msg, key);
+   encode_ping(this->node_id, dest_id, &ping, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -679,7 +679,7 @@ void node::send_pong(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    pong_t pong;
    pong.timestamp = timestamp;
-   encode_pong(this->node_id, dest_id, 3, 0, &pong, &com_msg, key);
+   encode_pong(this->node_id, dest_id, &pong, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -699,7 +699,7 @@ void node::send_vehicle_identification(
    vehicle_identification.vehicle_ID = vehicle_ID;
    vehicle_identification.vehicle_type = vehicle_type;
    vehicle_identification.owner_ID = owner_ID;
-   encode_vehicle_identification(this->node_id, dest_id, 3, 0, &vehicle_identification, &com_msg, key);
+   encode_vehicle_identification(this->node_id, dest_id, &vehicle_identification, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -713,7 +713,7 @@ void node::send_amy_stuff(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    amy_stuff_t amy_stuff;
    amy_stuff.hello = hello;
-   encode_amy_stuff(this->node_id, dest_id, 3, 0, &amy_stuff, &com_msg, key);
+   encode_amy_stuff(this->node_id, dest_id, &amy_stuff, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -735,7 +735,7 @@ void node::send_vehicle_authorization_request(
    vehicle_authorization_request.link_key = link_key;
    vehicle_authorization_request.requested_services = requested_services;
    vehicle_authorization_request.handover_node = handover_node;
-   encode_vehicle_authorization_request(this->node_id, dest_id, 3, 0, &vehicle_authorization_request, &com_msg, key);
+   encode_vehicle_authorization_request(this->node_id, dest_id, &vehicle_authorization_request, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -757,7 +757,7 @@ void node::send_vehicle_authorization_reply(
    vehicle_authorization_reply.vehicle_type = vehicle_type;
    vehicle_authorization_reply.authorized_services = authorized_services;
    vehicle_authorization_reply.granted_services = granted_services;
-   encode_vehicle_authorization_reply(this->node_id, dest_id, 3, 0, &vehicle_authorization_reply, &com_msg, key);
+   encode_vehicle_authorization_reply(this->node_id, dest_id, &vehicle_authorization_reply, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -775,7 +775,7 @@ void node::send_vehicle_mode_command(
    vehicle_mode_command.timestamp = timestamp;
    vehicle_mode_command.vehicle_ID = vehicle_ID;
    vehicle_mode_command.vehicle_mode = vehicle_mode;
-   encode_vehicle_mode_command(this->node_id, dest_id, 3, 0, &vehicle_mode_command, &com_msg, key);
+   encode_vehicle_mode_command(this->node_id, dest_id, &vehicle_mode_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -793,7 +793,7 @@ void node::send_vehicle_termination_command(
    vehicle_termination_command.timestamp = timestamp;
    vehicle_termination_command.vehicle_ID = vehicle_ID;
    vehicle_termination_command.termination_mode = termination_mode;
-   encode_vehicle_termination_command(this->node_id, dest_id, 3, 0, &vehicle_termination_command, &com_msg, key);
+   encode_vehicle_termination_command(this->node_id, dest_id, &vehicle_termination_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -811,7 +811,7 @@ void node::send_vehicle_telemetry_command(
    vehicle_telemetry_command.timestamp = timestamp;
    vehicle_telemetry_command.telemetry_select = telemetry_select;
    vehicle_telemetry_command.telemetry_rate = telemetry_rate;
-   encode_vehicle_telemetry_command(this->node_id, dest_id, 3, 0, &vehicle_telemetry_command, &com_msg, key);
+   encode_vehicle_telemetry_command(this->node_id, dest_id, &vehicle_telemetry_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -839,7 +839,7 @@ void node::send_vehicle_waypoint_command(
    vehicle_waypoint_command.heading = heading;
    vehicle_waypoint_command.waypoint_ID = waypoint_ID;
    vehicle_waypoint_command.waypoint_type = waypoint_type;
-   encode_vehicle_waypoint_command(this->node_id, dest_id, 3, 0, &vehicle_waypoint_command, &com_msg, key);
+   encode_vehicle_waypoint_command(this->node_id, dest_id, &vehicle_waypoint_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -859,7 +859,7 @@ void node::send_vehicle_system_status(
    vehicle_system_status.vehicle_ID = vehicle_ID;
    vehicle_system_status.vehicle_mode = vehicle_mode;
    vehicle_system_status.vehicle_state = vehicle_state;
-   encode_vehicle_system_status(this->node_id, dest_id, 3, 0, &vehicle_system_status, &com_msg, key);
+   encode_vehicle_system_status(this->node_id, dest_id, &vehicle_system_status, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -905,7 +905,7 @@ void node::send_vehicle_inertial_state(
    vehicle_inertial_state.north_accel = north_accel;
    vehicle_inertial_state.east_accel = east_accel;
    vehicle_inertial_state.vertical_accel = vertical_accel;
-   encode_vehicle_inertial_state(this->node_id, dest_id, 3, 0, &vehicle_inertial_state, &com_msg, key);
+   encode_vehicle_inertial_state(this->node_id, dest_id, &vehicle_inertial_state, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -935,7 +935,7 @@ void node::send_vehicle_global_position(
    vehicle_global_position.x_speed = x_speed;
    vehicle_global_position.y_speed = y_speed;
    vehicle_global_position.z_speed = z_speed;
-   encode_vehicle_global_position(this->node_id, dest_id, 3, 0, &vehicle_global_position, &com_msg, key);
+   encode_vehicle_global_position(this->node_id, dest_id, &vehicle_global_position, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -963,7 +963,7 @@ void node::send_vehicle_body_sensed_state(
    vehicle_body_sensed_state.roll_rate = roll_rate;
    vehicle_body_sensed_state.pitch_rate = pitch_rate;
    vehicle_body_sensed_state.yaw_rate = yaw_rate;
-   encode_vehicle_body_sensed_state(this->node_id, dest_id, 3, 0, &vehicle_body_sensed_state, &com_msg, key);
+   encode_vehicle_body_sensed_state(this->node_id, dest_id, &vehicle_body_sensed_state, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -985,7 +985,7 @@ void node::send_vehicle_attitude(
    vehicle_attitude.roll = roll;
    vehicle_attitude.pitch = pitch;
    vehicle_attitude.yaw = yaw;
-   encode_vehicle_attitude(this->node_id, dest_id, 3, 0, &vehicle_attitude, &com_msg, key);
+   encode_vehicle_attitude(this->node_id, dest_id, &vehicle_attitude, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1021,7 +1021,7 @@ void node::send_vehicle_ground_relative_state(
    vehicle_ground_relative_state.east_ground_speed = east_ground_speed;
    vehicle_ground_relative_state.barometric_pressure = barometric_pressure;
    vehicle_ground_relative_state.barometric_altitude = barometric_altitude;
-   encode_vehicle_ground_relative_state(this->node_id, dest_id, 3, 0, &vehicle_ground_relative_state, &com_msg, key);
+   encode_vehicle_ground_relative_state(this->node_id, dest_id, &vehicle_ground_relative_state, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1039,7 +1039,7 @@ void node::send_payload_bay_command(
    payload_bay_command.timestamp = timestamp;
    payload_bay_command.payload_ID = payload_ID;
    payload_bay_command.payload_command = payload_command;
-   encode_payload_bay_command(this->node_id, dest_id, 3, 0, &payload_bay_command, &com_msg, key);
+   encode_payload_bay_command(this->node_id, dest_id, &payload_bay_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1057,7 +1057,7 @@ void node::send_payload_bay_mode_command(
    payload_bay_mode_command.timestamp = timestamp;
    payload_bay_mode_command.payload_ID = payload_ID;
    payload_bay_mode_command.payload_mode = payload_mode;
-   encode_payload_bay_mode_command(this->node_id, dest_id, 3, 0, &payload_bay_mode_command, &com_msg, key);
+   encode_payload_bay_mode_command(this->node_id, dest_id, &payload_bay_mode_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1085,7 +1085,7 @@ void node::send_target_designation_command(
    target_designation_command.latitude = latitude;
    target_designation_command.longitude = longitude;
    target_designation_command.altitude = altitude;
-   encode_target_designation_command(this->node_id, dest_id, 3, 0, &target_designation_command, &com_msg, key);
+   encode_target_designation_command(this->node_id, dest_id, &target_designation_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1105,7 +1105,7 @@ void node::send_UGV_joystick(
    UGV_joystick.vehicle_id = vehicle_id;
    UGV_joystick.steering = steering;
    UGV_joystick.throttle = throttle;
-   encode_UGV_joystick(this->node_id, dest_id, 3, 0, &UGV_joystick, &com_msg, key);
+   encode_UGV_joystick(this->node_id, dest_id, &UGV_joystick, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1135,7 +1135,7 @@ void node::send_UGV_battery_status(
    UGV_battery_status.current_12V = current_12V;
    UGV_battery_status.current_fore_motor = current_fore_motor;
    UGV_battery_status.current_aft_motor = current_aft_motor;
-   encode_UGV_battery_status(this->node_id, dest_id, 3, 0, &UGV_battery_status, &com_msg, key);
+   encode_UGV_battery_status(this->node_id, dest_id, &UGV_battery_status, &com_msg, key);
    queue.add(&com_msg);
    return;
 }

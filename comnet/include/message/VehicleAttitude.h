@@ -32,8 +32,6 @@ msg_offset unpack_vehicle_attitude(
 void encode_vehicle_attitude(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_attitude_t* tx_msg,
    com_msg_t* msg,
    uint8_t keyArr[]);//key for encryption CryptoPP
