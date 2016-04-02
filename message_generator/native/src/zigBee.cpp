@@ -1,12 +1,14 @@
-#include <zigBee.h>
+// System Includes
 #include <string.h>
 #include <stdint.h>
 
+// User Includes
+#include <error_handle.h>
+#include <zigBee.h>
 	
 ZigBee::ZigBee(uint32_t baud_rate, char device_path[50])
 {
-	for (int x = 1; x <= MAX_ZIGBEE_CONNECTIONS + 1; x++)
-	{
+	for (int x = 1; x <= MAX_ZIGBEE_CONNECTIONS + 1; x++) {
 		con[x] = NULL;
 	}
 
@@ -46,19 +48,14 @@ int32_t ZigBee::open(uint32_t baud_rate, char device_path[50])
 /** Public method used to close connection.*/
 int32_t ZigBee::close()
 {
-	for (int x = 1; x <= MAX_ZIGBEE_CONNECTIONS + 1; x++)
-	{
-
-		if (con[x] != NULL)
-		{
-
-			if ((ret = xbee_conEnd(con[x])) != XBEE_ENONE) {
-				xbee_log(xbee, -1, "xbee_conEnd() returned: %d", ret);
-				return ret;
-			}
-		}
-
-	}
+	for (int x = 1; x <= MAX_ZIGBEE_CONNECTIONS + 1; x++) {
+		if (con[x] != NULL) {
+         if ((ret = xbee_conEnd(con[x])) != XBEE_ENONE) {
+            xbee_log(xbee, -1, "xbee_conEnd() returned: %d", ret);
+            return ret;
+         }
+      }
+   }
 	if(xbee != NULL)xbee_shutdown(xbee);
 
 	return 1;
@@ -119,7 +116,7 @@ int32_t ZigBee::establish(uint8_t node_id, std::string address64Hex)
 		}
 		else
 		{
-			printf("Already connected to id &d\n", node_id);
+			throw error::ConnectionException(error::OSErrors::error_no_os, error::error_already_connected);
 		}
 	}
 
@@ -172,6 +169,6 @@ void ZigBee::stringToAddress(std::string str, uint8_t length, xbee_conAddress &a
 	}
 	else
 	{
-		printf("Invalid hex string\n");
+		throw error::InternalException(error::OSErrors::error_no_os, error::error_invalid_hex_string);
 	}
 }
