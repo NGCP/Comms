@@ -21,10 +21,10 @@
 namespace comnet {
 namespace error { 
 
-//
-// Operating System errors, Tells the type of error on the operating 
-// system.
-//
+/**
+ Operating System errors, Tells the type of error on the operating 
+ system.
+*/
 enum OSErrors {
    error_no_os,
    error_windows = 0x4FF,
@@ -34,10 +34,10 @@ enum OSErrors {
    error_mac,
 };
 
-// 
-// Connection Errors enumerator to handle connection type
-// errors.
-// 
+/** 
+ Connection Errors enumerator to handle connection type
+ errors.
+*/ 
 enum ConnectErrors {
    error_no_connection_error = 0x0,
    error_con_unknown_error,
@@ -65,9 +65,9 @@ enum InternalErrors {
    error_invalid_hex_string,
 };
 
-//
-// Abstract Error handle. Unit testing purposes.
-// 
+/**
+ Abstract Error handle. Unit testing purposes.
+*/ 
 class AbsException : public std::exception { 
 protected:
    OSErrors os_error;

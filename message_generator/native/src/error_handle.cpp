@@ -38,6 +38,9 @@ std::unordered_map<ConnectErrors, char*> connect_error_map = {
  
 };
 
+/**
+   Internal Error map.
+ */
 std::unordered_map<InternalErrors, char*> internal_error_map = {
    _ERROR(error_no_internal_error, "No internal error."),
    _ERROR(error_intern_unknown_error, "Unknown internal error."),
@@ -48,61 +51,99 @@ std::unordered_map<InternalErrors, char*> internal_error_map = {
    _ERROR(error_invalid_hex_string, "Invalid hex string."),
 };
 
+/** 
+   Constructor for ConnectionException. Allows all parameter customization.
+ */
 ConnectionException::ConnectionException(OSErrors os_err
                                        , ConnectErrors conn_err) : 
                                          connect_error(conn_err)
                                        , AbsException(os_err) {
 }
 
+/**
+   ConnectionException Constructor checks os_err.
+ */
 ConnectionException::ConnectionException(OSErrors os_err) : 
                                          connect_error(error_con_unknown_error)
                                        , AbsException(os_err) {
 }
 
+/**
+   ConnectionException Constructor checks error parameters.
+ */
 ConnectionException::ConnectionException(ConnectErrors conn_err) : 
                                          ConnectionException(error_no_os
                                                            , conn_err) { 
 }
 
+/**
+   InternalException Constructor for customization.
+ */
 InternalException::InternalException(OSErrors os_err
                                    , InternalErrors intern_err) : 
                                      internal_error(intern_err)
                                    , AbsException(os_err) {
 }
 
+/**
+   InternalException to define os error types.
+ */
 InternalException::InternalException(OSErrors os_err) : 
                                      InternalException(os_err
                                                      , error_intern_unknown_error) {
 }
 
+/**
+   InternalException Constructor for interal error parameters.
+ */
 InternalException::InternalException(InternalErrors intern_err) : 
                                      InternalException(error_no_os
                                                      , intern_err) {
 }
 
+/**
+   Returns the os type error.
+*/
 const std::string AbsException::get_os_error(void) { 
    return os_error_map.at(os_error);
 }
 
-// Destructor for the error handler class.
+/**
+ Destructor for the error handler class.
+*/
 ConnectionException::~ConnectionException(void) { 
 }
 
+/**
+   Throws out what the exception is.
+*/
 const char* ConnectionException::what() const throw() { 
    return "Connection Error";
 }
 
+/**
+   Returns explanation of error.
+*/
 const std::string ConnectionException::explain_error(void) const { 
    return connect_error_map.at(connect_error);
 }
 
+/**
+   InternalException Destructor.
+*/
 InternalException::~InternalException(void) {
 }
 
+/**
+   Returns explanation of error.
+*/
 const std::string InternalException::explain_error(void) const { 
    return internal_error_map.at(internal_error);
 }
 
+/**
+   Throws out what the exception is.
+*/
 const char* InternalException::what() const throw() { 
    return "Internal Error";
 }
