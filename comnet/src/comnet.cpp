@@ -130,7 +130,7 @@ void node::readKey()
 	{
 		std::getline(keyFileInput, inputString);
 
-		if (inputString.length() == AES::DEFAULT_KEYLENGTH)
+		if (inputString.length() < AES::DEFAULT_KEYLENGTH)
 		{
 			for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
 			{

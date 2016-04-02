@@ -12,8 +12,8 @@
 typedef struct {
    uint8_t node_src_id;
    uint8_t node_dest_id;
-   uint8_t sequence_number;
    uint8_t message_ttl;
+   uint8_t sequence_number;
    uint8_t iv[16];
    uint16_t message_type;
    uint16_t message_length	: 15,

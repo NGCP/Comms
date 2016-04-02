@@ -19,8 +19,8 @@ namespace Comnet
    {
       uint8_t node_src_id;
       uint8_t node_dest_id;
-      uint8_t sequence_number;
       uint8_t message_ttl;
+      uint8_t sequence_number;
       array<uint8_t> ^ iv = gcnew array<uint8_t>(16);
       uint16_t message_type;
       uint16_t message_length;
@@ -30,8 +30,8 @@ namespace Comnet
       {
          node_src_id = to_copy.node_src_id;
          node_dest_id = to_copy.node_dest_id;
-         sequence_number = to_copy.sequence_number;
          message_ttl = to_copy.message_ttl;
+         sequence_number = to_copy.sequence_number;
          iv = to_copy.iv;
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
@@ -40,8 +40,8 @@ namespace Comnet
       {
          node_src_id = to_copy.node_src_id;
          node_dest_id = to_copy.node_dest_id;
-         sequence_number = to_copy.sequence_number;
          message_ttl = to_copy.message_ttl;
+         sequence_number = to_copy.sequence_number;
          System::Runtime::InteropServices::Marshal::Copy(IntPtr((void *)to_copy.iv), iv, 0, 16);
          message_type = to_copy.message_type;
          message_length = to_copy.message_length;
