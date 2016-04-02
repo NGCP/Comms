@@ -34,6 +34,8 @@ std::unordered_map<ConnectErrors, char*> connect_error_map = {
    _ERROR(error_set_time_out, "Error in setting the time out."),
    _ERROR(error_connection_failed, "The connection to receiving end has failed."),
    _ERROR(error_socket_close_failed, "The connection failed to close."),
+   _ERROR(error_already_connected, "Already connected to address."),
+ 
 };
 
 std::unordered_map<InternalErrors, char*> internal_error_map = {
@@ -43,38 +45,39 @@ std::unordered_map<InternalErrors, char*> internal_error_map = {
    _ERROR(error_connection_already_established, "A connection was already established to the given node"),
    _ERROR(error_cannot_read_file, "Can not read file."),
    _ERROR(error_cannot_write_file, "Can not write into file."),
+   _ERROR(error_invalid_hex_string, "Invalid hex string."),
 };
 
-ConnectionException::ConnectionException(OSErrors os_err, 
-                                         ConnectErrors conn_err) : 
-                                         connect_error(conn_err), 
-                                         AbsException(os_err) {
+ConnectionException::ConnectionException(OSErrors os_err
+                                       , ConnectErrors conn_err) : 
+                                         connect_error(conn_err)
+                                       , AbsException(os_err) {
 }
 
 ConnectionException::ConnectionException(OSErrors os_err) : 
-                                         connect_error(error_con_unknown_error),
-                                         AbsException(os_err) {
+                                         connect_error(error_con_unknown_error)
+                                       , AbsException(os_err) {
 }
 
 ConnectionException::ConnectionException(ConnectErrors conn_err) : 
-                                         ConnectionException(error_no_os,
-                                                             conn_err) { 
+                                         ConnectionException(error_no_os
+                                                           , conn_err) { 
 }
 
-InternalException::InternalException(OSErrors os_err,
-                                     InternalErrors intern_err) : 
-                                     internal_error(intern_err),
-                                     AbsException(os_err) {
+InternalException::InternalException(OSErrors os_err
+                                   , InternalErrors intern_err) : 
+                                     internal_error(intern_err)
+                                   , AbsException(os_err) {
 }
 
 InternalException::InternalException(OSErrors os_err) : 
-                                     InternalException(os_err, 
-                                                       error_intern_unknown_error) {
+                                     InternalException(os_err
+                                                     , error_intern_unknown_error) {
 }
 
 InternalException::InternalException(InternalErrors intern_err) : 
-                                     InternalException(error_no_os, 
-                                                       intern_err) {
+                                     InternalException(error_no_os
+                                                     , intern_err) {
 }
 
 const std::string AbsException::get_os_error(void) { 

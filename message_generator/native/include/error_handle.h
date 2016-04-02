@@ -13,8 +13,9 @@
 
 #include <exception>
 #include <iostream>
+#include <stdint.h>
 
-#define DISALLOW_EVIL_CONSTRUCTORS(object_constructor) object_constructor(void) { }
+#define DISALLOW_EVIL_CONSTRUCTORS(object_constructor) object_constructor(void) = delete;
 #define _ERROR(e, str) { e, str }
 
 namespace comnet {
@@ -51,6 +52,7 @@ enum ConnectErrors {
    error_set_time_out,
    error_connection_failed,
    error_socket_close_failed,
+   error_already_connected,
 };
 
 enum InternalErrors {
@@ -60,6 +62,7 @@ enum InternalErrors {
    error_connection_already_established,
    error_cannot_read_file,
    error_cannot_write_file,
+   error_invalid_hex_string,
 };
 
 //

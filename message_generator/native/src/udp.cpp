@@ -13,6 +13,8 @@
 #include <sys/types.h>
 #endif
 
+using namespace error;
+
 /* 
 Unix uses BSD sockets, programmed using Beej's Network programming guide
 Since Windows uses something similar, except with Winsock startup and 
@@ -20,17 +22,18 @@ a few inconsistencies, the OS #ifdefs are interspersed in the code.
 */
 int32_t udp_open(sock_fd_t* fd, udp_address_t* config)
 {
+
 	int32_t broadcast_enabled = 1;
 	char reuse;
 	struct sockaddr_in addr;
 	int32_t ret;
-// TODO(Garcia): This is bull... We need to clean up these macro clusters.
 #ifdef _WIN32
-   struct WSAData* wd = (struct WSAData*)malloc(sizeof(struct WSAData));
-   ret = WSAStartup(MAKEWORD(2, 0), wd);
-   free(wd);
-	if (ret == SOCKET_ERROR) {
-		throw error::ConnectionException(error::error_windows, error::error_socket_error);
+    struct WSAData* wd = (struct WSAData*)malloc(sizeof(struct WSAData));
+    ret = WSAStartup(MAKEWORD(2, 0), wd);
+    free(wd);
+	if (ret) 
+	{
+		return 1; 
 	}
 #endif
 	
@@ -39,15 +42,17 @@ int32_t udp_open(sock_fd_t* fd, udp_address_t* config)
 	addr.sin_addr.s_addr = inet_addr(config->serv);
 	addr.sin_port =	htons(config->port);	
 
+
 	*fd = socket(AF_INET, SOCK_DGRAM, 0);
 	setsockopt(*fd, SOL_SOCKET, SO_BROADCAST, (const char*)&broadcast_enabled, sizeof(int32_t));
 	setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
-	if(*fd == SOCKET_ERROR) {
-      throw error::ConnectionException(error::error_windows, error::error_open_socket_fail);
+	if(*fd == -1)
+	{
+      throw error::ConnectionException(OSErrors::error_windows, ConnectErrors::error_open_socket_fail);
 	}
-
-	if(bind(*fd, (struct sockaddr *)&addr, sizeof(addr))) {
-      throw error::ConnectionException(error::error_windows, error::error_socket_bind_fail);
+	if(bind(*fd, (struct sockaddr *)&addr, sizeof(addr)))
+	{
+		throw ConnectionException(OSErrors::error_windows, ConnectErrors::error_socket_bind_fail);
 	}
 	return 0;
 }
@@ -150,19 +155,26 @@ int32_t UDP::open(uint16_t port)
 		datalink_type = UDP_TYPE;
 		connected = 1;
 		return 0;
-	} else {
+	}
+	else
+	{
       connected = 0;
-   }
+      throw ConnectionException(OSErrors::error_no_os, ConnectErrors::error_connection_failed);
+	}
 }
 int32_t UDP::open(uint16_t port, char addr[16])
 {
 	config.port = port;
 	strcpy(config.serv, addr);
-   if(udp_open(&fd, &config) == 0) {
-      datalink_type = UDP_TYPE;
-      connected = 1;
-      return 0;
-   } else {
+	if(udp_open(&fd, &config) == 0)
+	{
+		datalink_type = UDP_TYPE;
+		connected = 1;
+		return 0;
+	}
+	else
+	{
+      throw ConnectionException(OSErrors::error_no_os, ConnectErrors::error_connection_failed);
 		connected = 0;
 	}
 }
@@ -172,8 +184,7 @@ int32_t UDP::close()
 	{
 		return(udp_close(&fd));
 	}
-	throw error::InternalException(error::error_no_os, 
-                                    error::error_internal_connection_error);
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 int32_t UDP::send(uint8_t node_id, uint8_t tx_data[1024], int32_t tx_len) 
 {
@@ -181,8 +192,7 @@ int32_t UDP::send(uint8_t node_id, uint8_t tx_data[1024], int32_t tx_len)
 	{
 		return(udp_send(&fd, tx_data, tx_len, this->info.node_addr[node_id]));
 	}
-	throw error::InternalException(error::error_no_os,
-                                  error::error_internal_connection_error);
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 int32_t UDP::recv(uint8_t* rx_data, int32_t* rx_len) 
 {
@@ -190,8 +200,7 @@ int32_t UDP::recv(uint8_t* rx_data, int32_t* rx_len)
 	{
 		return(udp_read(&fd, rx_data, rx_len, &rx_addr));
 	}
-	throw error::InternalException(error::error_no_os, 
-                                  error::error_internal_connection_error);
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 		
 }
 /* Maps a node ID to a specific IP address for internal handling */
@@ -199,18 +208,16 @@ int32_t UDP::establish(uint8_t node_id, uint16_t port, char addr[16])
 {
 	if(connected)
 	{
-      // A connection was already established.
 		if(this->info.node_connected[node_id])
 		{
-			throw error::InternalException(error::error_no_os, 
-                                        error::error_connection_already_established);
+			throw ConnectionException(ConnectErrors::error_already_connected);
 		}
 		this->info.node_connected[node_id] = 1;
 		this->info.node_addr[node_id].port = port; 
 		strcpy(this->info.node_addr[node_id].serv, addr);
 		return 0;
 	}
-	throw error::InternalException(error::error_no_os, error::error_internal_connection_error);
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 /* Similar to previous function, allows use of udp_address_t struct */
 int32_t UDP::establish(uint8_t node_id, udp_address_t* rx_addr)
@@ -219,14 +226,13 @@ int32_t UDP::establish(uint8_t node_id, udp_address_t* rx_addr)
 	{
 		if(this->info.node_connected[node_id])
 		{
-			throw error::InternalException(error::error_no_os,
-                                        error::error_connection_already_established);
+         throw ConnectionException(ConnectErrors::error_already_connected);
 		}
 		this->info.node_connected[node_id] = 1;
 		this->info.node_addr[node_id] = *rx_addr;
 		return 0;
 	}
-	throw error::InternalException(error::error_no_os, error::error_internal_connection_error);
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 /* Establishes a node of the last received address */
 int32_t UDP::establish(uint8_t node_id)  
@@ -235,13 +241,11 @@ int32_t UDP::establish(uint8_t node_id)
 	{
 		if(this->info.node_connected[node_id])
 		{
-			throw error::InternalException(error::error_no_os,
-                                        error::error_connection_already_established);
+         throw ConnectionException(ConnectErrors::error_already_connected);
 		}
 		this->info.node_connected[node_id] = 1;
 		this->info.node_addr[node_id] = this->rx_addr;
 		return 0;	
 	}
-	throw error::InternalException(error::error_no_os,
-                                  error::error_internal_connection_error);
+	throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
