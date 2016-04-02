@@ -115,7 +115,7 @@ void node::readKey()
 	{
 		StreamReader^ din = File::OpenText(fileName);
 		str = din->ReadLine();
-		if (str->Length - 1 == AES::DEFAULT_KEYLENGTH)
+		if (str->Length - 1 >= AES::DEFAULT_KEYLENGTH)
 		{
 			IntPtr^ ip = Marshal::StringToHGlobalAnsi(str);
 			if (ip != IntPtr::Zero)
@@ -148,7 +148,7 @@ void node::readKey()
 	{
 		std::getline(keyFileInput, inputString);
 
-		if (inputString.length() < AES::DEFAULT_KEYLENGTH)
+		if (inputString.length() >= AES::DEFAULT_KEYLENGTH)
 		{
 			for (int x = 0; x < AES::DEFAULT_KEYLENGTH; x++)
 			{
