@@ -28,11 +28,9 @@ msg_offset unpack_vehicle_global_position(
    msg_offset offset,
    vehicle_global_position_t* out_ptr);
 
-void encode_vehicle_global_position(
+void com_vehicle_global_position(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_global_position_t* tx_msg,
    com_msg_t* msg);
 #endif

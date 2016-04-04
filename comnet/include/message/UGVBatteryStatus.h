@@ -28,11 +28,9 @@ msg_offset unpack_UGV_battery_status(
    msg_offset offset,
    UGV_battery_status_t* out_ptr);
 
-void encode_UGV_battery_status(
+void com_UGV_battery_status(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    UGV_battery_status_t* tx_msg,
    com_msg_t* msg);
 #endif

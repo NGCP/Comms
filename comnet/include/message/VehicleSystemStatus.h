@@ -23,11 +23,9 @@ msg_offset unpack_vehicle_system_status(
    msg_offset offset,
    vehicle_system_status_t* out_ptr);
 
-void encode_vehicle_system_status(
+void com_vehicle_system_status(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_system_status_t* tx_msg,
    com_msg_t* msg);
 #endif

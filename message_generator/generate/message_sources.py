@@ -8,7 +8,7 @@ def generate_message_sources(directory, include_extension, src_extension):
     File has 3 main parts
         -pack
         -unpack
-        -encode
+        -com
     """
     #load header structure and the messages in variables from xml file
     import xml.etree.ElementTree as ET
@@ -65,12 +65,10 @@ def generate_message_sources(directory, include_extension, src_extension):
         f.write(tab + 'return offset;\n')
         f.write('}\n\n')
         
-        # encode
-        f.write('void encode_' + variable_name+'(\n')
+        # com
+        f.write('void com_' + variable_name+'(\n')
         f.write(tab + 'uint8_t src_id,\n')
         f.write(tab + 'uint8_t dest_id,\n')
-        f.write(tab + 'uint8_t msg_ttl,\n')
-        f.write(tab + 'uint8_t seq_number,\n')
         f.write(tab + type_t_name+'* tx_msg,\n')
         f.write(tab + 'com_msg_t* msg)\n\n\n')        
         f.write('{\n')        
@@ -80,8 +78,6 @@ def generate_message_sources(directory, include_extension, src_extension):
         f.write(tab+'offset = msg->data;\n')
         f.write(tab+'msg->header.node_src_id = src_id;\n')
         f.write(tab+'msg->header.node_dest_id = dest_id;\n')
-        f.write(tab+'msg->header.message_ttl = msg_ttl;\n')
-        f.write(tab+'msg->header.sequence_number = seq_number;\n')
         f.write(tab+'msg->header.message_length = '+str(message_length)+';\n')
         f.write(tab+'msg->header.message_type = Com_'+name+';\n')
         f.write(tab+'offset = pack_sync(offset);\n')

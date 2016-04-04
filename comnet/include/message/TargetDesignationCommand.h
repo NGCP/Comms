@@ -27,11 +27,9 @@ msg_offset unpack_target_designation_command(
    msg_offset offset,
    target_designation_command_t* out_ptr);
 
-void encode_target_designation_command(
+void com_target_designation_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    target_designation_command_t* tx_msg,
    com_msg_t* msg);
 #endif

@@ -38,11 +38,9 @@ msg_offset unpack_vehicle_global_position(
    return offset;
 }
 
-void encode_vehicle_global_position(
+void com_vehicle_global_position(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_global_position_t* tx_msg,
    com_msg_t* msg)
 
@@ -54,8 +52,6 @@ void encode_vehicle_global_position(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 32;
    msg->header.message_type = Com_Vehicle_Global_Position;
    offset = pack_sync(offset);

@@ -22,11 +22,9 @@ msg_offset unpack_pong(
    return offset;
 }
 
-void encode_pong(
+void com_pong(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    pong_t* tx_msg,
    com_msg_t* msg)
 
@@ -38,8 +36,6 @@ void encode_pong(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 8;
    msg->header.message_type = Com_Pong;
    offset = pack_sync(offset);

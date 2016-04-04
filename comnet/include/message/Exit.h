@@ -20,11 +20,9 @@ msg_offset unpack_exit(
    msg_offset offset,
    exit_t* out_ptr);
 
-void encode_exit(
+void com_exit(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    exit_t* tx_msg,
    com_msg_t* msg);
 #endif

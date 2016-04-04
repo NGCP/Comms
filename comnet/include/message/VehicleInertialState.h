@@ -36,11 +36,9 @@ msg_offset unpack_vehicle_inertial_state(
    msg_offset offset,
    vehicle_inertial_state_t* out_ptr);
 
-void encode_vehicle_inertial_state(
+void com_vehicle_inertial_state(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_inertial_state_t* tx_msg,
    com_msg_t* msg);
 #endif

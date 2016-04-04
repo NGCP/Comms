@@ -31,11 +31,9 @@ msg_offset unpack_vehicle_ground_relative_state(
    msg_offset offset,
    vehicle_ground_relative_state_t* out_ptr);
 
-void encode_vehicle_ground_relative_state(
+void com_vehicle_ground_relative_state(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_ground_relative_state_t* tx_msg,
    com_msg_t* msg);
 #endif

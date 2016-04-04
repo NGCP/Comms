@@ -54,11 +54,9 @@ msg_offset unpack_vehicle_inertial_state(
    return offset;
 }
 
-void encode_vehicle_inertial_state(
+void com_vehicle_inertial_state(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_inertial_state_t* tx_msg,
    com_msg_t* msg)
 
@@ -70,8 +68,6 @@ void encode_vehicle_inertial_state(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 78;
    msg->header.message_type = Com_Vehicle_Inertial_State;
    offset = pack_sync(offset);

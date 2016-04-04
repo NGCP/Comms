@@ -24,11 +24,9 @@ msg_offset unpack_vehicle_attitude(
    msg_offset offset,
    vehicle_attitude_t* out_ptr);
 
-void encode_vehicle_attitude(
+void com_vehicle_attitude(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_attitude_t* tx_msg,
    com_msg_t* msg);
 #endif

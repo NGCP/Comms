@@ -22,11 +22,9 @@ msg_offset unpack_vehicle_termination_command(
    msg_offset offset,
    vehicle_termination_command_t* out_ptr);
 
-void encode_vehicle_termination_command(
+void com_vehicle_termination_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_termination_command_t* tx_msg,
    com_msg_t* msg);
 #endif

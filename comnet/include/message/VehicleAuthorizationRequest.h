@@ -24,11 +24,9 @@ msg_offset unpack_vehicle_authorization_request(
    msg_offset offset,
    vehicle_authorization_request_t* out_ptr);
 
-void encode_vehicle_authorization_request(
+void com_vehicle_authorization_request(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_authorization_request_t* tx_msg,
    com_msg_t* msg);
 #endif

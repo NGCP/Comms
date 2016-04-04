@@ -20,11 +20,9 @@ msg_offset unpack_enter(
    msg_offset offset,
    enter_t* out_ptr);
 
-void encode_enter(
+void com_enter(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    enter_t* tx_msg,
    com_msg_t* msg);
 #endif

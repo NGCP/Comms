@@ -30,11 +30,9 @@ msg_offset unpack_vehicle_attitude(
    return offset;
 }
 
-void encode_vehicle_attitude(
+void com_vehicle_attitude(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_attitude_t* tx_msg,
    com_msg_t* msg)
 
@@ -46,8 +44,6 @@ void encode_vehicle_attitude(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_ttl = msg_ttl;
-   msg->header.sequence_number = seq_number;
    msg->header.message_length = 22;
    msg->header.message_type = Com_Vehicle_Attitude;
    offset = pack_sync(offset);

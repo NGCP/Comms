@@ -329,7 +329,7 @@ void* node::upkeep_helper(void* context)
         f.write(tab+type_t_name+' '+variable_name+';\n')
         for field in message:
             f.write(tab+variable_name+'.'+ field.get('name')+' = '+ field.get('name')+';\n')
-        f.write(tab+'encode_'+variable_name+'(this->node_id, dest_id, 3, 0, &'+variable_name+', &com_msg);\n')
+        f.write(tab+'com_'+variable_name+'(this->node_id, dest_id, &'+variable_name+', &com_msg);\n')
         f.write(tab+'queue.add(&com_msg);\n')
         f.write(tab+'return;\n')
         f.write('}\n\n')

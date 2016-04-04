@@ -20,11 +20,9 @@ msg_offset unpack_pong(
    msg_offset offset,
    pong_t* out_ptr);
 
-void encode_pong(
+void com_pong(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    pong_t* tx_msg,
    com_msg_t* msg);
 #endif

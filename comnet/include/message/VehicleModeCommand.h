@@ -22,11 +22,9 @@ msg_offset unpack_vehicle_mode_command(
    msg_offset offset,
    vehicle_mode_command_t* out_ptr);
 
-void encode_vehicle_mode_command(
+void com_vehicle_mode_command(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    vehicle_mode_command_t* tx_msg,
    com_msg_t* msg);
 #endif

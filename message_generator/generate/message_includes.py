@@ -7,7 +7,7 @@ def generate_message_includes(directory, include_extension, src_extension):
     File has 3 main parts
         -message structure
         -pack / unpack
-        -encode
+        -com
     """
     #load header structure and the messages in variables from xml file
     import xml.etree.ElementTree as ET
@@ -51,12 +51,10 @@ def generate_message_includes(directory, include_extension, src_extension):
         f.write(tab+'msg_offset offset,\n')        
         f.write(tab+type_t_name+'* ' 'out_ptr);\n\n')
         
-        # encode
-        f.write('void encode_' + variable_name+'(\n')
+        # com
+        f.write('void com_' + variable_name+'(\n')
         f.write(tab + 'uint8_t src_id,\n')
         f.write(tab + 'uint8_t dest_id,\n')
-        f.write(tab + 'uint8_t msg_ttl,\n')
-        f.write(tab + 'uint8_t seq_number,\n')
         f.write(tab + type_t_name+'* tx_msg,\n')
         f.write(tab + 'com_msg_t* msg);\n')
         

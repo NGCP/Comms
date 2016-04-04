@@ -20,11 +20,9 @@ msg_offset unpack_ping(
    msg_offset offset,
    ping_t* out_ptr);
 
-void encode_ping(
+void com_ping(
    uint8_t src_id,
    uint8_t dest_id,
-   uint8_t msg_ttl,
-   uint8_t seq_number,
    ping_t* tx_msg,
    com_msg_t* msg);
 #endif
