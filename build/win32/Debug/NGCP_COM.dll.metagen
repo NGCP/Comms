@@ -12,8 +12,6 @@ Class Comnet.Header: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Fields:
     Byte node_src_id : Public
     Byte node_dest_id : Public
-    Byte sequence_number : Public
-    Byte message_ttl : Public
     UInt16 message_type : Public
     UInt16 message_length : Public
     Boolean is_mergency : Public
