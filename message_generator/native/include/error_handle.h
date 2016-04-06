@@ -74,7 +74,7 @@ protected:
 public:
    AbsException(void) { }
    AbsException(OSErrors os_err) : os_error(os_err) { }
-   virtual ~AbsException(void) { }
+   virtual ~AbsException(void) throw() { }
 
    const std::string get_os_error(void);
 
@@ -93,7 +93,7 @@ public:
    ConnectionException(OSErrors os_err);
    ConnectionException(ConnectErrors conn_err);
    ConnectionException(OSErrors os_err, ConnectErrors conn_err);
-   ~ConnectionException(void);
+   ~ConnectionException(void) throw();
 
    const char* what() const throw();
    const std::string explain_error(void) const;
@@ -111,7 +111,7 @@ public:
    InternalException(OSErrors os_err);
    InternalException(InternalErrors intern_err);
    InternalException(OSErrors os_err, InternalErrors intern_err);
-   ~InternalException(void);
+   ~InternalException(void) throw();
 
    const char* what() const throw();
    const std::string explain_error(void) const;

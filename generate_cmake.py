@@ -18,7 +18,7 @@ f = open('CMakeLists.txt', 'w+')
 f.write("""
 cmake_minimum_required(VERSION 3.0)
 
-SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 
 project("NGCP_COM")
 

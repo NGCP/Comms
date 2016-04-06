@@ -1,6 +1,14 @@
 #include <error_handle.h>
 
-#include <unordered_map>
+#include <unordered_map> 
+
+class HashErrorType {
+public:
+  template<typename T>
+  std::size_t operator ()(const T& t) const {
+    return static_cast<std::size_t>(t);
+  }
+};
 
 namespace comnet {
 namespace error { 
@@ -8,7 +16,7 @@ namespace error {
 /**
    Operating system error map.
  */
-std::unordered_map<OSErrors, char*> os_error_map = { 
+  std::unordered_map<OSErrors, char*, HashErrorType> os_error_map = { 
    _ERROR(error_no_os, "Not operating system specific."),
    _ERROR(error_windows, "Windows error."),
    _ERROR(error_wsa_service, "WSA Service error."),
@@ -20,7 +28,7 @@ std::unordered_map<OSErrors, char*> os_error_map = {
 /**
    Connection Error map.
  */
-std::unordered_map<ConnectErrors, char*> connect_error_map = { 
+  std::unordered_map<ConnectErrors, char*, HashErrorType> connect_error_map = { 
    _ERROR(error_no_connection_error, "No connection error."),
    _ERROR(error_con_unknown_error, "Unknown Error."),
    _ERROR(error_udp_error, "UDP error."),
@@ -41,7 +49,7 @@ std::unordered_map<ConnectErrors, char*> connect_error_map = {
 /**
    Internal Error map.
  */
-std::unordered_map<InternalErrors, char*> internal_error_map = {
+  std::unordered_map<InternalErrors, char*, HashErrorType> internal_error_map = {
    _ERROR(error_no_internal_error, "No internal error."),
    _ERROR(error_intern_unknown_error, "Unknown internal error."),
    _ERROR(error_internal_connection_error, "No live connection."),
@@ -111,7 +119,7 @@ const std::string AbsException::get_os_error(void) {
 /**
  Destructor for the error handler class.
 */
-ConnectionException::~ConnectionException(void) { 
+ConnectionException::~ConnectionException(void) throw() { 
 }
 
 /**
@@ -131,7 +139,7 @@ const std::string ConnectionException::explain_error(void) const {
 /**
    InternalException Destructor.
 */
-InternalException::~InternalException(void) {
+InternalException::~InternalException(void) throw() {
 }
 
 /**

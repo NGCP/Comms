@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -pthread")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 
 project("NGCP_COM")
 
@@ -25,10 +25,10 @@ comnet/src/serial.cpp
 comnet/src/udp.cpp
 comnet/src/mutexCom.cpp
 comnet/src/datalink.cpp
+comnet/src/error_handle.cpp
 comnet/src/comnet.cpp
 comnet/src/cond.cpp
 comnet/src/comnet_message.cpp
-comnet/src/error_handle.cpp
 comnet/src/message/Pong.cpp
 comnet/src/message/VehicleGroundRelativeState.cpp
 comnet/src/message/UGVJoystick.cpp
