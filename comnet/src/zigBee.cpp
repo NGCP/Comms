@@ -116,7 +116,8 @@ int32_t ZigBee::establish(uint8_t node_id, std::string address64Hex)
 		}
 		else
 		{
-			throw error::ConnectionException(error::OSErrors::error_no_os, error::error_already_connected);
+		  throw ::error::ConnectionException(::error::OSErrors::error_no_os
+						   , ::error::error_already_connected);
 		}
 	}
 
@@ -169,6 +170,6 @@ void ZigBee::stringToAddress(std::string str, uint8_t length, xbee_conAddress &a
 	}
 	else
 	{
-		throw error::InternalException(error::OSErrors::error_no_os, error::error_invalid_hex_string);
+	  throw ::error::InternalException(::error::OSErrors::error_no_os, ::error::error_invalid_hex_string);
 	}
 }

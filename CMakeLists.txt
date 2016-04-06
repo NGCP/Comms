@@ -28,6 +28,7 @@ comnet/src/datalink.cpp
 comnet/src/comnet.cpp
 comnet/src/cond.cpp
 comnet/src/comnet_message.cpp
+comnet/src/error_handle.cpp
 comnet/src/message/Pong.cpp
 comnet/src/message/VehicleGroundRelativeState.cpp
 comnet/src/message/UGVJoystick.cpp
