@@ -72,7 +72,7 @@ class AbsException : public std::exception {
 protected:
    OSErrors os_error;
 public:
-   AbsException(void) { }
+   AbsException(void) throw() { }
    AbsException(OSErrors os_err) : os_error(os_err) { }
    virtual ~AbsException(void) { }
 
