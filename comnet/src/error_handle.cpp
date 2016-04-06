@@ -111,7 +111,7 @@ const std::string AbsException::get_os_error(void) {
 /**
  Destructor for the error handler class.
 */
-ConnectionException::~ConnectionException(void) { 
+ConnectionException::~ConnectionException(void) throw() { 
 }
 
 /**
@@ -131,7 +131,7 @@ const std::string ConnectionException::explain_error(void) const {
 /**
    InternalException Destructor.
 */
-InternalException::~InternalException(void) {
+InternalException::~InternalException(void) throw() {
 }
 
 /**
