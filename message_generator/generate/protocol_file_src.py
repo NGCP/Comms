@@ -43,7 +43,7 @@ def generate_protocol_file_src(directory, include_extension, src_extension):
     f.write('}\n\n')
     
     #create function proto_typestr for all messages
-    f.write('char* com_typestr(com_msg_type_t msg_type)\n')
+    f.write('const char* com_typestr(com_msg_type_t msg_type)\n')
     f.write('{\n')
     for message in protocol:
         name = message.get('name')

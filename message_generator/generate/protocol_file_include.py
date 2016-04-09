@@ -32,7 +32,7 @@ def generate_protocol_file_include(directory, include_extension, src_extension):
         f.write('#include <message/'+filename+include_extension+'>\n')
     
     #declare msg_data_offset should be size of header
-    f.write('const uint8_t MSG_DATA_OFFSET = 12;\n\n')
+    f.write('const uint8_t MSG_DATA_OFFSET = 10;\n\n')
     
     #create a union with all the message types as proto_msg_buf_t
     f.write("\n/**Global typdef union with all message types declared as proto_msg_bug_t.\n")
@@ -54,7 +54,7 @@ def generate_protocol_file_include(directory, include_extension, src_extension):
     
     #declare com_typster function
     f.write("/**Global function which returns the message string description*/\n")
-    f.write('char* com_typestr(com_msg_type_t msg_type);\n\n')
+    f.write('const char* com_typestr(com_msg_type_t msg_type);\n\n')
     #end of guard
     f.write('#endif')
     
