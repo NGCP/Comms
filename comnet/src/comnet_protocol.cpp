@@ -85,7 +85,7 @@ void unpack_com_msg_t(
    }
 }
 
-char* com_typestr(com_msg_type_t msg_type)
+const char* com_typestr(com_msg_type_t msg_type)
 {
    if(msg_type == Com_Enter)
    {
