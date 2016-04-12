@@ -38,7 +38,8 @@ int32_t ZigBee::open(uint32_t baud_rate, char device_path[50])
 
 	if ((ret = xbee_setup(&xbee, "xbee5", port_name, baud_rate)) != XBEE_ENONE) {
 		printf("Construct ret: %d (%s)\n", ret, xbee_errorToStr(ret));
-		return ret;
+        throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_init);
+		//return ret;
 	}
 	connected = 1;
 	datalink_type = ZIGBEE_TYPE;
@@ -52,7 +53,8 @@ int32_t ZigBee::close()
 		if (con[x] != NULL) {
          if ((ret = xbee_conEnd(con[x])) != XBEE_ENONE) {
             xbee_log(xbee, -1, "xbee_conEnd() returned: %d", ret);
-            return ret;
+            throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_close);
+            //return ret;
          }
       }
    }
@@ -105,7 +107,8 @@ int32_t ZigBee::establish(uint8_t node_id, std::string address64Hex)
 
 			if ((ret = xbee_conNew(xbee, &con[node_id], "Data", &address[node_id])) != XBEE_ENONE) {
 				xbee_log(xbee, -1, "xbee_conNew() node_id: %d  returned: %d (%s)", node_id, ret, xbee_errorToStr(ret));
-				return ret;
+                throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_new_connection);
+				//return ret;
 			}
 
 			xbee_conSettings(con[node_id], NULL, &settings);
