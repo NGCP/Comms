@@ -33,7 +33,8 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write('#include <stdio.h>\n')
     f.write('#include <vcclr.h>\n')
     f.write('#include <comnet'+include_extension+'>\n')
-    f.write('#using <mscorlib.dll>\n\n')
+    f.write('#using <mscorlib.dll>\n')
+    f.write('#include <error_handle.h>\n\n')
     
     f.write('using namespace System;\n')
     f.write('using namespace System::Runtime::InteropServices;\n\n')

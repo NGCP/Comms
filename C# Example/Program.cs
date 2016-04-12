@@ -61,9 +61,19 @@ namespace Comsharp
             UgvNode.RegisterPongEvent(UgvCallbacks.OnPong);
 
 
-            /*Add a new datalink to the Comnet session and establish an endpoint*/
-            UgvNode.AddZigBeeDatalink(out link_id, 57600, "5");
-            UgvNode.EstablishZigBeeEndpoint(link_id, 1, "0013A2004091798F");
+            
+            
+            try
+            {
+                /*Add a new datalink to the Comnet session and establish an endpoint*/
+                UgvNode.AddZigBeeDatalink(out link_id, 57600, "5");
+                UgvNode.EstablishZigBeeEndpoint(link_id, 1, "0013A2004091798F");
+            }
+            catch(Exception err)
+            {
+                System.Console.WriteLine(err.ToString());
+            }
+            
             
 
             /*Loop forever*/
