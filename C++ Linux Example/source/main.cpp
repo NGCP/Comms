@@ -7,6 +7,7 @@
 /* Include comnet.h for communication system API */
 #include <comnet.h>
 #include <xbee.h>
+#include <error_handle.h>
 
 /*------
 When a Ping is received, we want to send a Pong back to the sender of the Ping.
@@ -82,15 +83,24 @@ void* tx_thread(){
 	int8_t zigBee_2 = 0;
 
 	char *address2 = "0013A20040917974";
-	/* id, baudrate, comport  */
-	gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
 
-	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
-	*/
-	gcs_node.establish_zigBee(zigBee_2, 1, address2);
+	try
+	{
 
+		/* id, baudrate, comport  */
+		gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
+
+		/*
+		create zig bee connection
+		id, dest id, 64 bit hex address in char
+		*/
+		gcs_node.establish_zigBee(zigBee_2, 1, address2);
+	}
+	catch (comnet::error::ConnectionException e)
+	{
+		printf("%s\n", (e.explain_error()).c_str());
+		return NULL;
+	}
 	/*
 	This node will receive a ping from Node 1, so
 	the Ping needs to be handled as the Pong was above
@@ -118,14 +128,25 @@ void* rx_thread(){
 	int8_t zigBee_1 = 0;
 
 	char *address1 = "0013A20040917A31";
-	/* id, baudrate, comport  */
-	uav_node.add_zigBee(&zigBee_1, 57600, "/dev/ttyUSB1");
 
-	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
-	*/
-	uav_node.establish_zigBee(zigBee_1, 1, address1);
+	try
+	{
+
+		/* id, baudrate, comport  */
+		uav_node.add_zigBee(&zigBee_1, 57600, "/dev/ttyUSB1");
+
+		/*
+		create zig bee connection
+		id, dest id, 64 bit hex address in char
+		*/
+		uav_node.establish_zigBee(zigBee_1, 1, address1);
+	}
+	catch (comnet::error::ConnectionException e)
+	{
+		printf("%s\n", (e.explain_error()).c_str());
+		return NULL;
+	}
+
 
 	/*
 	This node will receive a ping from Node 2, so
