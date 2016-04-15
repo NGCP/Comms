@@ -72,6 +72,8 @@ namespace Comsharp
             catch(Exception err)
             {
                 System.Console.WriteLine(err.ToString());
+                System.Console.ReadKey();
+                System.Environment.Exit(0);
             }
             
             
