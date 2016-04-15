@@ -907,7 +907,20 @@ void Node::SendUGVBatteryStatus(
 void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port)
 {
 	int8_t link_data;
-	node->add_udp(&link_data, port);
+    
+    try
+	{
+		node->add_udp(&link_data, port);
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+	
 	link_id = link_data;
 }
 void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id,uint16_t port, String^ addr)
@@ -918,7 +931,20 @@ void Node::AddUDPDatalink([System::Runtime::InteropServices::Out]int8_t% link_id
 		return;
 	}
 	int8_t link_data;
-	node->add_udp(&link_data, port, static_cast<char*>(addr_ptr.ToPointer()));
+    
+    try
+	{
+		node->add_udp(&link_data, port, static_cast<char*>(addr_ptr.ToPointer()));
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+	
 	link_id = link_data;
 }
 
@@ -930,7 +956,20 @@ void Node::AddZigBeeDatalink([System::Runtime::InteropServices::Out]int8_t% link
 		return;
 	}
 	int8_t link_data;
-	node->add_zigBee(&link_data, baudRate, static_cast<char*>(addr_ptr.ToPointer()));
+    
+    try
+	{
+		node->add_zigBee(&link_data, baudRate, static_cast<char*>(addr_ptr.ToPointer()));
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+    
 	link_id = link_data;
 }
 
@@ -941,7 +980,20 @@ void Node::EstablishZigBeeEndpoint(int8_t link_id, uint8_t node_id, String^ addr
 	{
 		return;
 	}
-	node->establish_zigBee(link_id, node_id, static_cast<char*>(addr_ptr.ToPointer()));
+    
+    try
+	{
+		node->establish_zigBee(link_id, node_id, static_cast<char*>(addr_ptr.ToPointer()));
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+	
 }
 
 void Node::EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, String^ addr)
@@ -951,7 +1003,20 @@ void Node::EstablishUDPEndpoint(int8_t link_id, uint8_t node_id, uint16_t port, 
 	{
 		return;
 	}
-	node->establish_udp(link_id, node_id, port, static_cast<char*>(addr_ptr.ToPointer()));
+    
+    try
+	{
+		node->establish_udp(link_id, node_id, port, static_cast<char*>(addr_ptr.ToPointer()));
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+	
 }
 
 void Node::AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link_id, uint32_t baud_rate, String^ device_path)
@@ -962,13 +1027,41 @@ void Node::AddSerialDatalink([System::Runtime::InteropServices::Out]int8_t% link
 		return;
 	}
 	int8_t link_data;
-	node->add_serial(&link_data, baud_rate, static_cast<char*>(device_path_ptr.ToPointer()));
+    
+    try    
+	{
+		node->add_serial(&link_data, baud_rate, static_cast<char*>(device_path_ptr.ToPointer()));
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+	
+    
 	link_id = link_data;
 }
 
 void Node::EstablishSerialEndpoint(int8_t link_id, uint8_t node_id)
 {
-	node->establish_serial(link_id,node_id);
+
+    try
+	{
+		node->establish_serial(link_id,node_id);
+	}
+	catch (comnet::error::AbsException&  e)
+	{
+		throw gcnew System::Exception(gcnew String(e.explain_error().c_str()));
+	}	
+	catch (...)
+	{
+		throw gcnew System::Exception(gcnew String("unown error"));
+	}
+    
+	
 }
 
 void* Node::EnterHelper(int8_t link_id, com_header_t header, enter_t enter, comnet::node* ptr)

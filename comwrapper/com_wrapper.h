@@ -8,6 +8,7 @@ Wrapper Class is used to call c++ function through managed c++/cli for c# */
 #include <vcclr.h>
 #include <comnet.h>
 #using <mscorlib.dll>
+#include <error_handle.h>
 
 using namespace System;
 using namespace System::Runtime::InteropServices;

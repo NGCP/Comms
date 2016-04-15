@@ -3,7 +3,7 @@ from .lower_case_acronym import *
 def generate_com_wrapper_include(directory, include_extension, src_extension):
     """
     Comwrapper is used to create a Managed C which calls c++ 
-    Function will create the comwrapper source file in .../Comwrapper
+    Function will create the Comwrapper source file in .../Comwrapper
     File has 4 main parts
         -header struct
         -message struct
@@ -19,7 +19,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     #load header structure and the messages in variables from xml file
     import xml.etree.ElementTree as ET
     tree = ET.parse('message_definition.xml')
-    comcol = tree.findall('message')
+    protocol = tree.findall('message')
     header = tree.find('header')
     tab = '   '
     #open file
@@ -33,7 +33,8 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write('#include <stdio.h>\n')
     f.write('#include <vcclr.h>\n')
     f.write('#include <comnet'+include_extension+'>\n')
-    f.write('#using <mscorlib.dll>\n\n')
+    f.write('#using <mscorlib.dll>\n')
+    f.write('#include <error_handle.h>\n\n')
     
     f.write('using namespace System;\n')
     f.write('using namespace System::Runtime::InteropServices;\n\n')
@@ -70,7 +71,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+'};\n\n')
     
     #message structures
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_","")
         variable_name = lower_case_acronym(name)
@@ -95,7 +96,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     #message call backs
     f.write(tab + "/* Note [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)] is used to set c# pointer type to Cdecl\n")
     f.write(tab + "which is the default c++ pointer type. If you get stack pointer error then the pointer type does not match c++ pointer type.*/ \n\n")
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_", "")
         variable_name = lower_case_acronym(name)
@@ -119,7 +120,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write(tab+tab+'void EstablishSerialEndpoint(int8_t link_id, uint8_t node_id);\n\n')
     
     #node send_message default
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_","")
         variable_name = lower_case_acronym(name)
@@ -132,7 +133,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
                 f.write(',')        
         f.write(');\n\n')
     #priority bool emergency added argument    
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_","")
         variable_name = lower_case_acronym(name)
@@ -146,7 +147,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
         f.write(',\n' + tab + tab + 'bool emergency')            
         f.write(');\n\n')    
     #node message methods enter, exit, ping, ect
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_", "")
         variable_name = lower_case_acronym(name)
@@ -156,7 +157,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write('\n')
     
     #node register methods
-    for message in comcol:
+    for message in protocol:
        name = message.get('name')
        cs_name = message.get('name').replace("_", "")
        variable_name = lower_case_acronym(name)
@@ -167,7 +168,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
     f.write('\n'+tab+'private:\n')
     f.write(tab+tab+'comnet::node* node;\n\n')
 
-    for message in comcol:
+    for message in protocol:
        name = message.get('name')
        cs_name = message.get('name').replace("_", "")
        variable_name = lower_case_acronym(name)
@@ -176,7 +177,7 @@ def generate_com_wrapper_include(directory, include_extension, src_extension):
        f.write(tab+tab+cs_name+'Callback^ On'+cs_name+'Callback;\n')
        f.write(tab+tab+cs_name+'Delegate^ On'+cs_name+'Delegate;\n\n')
     #node message helper methods
-    for message in comcol:
+    for message in protocol:
         name = message.get('name')
         cs_name = message.get('name').replace("_", "")
         variable_name = lower_case_acronym(name)

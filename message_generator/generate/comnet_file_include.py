@@ -31,6 +31,7 @@ def generate_comnet_file_include(directory, include_extension, src_extension):
     f.write('#include <comnet_protocol' +include_extension+'>\n')
     f.write('#include <pqueue' +include_extension+'>\n')
     f.write('#include <threadCom' +include_extension+'>\n')
+    f.write('#include <error_handle.h>')
     f.write("""
 /** include encryption header*/
 #include "aes.h"

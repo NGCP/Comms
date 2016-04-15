@@ -1,9 +1,12 @@
 /* System Includes */
 
 #include <stdint.h>
+#include <error_handle.h>
 
 /* User Includes */
 #include <serial.h>
+
+using namespace error;
 
 /* Defines unix versions of serial functions */
 #ifdef __unix__
@@ -75,7 +78,7 @@ int32_t serial_send(
 	int32_t n;
 	n = write(*fd, buf, tx_len);
 	if (n!=1){
-		return -1;
+	   throw InternalException(OSErrors::error_linux, InternalErrors::error_cannot_write_file);
 	}
 	return 0;
 }
@@ -90,7 +93,7 @@ int32_t serial_read(
 	*rx_len = 1;
 	n = read(*fd, &b, 1);
 	if (n!=1){
-		return -1;
+		throw InternalException(OSErrors::error_linux, InternalErrors::error_cannot_read_file);
 	}
 	return b;
 }
@@ -118,8 +121,7 @@ int32_t serial_open(serial_fd_t* fd, serial_config_t* config)
 				0);
 
 	if (*fd == INVALID_HANDLE_VALUE) {
-		puts("Invalid handle value\n");
-		return -1;
+		throw ConnectionException(OSErrors::error_windows, ConnectErrors::error_invalid_handle);
 		/* call GetLastError(); to gain more information */
 	}
 
@@ -133,8 +135,7 @@ int32_t serial_open(serial_fd_t* fd, serial_config_t* config)
 	dcbSerialParams.StopBits=ONESTOPBIT;
 	dcbSerialParams.Parity=NOPARITY;
 	if(!SetCommState(*fd, &dcbSerialParams)){
-		puts("Error in setting COMM state!\n");
-		return -1;
+		throw ConnectionException(OSErrors::error_windows, ConnectErrors::error_com_state);
 	}
 
 
@@ -147,8 +148,7 @@ int32_t serial_open(serial_fd_t* fd, serial_config_t* config)
 	timeouts.WriteTotalTimeoutConstant=0;
 	timeouts.WriteTotalTimeoutMultiplier=0;
 	if(!SetCommTimeouts(*fd, &timeouts)){
-		puts("Error in setting timeouts!\n");
-		return -1;
+		throw ConnectionException(OSErrors::error_windows, ConnectErrors::error_set_time_out);
 	}
 
 	return 0;
@@ -167,7 +167,7 @@ int32_t serial_send(
 	DWORD dwBytesRead = 0;
 	if(!WriteFile(*fd, buf, tx_len, &dwBytesRead, NULL))
 	{
-		return -1;
+		throw InternalException(OSErrors::error_windows, InternalErrors::error_cannot_write_file);
 	}
 	return 0;
 
@@ -182,7 +182,7 @@ int32_t serial_read(
 	uint8_t byte[1];
 	DWORD dwBytesRead = 0;
     if(!ReadFile(*fd, b, 1, &dwBytesRead, NULL)){
-    	return -1;
+    	throw InternalException(OSErrors::error_windows, InternalErrors::error_cannot_read_file);
     }
 
 	/* Unicode to ANSI/ASCII conversion */
@@ -224,8 +224,8 @@ int32_t Serial::open(uint32_t baud_rate, char device_path[50])
 	}
 	else
 	{
-		return -1;
 		connected = 0;
+      throw ConnectionException(ConnectErrors::error_connection_failed);
 	}
 	return 0;
 }
@@ -235,7 +235,7 @@ int32_t Serial::close()
 	{
 		return(serial_close(&fd));
 	}
-	return -1;
+   throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 int32_t Serial::send(uint8_t node_id, uint8_t* tx_data, int32_t tx_len)
 {
@@ -243,7 +243,7 @@ int32_t Serial::send(uint8_t node_id, uint8_t* tx_data, int32_t tx_len)
 	{
 		return(serial_send(&fd, tx_data, tx_len));
 	}
-	return -1;
+	throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 int32_t Serial::recv(uint8_t* rx_data, int32_t* rx_len)
 {
@@ -251,7 +251,7 @@ int32_t Serial::recv(uint8_t* rx_data, int32_t* rx_len)
 	{
 		return(serial_read(&fd, rx_data, rx_len));
 	}
-	return -1;
+	throw ConnectionException(ConnectErrors::error_no_connection_error);
 }
 int32_t Serial::establish(uint8_t node_id)
 {
