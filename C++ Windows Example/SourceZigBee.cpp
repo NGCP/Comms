@@ -1,6 +1,6 @@
 /* System Includes */
 #include <stdio.h>
-#include <threadCom>
+#include <thread>
 
 
 /* Include comnet.h for communication system API */
@@ -90,7 +90,7 @@ void* tx_thread()
 	Add a zigBee data link
 	id, baud rate, com port
 	*/
-	gcs_node.add_zigBee(&udp_1, 57600, "6");
+	gcs_node.add_zigBee(&zigBee_1, 57600, "6");
 
 	/*
 	establish zigBee connection
@@ -135,7 +135,7 @@ void* rx_thread(){
 	
 	uav_node.add_zigBee(&zigBee_2, 57600, "5");
 
-	uav_node.establish_zigBee(udp_1, 1, "0013A20040917A31");
+	uav_node.establish_zigBee(zigBee_1, 1, "0013A20040917A31");
 
 	uav_node.register_on_ping(on_ping);
 
