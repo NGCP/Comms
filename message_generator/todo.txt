@@ -1,5 +1,0 @@
-In com_wrapper.h didnt comment node class because c++ node class has been documented.
-
-Not all cpp files have comments
-
-naming convention for generate directory files is confussing can be renamed, but must be changed in all .py files

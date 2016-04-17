@@ -1,6 +1,6 @@
 import openpyxl
 from openpyxl.cell import get_column_letter
-
+import string
 
 
 
@@ -29,6 +29,11 @@ def generateMessageData():
                     while(str(sheet['A' + str(y)].value) != "None"):
                         currentCell = 'C' + str(y)
                         name =  str(sheet[currentCell].value)
+                        name = name.lower()
+                        if(name[-3:] == "_id"):
+                            name = name.replace("_id", "_ID")
+                            
+                        
                         type = str(sheet['D' + str(y)].value)
                         type = type.replace('_', '') + "_t"
                         f.write("\t\t<field type = \"" + type + "\" name = \"" + name + "\"></field>\n")
