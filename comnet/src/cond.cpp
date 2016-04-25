@@ -97,7 +97,7 @@ void cond_broadcast (cond_t *cv)
 
 #endif
 
-#ifdef __unix__
+#ifndef _WIN32
 
 void cond_init(cond_t* cv)
 {

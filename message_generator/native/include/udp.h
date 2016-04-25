@@ -9,7 +9,7 @@
 #include <config.h>
 #include <datalink.h>
 
-#ifdef __unix__
+#ifndef _WIN32
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>

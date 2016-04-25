@@ -18,7 +18,7 @@ typedef HANDLE thread_t;
 #endif
 
 
-#ifdef __unix__
+#ifndef _WIN32
 #include <pthread.h>
 #include <stdint.h>
 /** Define Linux typedef of threading data type*/

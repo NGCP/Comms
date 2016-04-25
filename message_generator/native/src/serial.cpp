@@ -9,7 +9,7 @@
 using namespace error;
 
 /* Defines unix versions of serial functions */
-#ifdef __unix__
+#ifndef _WIN32
 
 /* Includes required for serial ports */
 #include <stdio.h>

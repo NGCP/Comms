@@ -3,7 +3,7 @@
 
 
 
-#ifdef __unix__
+#ifndef _WIN32
 
 void mutex_init(mutex_t* mutex)
 {

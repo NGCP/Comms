@@ -7,7 +7,7 @@ wrapper for Windows and POSIX threading. Function descriptions taken from http:/
 #define _COND_H
 #include <mutexCom.h>
 
-#ifdef __unix__
+#ifndef _WIN32
 #include <pthread.h>
 typedef pthread_cond_t cond_t;
 #endif

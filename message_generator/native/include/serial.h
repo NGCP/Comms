@@ -17,7 +17,7 @@
 
 
 
-#ifdef __unix__
+#ifndef _WIN32
 /**Global Typedef Define a cross platform serial handle for Linux*/
 typedef int32_t serial_fd_t;
 #endif

@@ -5,7 +5,7 @@ Windows and POSIX.
 #ifndef _MUTEX_H
 #define _MUTEX_H
 
-#ifdef __unix__
+#ifndef _WIN32
 #include <pthread.h>
 typedef pthread_mutex_t mutex_t;
 #endif

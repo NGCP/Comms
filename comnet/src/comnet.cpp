@@ -214,7 +214,7 @@ void* node::upkeep_handler()
 #ifdef _WIN32
 		_sleep(5000);
 #endif
-#ifdef __unix__
+#ifndef _WIN32
 		sleep(5000);
 #endif
 	}

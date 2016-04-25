@@ -2,7 +2,7 @@
 #include <udp.h>
 #include <error_handle.h>
 
-#ifdef __unix__
+#ifndef _WIN32
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -66,7 +66,7 @@ int32_t udp_read(
 #ifdef _WIN32
 	int32_t addr_len;
 #endif
-#ifdef __unix__
+#ifndef _WIN32
 	socklen_t addr_len;
 #endif
 	int32_t retval;
@@ -107,7 +107,7 @@ int32_t udp_close(sock_fd_t* fd){
 #ifdef _WIN32
 	return closesocket(*fd);	
 #endif
-#ifdef __unix__
+#ifndef _WIN32
 	return close(*fd);
 #endif
 }
