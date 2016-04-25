@@ -84,7 +84,7 @@ def generate_message_sources(directory, include_extension, src_extension):
         f.write(tab+'offset = msg->data;\n')
         f.write(tab+'msg->header.node_src_id = src_id;\n')
         f.write(tab+'msg->header.node_dest_id = dest_id;\n')
-        f.write(tab+'msg->header.message_length = '+str(message_length)+';\n')
+        f.write(tab+'msg->header.message_length = '+ str(int(message_length))+';\n')
         f.write(tab+'msg->header.message_type = Com_'+name+';\n')
         f.write(tab+'offset = pack_sync(offset);\n')
         f.write(tab+'offset = pack_header(&msg->header, offset);\n\n')        
