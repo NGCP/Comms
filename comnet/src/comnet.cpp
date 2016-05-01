@@ -489,7 +489,7 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
-   case Com_Vehicle_Authorization_reply:
+   case Com_Vehicle_Authorization_Reply:
       {
          if(on_vehicle_authorization_reply == NULL)
          {

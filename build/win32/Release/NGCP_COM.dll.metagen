@@ -83,9 +83,9 @@ Class Comnet.VehicleAuthorizationRequest: AutoLayout, AnsiClass, Class, Public, 
     Byte vehicle_type : Public
     Byte authorized_services : Public
     Byte granted_services : Public
-Class Comnet.VehicleAuthorizationreply: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class Comnet.VehicleAuthorizationReply: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(vehicle_authorization_reply_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Comnet.VehicleAuthorizationreply): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Comnet.VehicleAuthorizationReply): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Double timestamp : Public
@@ -446,7 +446,7 @@ Class Comnet.VehicleAuthorizationRequestCallback: AutoLayout, AnsiClass, Class, 
     Invoke(SByte, com_header_t, vehicle_authorization_request_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, com_header_t, vehicle_authorization_request_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
-Class Comnet.VehicleAuthorizationreplyCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+Class Comnet.VehicleAuthorizationReplyCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
   Methods:
@@ -692,7 +692,7 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     RegisterConnectionReplyEvent(ConnectionReplyDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleIdentificationEvent(VehicleIdentificationDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestDelegate): PrivateScope, Public, HideBySig
-    RegisterVehicleAuthorizationreplyEvent(VehicleAuthorizationreplyDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleModeCommandEvent(VehicleModeCommandDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleJoystickCommandEvent(VehicleJoystickCommandDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleTerminationCommandEvent(VehicleTerminationCommandDelegate): PrivateScope, Public, HideBySig
@@ -750,8 +750,8 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     SendVehicleIdentification(Byte, Double, UInt16, Byte): PrivateScope, Public, HideBySig
     SendVehicleAuthorizationRequest(Byte, Double, UInt16, Byte, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendVehicleAuthorizationRequest(Byte, Double, UInt16, Byte, Byte, Byte): PrivateScope, Public, HideBySig
-    SendVehicleAuthorizationreply(Byte, Double, UInt16, Byte, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
-    SendVehicleAuthorizationreply(Byte, Double, UInt16, Byte, Byte, Byte): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationReply(Byte, Double, UInt16, Byte, Byte, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleAuthorizationReply(Byte, Double, UInt16, Byte, Byte, Byte): PrivateScope, Public, HideBySig
     SendVehicleModeCommand(Byte, Double, UInt16, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendVehicleModeCommand(Byte, Double, UInt16, Byte): PrivateScope, Public, HideBySig
     SendVehicleJoystickCommand(Byte, Double, UInt16, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
@@ -870,13 +870,13 @@ Class Comnet.Node+VehicleAuthorizationRequestDelegate: AutoLayout, AnsiClass, Cl
     Invoke(SByte, Header&, VehicleAuthorizationRequest&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, Header&, VehicleAuthorizationRequest&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(Header&, VehicleAuthorizationRequest&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
-Class Comnet.Node+VehicleAuthorizationreplyDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+Class Comnet.Node+VehicleAuthorizationReplyDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
   Methods:
-    Invoke(SByte, Header&, VehicleAuthorizationreply&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
-    BeginInvoke(SByte, Header&, VehicleAuthorizationreply&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
-    EndInvoke(Header&, VehicleAuthorizationreply&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    Invoke(SByte, Header&, VehicleAuthorizationReply&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleAuthorizationReply&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleAuthorizationReply&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class Comnet.Node+VehicleModeCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName

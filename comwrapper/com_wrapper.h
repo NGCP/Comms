@@ -217,16 +217,16 @@ namespace Comnet
       }
    };
 
-   /** Redefine c++ Vehicle_Authorization_reply struct as c# struct which is auto generated*/ 
-   public ref struct VehicleAuthorizationreply
+   /** Redefine c++ Vehicle_Authorization_Reply struct as c# struct which is auto generated*/ 
+   public ref struct VehicleAuthorizationReply
    {
       float64_t timestamp;
       uint16_t vehicle_ID;
       uint8_t vehicle_type;
       uint8_t authorized_services;
       uint8_t granted_services;
-      VehicleAuthorizationreply(){}
-      VehicleAuthorizationreply(const VehicleAuthorizationreply% to_copy)
+      VehicleAuthorizationReply(){}
+      VehicleAuthorizationReply(const VehicleAuthorizationReply% to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -234,7 +234,7 @@ namespace Comnet
          authorized_services = to_copy.authorized_services;
          granted_services = to_copy.granted_services;
       }
-      VehicleAuthorizationreply(const vehicle_authorization_reply_t to_copy)
+      VehicleAuthorizationReply(const vehicle_authorization_reply_t to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -1043,7 +1043,7 @@ namespace Comnet
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleAuthorizationRequestCallback(int8_t, com_header_t, vehicle_authorization_request_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* VehicleAuthorizationreplyCallback(int8_t, com_header_t, vehicle_authorization_reply_t, comnet::node*);
+   public delegate void* VehicleAuthorizationReplyCallback(int8_t, com_header_t, vehicle_authorization_reply_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleModeCommandCallback(int8_t, com_header_t, vehicle_mode_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
@@ -1171,7 +1171,7 @@ namespace Comnet
       uint8_t authorized_services,
       uint8_t granted_services);
 
-   void SendVehicleAuthorizationreply(
+   void SendVehicleAuthorizationReply(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -1465,7 +1465,7 @@ namespace Comnet
       uint8_t granted_services,
       bool emergency);
 
-   void SendVehicleAuthorizationreply(
+   void SendVehicleAuthorizationReply(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -1742,7 +1742,7 @@ namespace Comnet
    delegate void ConnectionReplyDelegate(int8_t, Header^%, ConnectionReply^%, Comnet::Node^);
    delegate void VehicleIdentificationDelegate(int8_t, Header^%, VehicleIdentification^%, Comnet::Node^);
    delegate void VehicleAuthorizationRequestDelegate(int8_t, Header^%, VehicleAuthorizationRequest^%, Comnet::Node^);
-   delegate void VehicleAuthorizationreplyDelegate(int8_t, Header^%, VehicleAuthorizationreply^%, Comnet::Node^);
+   delegate void VehicleAuthorizationReplyDelegate(int8_t, Header^%, VehicleAuthorizationReply^%, Comnet::Node^);
    delegate void VehicleModeCommandDelegate(int8_t, Header^%, VehicleModeCommand^%, Comnet::Node^);
    delegate void VehicleJoystickCommandDelegate(int8_t, Header^%, VehicleJoystickCommand^%, Comnet::Node^);
    delegate void VehicleTerminationCommandDelegate(int8_t, Header^%, VehicleTerminationCommand^%, Comnet::Node^);
@@ -1784,7 +1784,7 @@ namespace Comnet
    void RegisterConnectionReplyEvent(ConnectionReplyDelegate^ ConnectionReplyEvent);
    void RegisterVehicleIdentificationEvent(VehicleIdentificationDelegate^ VehicleIdentificationEvent);
    void RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestDelegate^ VehicleAuthorizationRequestEvent);
-   void RegisterVehicleAuthorizationreplyEvent(VehicleAuthorizationreplyDelegate^ VehicleAuthorizationreplyEvent);
+   void RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate^ VehicleAuthorizationReplyEvent);
    void RegisterVehicleModeCommandEvent(VehicleModeCommandDelegate^ VehicleModeCommandEvent);
    void RegisterVehicleJoystickCommandEvent(VehicleJoystickCommandDelegate^ VehicleJoystickCommandEvent);
    void RegisterVehicleTerminationCommandEvent(VehicleTerminationCommandDelegate^ VehicleTerminationCommandEvent);
@@ -1856,9 +1856,9 @@ namespace Comnet
       VehicleAuthorizationRequestCallback^ OnVehicleAuthorizationRequestCallback;
       VehicleAuthorizationRequestDelegate^ OnVehicleAuthorizationRequestDelegate;
 
-      IntPtr OnVehicleAuthorizationreplyPtr;
-      VehicleAuthorizationreplyCallback^ OnVehicleAuthorizationreplyCallback;
-      VehicleAuthorizationreplyDelegate^ OnVehicleAuthorizationreplyDelegate;
+      IntPtr OnVehicleAuthorizationReplyPtr;
+      VehicleAuthorizationReplyCallback^ OnVehicleAuthorizationReplyCallback;
+      VehicleAuthorizationReplyDelegate^ OnVehicleAuthorizationReplyDelegate;
 
       IntPtr OnVehicleModeCommandPtr;
       VehicleModeCommandCallback^ OnVehicleModeCommandCallback;
@@ -1993,7 +1993,7 @@ namespace Comnet
       void* ConnectionReplyHelper(int8_t link_id, com_header_t header, connection_reply_t connection_reply, comnet::node* ptr);
       void* VehicleIdentificationHelper(int8_t link_id, com_header_t header, vehicle_identification_t vehicle_identification, comnet::node* ptr);
       void* VehicleAuthorizationRequestHelper(int8_t link_id, com_header_t header, vehicle_authorization_request_t vehicle_authorization_request, comnet::node* ptr);
-      void* VehicleAuthorizationreplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr);
+      void* VehicleAuthorizationReplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr);
       void* VehicleModeCommandHelper(int8_t link_id, com_header_t header, vehicle_mode_command_t vehicle_mode_command, comnet::node* ptr);
       void* VehicleJoystickCommandHelper(int8_t link_id, com_header_t header, vehicle_joystick_command_t vehicle_joystick_command, comnet::node* ptr);
       void* VehicleTerminationCommandHelper(int8_t link_id, com_header_t header, vehicle_termination_command_t vehicle_termination_command, comnet::node* ptr);

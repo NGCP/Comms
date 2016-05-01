@@ -66,7 +66,7 @@
 		<field type = "uint8_t" name = "granted_services"></field>
 	</message>
 
-	<message name = "Vehicle_Authorization_reply" id = "1002">
+	<message name = "Vehicle_Authorization_Reply" id = "1002">
 		<field type = "float64_t" name = "timestamp"></field>
 		<field type = "uint16_t" name = "vehicle_ID"></field>
 		<field type = "uint8_t" name = "vehicle_type"></field>

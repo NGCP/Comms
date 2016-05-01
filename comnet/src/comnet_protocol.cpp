@@ -38,7 +38,7 @@ void unpack_com_msg_t(
    case Com_Vehicle_Authorization_Request:
       unpack_vehicle_authorization_request(unpack_offset, &buf->vehicle_authorization_request);
       break;
-   case Com_Vehicle_Authorization_reply:
+   case Com_Vehicle_Authorization_Reply:
       unpack_vehicle_authorization_reply(unpack_offset, &buf->vehicle_authorization_reply);
       break;
    case Com_Vehicle_Mode_Command:
@@ -177,9 +177,9 @@ const char* com_typestr(com_msg_type_t msg_type)
    {
       return "Vehicle Authorization Request";
    }
-   if(msg_type == Com_Vehicle_Authorization_reply)
+   if(msg_type == Com_Vehicle_Authorization_Reply)
    {
-      return "Vehicle Authorization reply";
+      return "Vehicle Authorization Reply";
    }
    if(msg_type == Com_Vehicle_Mode_Command)
    {

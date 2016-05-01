@@ -152,7 +152,7 @@ void Node::SendVehicleAuthorizationRequest(
    emergency);
 }
 
-void Node::SendVehicleAuthorizationreply(
+void Node::SendVehicleAuthorizationReply(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -868,7 +868,7 @@ void Node::SendVehicleAuthorizationRequest(
    0);
 }
 
-void Node::SendVehicleAuthorizationreply(
+void Node::SendVehicleAuthorizationReply(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -1708,20 +1708,20 @@ void Node::RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestD
    node->register_on_vehicle_authorization_request(static_cast<comnet::vehicle_authorization_request_callback>(OnVehicleAuthorizationRequestPtr.ToPointer()));
 }
 
-void* Node::VehicleAuthorizationreplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr)
+void* Node::VehicleAuthorizationReplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   VehicleAuthorizationreply^ managed_vehicle_authorization_reply = gcnew VehicleAuthorizationreply(vehicle_authorization_reply);
-   OnVehicleAuthorizationreplyDelegate(link_id, managed_header, managed_vehicle_authorization_reply, this);
+   VehicleAuthorizationReply^ managed_vehicle_authorization_reply = gcnew VehicleAuthorizationReply(vehicle_authorization_reply);
+   OnVehicleAuthorizationReplyDelegate(link_id, managed_header, managed_vehicle_authorization_reply, this);
    return 0;
 }
 
-void Node::RegisterVehicleAuthorizationreplyEvent(VehicleAuthorizationreplyDelegate^ VehicleAuthorizationreplyEvent)
+void Node::RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate^ VehicleAuthorizationReplyEvent)
 {
-   OnVehicleAuthorizationreplyDelegate = VehicleAuthorizationreplyEvent;
-   OnVehicleAuthorizationreplyCallback = gcnew VehicleAuthorizationreplyCallback(this, &Node::VehicleAuthorizationreplyHelper);
-   OnVehicleAuthorizationreplyPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleAuthorizationreplyCallback);
-   node->register_on_vehicle_authorization_reply(static_cast<comnet::vehicle_authorization_reply_callback>(OnVehicleAuthorizationreplyPtr.ToPointer()));
+   OnVehicleAuthorizationReplyDelegate = VehicleAuthorizationReplyEvent;
+   OnVehicleAuthorizationReplyCallback = gcnew VehicleAuthorizationReplyCallback(this, &Node::VehicleAuthorizationReplyHelper);
+   OnVehicleAuthorizationReplyPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleAuthorizationReplyCallback);
+   node->register_on_vehicle_authorization_reply(static_cast<comnet::vehicle_authorization_reply_callback>(OnVehicleAuthorizationReplyPtr.ToPointer()));
 }
 
 void* Node::VehicleModeCommandHelper(int8_t link_id, com_header_t header, vehicle_mode_command_t vehicle_mode_command, comnet::node* ptr)

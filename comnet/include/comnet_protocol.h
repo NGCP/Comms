@@ -13,7 +13,7 @@
 #include <message/ConnectionReply.h>
 #include <message/VehicleIdentification.h>
 #include <message/VehicleAuthorizationRequest.h>
-#include <message/VehicleAuthorizationreply.h>
+#include <message/VehicleAuthorizationReply.h>
 #include <message/VehicleModeCommand.h>
 #include <message/VehicleJoystickCommand.h>
 #include <message/VehicleTerminationCommand.h>

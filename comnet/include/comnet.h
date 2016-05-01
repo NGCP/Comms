@@ -51,7 +51,7 @@ namespace comnet
    typedef void* (*vehicle_identification_callback)(int8_t, com_header_t, vehicle_identification_t, comnet::node* node_ptr);
    /**Global function call back used for message Vehicle_Authorization_Request must be implemented on platform for use*/ 
    typedef void* (*vehicle_authorization_request_callback)(int8_t, com_header_t, vehicle_authorization_request_t, comnet::node* node_ptr);
-   /**Global function call back used for message Vehicle_Authorization_reply must be implemented on platform for use*/ 
+   /**Global function call back used for message Vehicle_Authorization_Reply must be implemented on platform for use*/ 
    typedef void* (*vehicle_authorization_reply_callback)(int8_t, com_header_t, vehicle_authorization_reply_t, comnet::node* node_ptr);
    /**Global function call back used for message Vehicle_Mode_Command must be implemented on platform for use*/ 
    typedef void* (*vehicle_mode_command_callback)(int8_t, com_header_t, vehicle_mode_command_t, comnet::node* node_ptr);
@@ -216,7 +216,7 @@ namespace comnet
          uint8_t granted_services,
          bool is_emergency = false);
 
-      /**Public definition of the send Vehicle_Authorization_reply message which will be put into the message queue.*/ 
+      /**Public definition of the send Vehicle_Authorization_Reply message which will be put into the message queue.*/ 
       void send_vehicle_authorization_reply(
          uint8_t dest_id,
          float64_t timestamp,
@@ -534,7 +534,7 @@ namespace comnet
       void register_on_vehicle_identification(vehicle_identification_callback callback){on_vehicle_identification = callback;}
       /**Public definition of the register on Vehicle_Authorization_Request message which will use the message call back.*/ 
       void register_on_vehicle_authorization_request(vehicle_authorization_request_callback callback){on_vehicle_authorization_request = callback;}
-      /**Public definition of the register on Vehicle_Authorization_reply message which will use the message call back.*/ 
+      /**Public definition of the register on Vehicle_Authorization_Reply message which will use the message call back.*/ 
       void register_on_vehicle_authorization_reply(vehicle_authorization_reply_callback callback){on_vehicle_authorization_reply = callback;}
       /**Public definition of the register on Vehicle_Mode_Command message which will use the message call back.*/ 
       void register_on_vehicle_mode_command(vehicle_mode_command_callback callback){on_vehicle_mode_command = callback;}
@@ -654,7 +654,7 @@ namespace comnet
       vehicle_identification_callback on_vehicle_identification;
       /**Private data declares on Vehicle_Authorization_Request as call back data type used to hold call back*/ 
       vehicle_authorization_request_callback on_vehicle_authorization_request;
-      /**Private data declares on Vehicle_Authorization_reply as call back data type used to hold call back*/ 
+      /**Private data declares on Vehicle_Authorization_Reply as call back data type used to hold call back*/ 
       vehicle_authorization_reply_callback on_vehicle_authorization_reply;
       /**Private data declares on Vehicle_Mode_Command as call back data type used to hold call back*/ 
       vehicle_mode_command_callback on_vehicle_mode_command;

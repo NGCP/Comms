@@ -74,7 +74,7 @@ typedef enum {
    Com_Connection_Reply = 0006,
    Com_Vehicle_Identification = 1000,
    Com_Vehicle_Authorization_Request = 1001,
-   Com_Vehicle_Authorization_reply = 1002,
+   Com_Vehicle_Authorization_Reply = 1002,
    Com_Vehicle_Mode_Command = 1003,
    Com_Vehicle_Joystick_Command = 1004,
    Com_Vehicle_Termination_Command = 1005,
