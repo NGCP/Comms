@@ -60,7 +60,8 @@ f.write("""<?xml version="1.0"?>
     <!-- to create a pointer or array use uint8_t* and length data -->
     <header>
         <field type = "uint8_t" name = "node_src_id"></field>
-        <field type = "uint8_t" name = "node_dest_id"></field>           
+        <field type = "uint8_t" name = "node_dest_id"></field>
+        <field type = "uint8_t*" name = "iv" length = "16"></field>         
         <field type = "uint16_t" name = "message_type"></field> 
         <field type = "uint16_t" name = "message_length"></field>        
     </header>

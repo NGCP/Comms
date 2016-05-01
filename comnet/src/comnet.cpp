@@ -345,28 +345,46 @@ void* node::upkeep_helper(void* context)
 void node::null_callback_storage()
 {
    on_enter = NULL;
-   on_exit = NULL;
    on_ping = NULL;
    on_pong = NULL;
+   on_exit = NULL;
+   on_raw_data = NULL;
+   on_connection_request = NULL;
+   on_connection_reply = NULL;
    on_vehicle_identification = NULL;
-   on_amy_stuff = NULL;
    on_vehicle_authorization_request = NULL;
    on_vehicle_authorization_reply = NULL;
    on_vehicle_mode_command = NULL;
+   on_vehicle_joystick_command = NULL;
    on_vehicle_termination_command = NULL;
    on_vehicle_telemetry_command = NULL;
-   on_vehicle_waypoint_command = NULL;
    on_vehicle_system_status = NULL;
    on_vehicle_inertial_state = NULL;
    on_vehicle_global_position = NULL;
    on_vehicle_body_sensed_state = NULL;
    on_vehicle_attitude = NULL;
-   on_vehicle_ground_relative_state = NULL;
+   on_air_vehicle_ground_relative_state = NULL;
    on_payload_bay_command = NULL;
+   on_payload_data_recorder_command = NULL;
+   on_payload_operation_command = NULL;
+   on_communications_payload_command = NULL;
+   on_communications_payload_configuration_command = NULL;
    on_payload_bay_mode_command = NULL;
-   on_target_designation_command = NULL;
-   on_UGV_joystick = NULL;
-   on_UGV_battery_status = NULL;
+   on_payload_bay_status = NULL;
+   on_payload_data_recorder_status = NULL;
+   on_payload_operating_status = NULL;
+   on_communications_payload_status = NULL;
+   on_target_status = NULL;
+   on_target_acknowledgement = NULL;
+   on_UAV_location = NULL;
+   on_UAV_speed = NULL;
+   on_UAV_heading = NULL;
+   on_UAV_battery = NULL;
+   on_UAV_collision_avodiance_status = NULL;
+   on_UAV_mission_status = NULL;
+   on_UAV_collision_avodiance_message = NULL;
+   on_UUV_status = NULL;
+   on_ROV_status_message = NULL;
 }
 void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
 {
@@ -380,17 +398,6 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          else
          {
             this->on_enter(rx_msg->link_id, rx_msg->header, rx_buf->enter, this);
-         }
-         break;
-      }
-   case Com_Exit:
-      {
-         if(on_exit == NULL)
-         {
-         }
-         else
-         {
-            this->on_exit(rx_msg->link_id, rx_msg->header, rx_buf->exit, this);
          }
          break;
       }
@@ -416,6 +423,50 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
+   case Com_Exit:
+      {
+         if(on_exit == NULL)
+         {
+         }
+         else
+         {
+            this->on_exit(rx_msg->link_id, rx_msg->header, rx_buf->exit, this);
+         }
+         break;
+      }
+   case Com_Raw_Data:
+      {
+         if(on_raw_data == NULL)
+         {
+         }
+         else
+         {
+            this->on_raw_data(rx_msg->link_id, rx_msg->header, rx_buf->raw_data, this);
+         }
+         break;
+      }
+   case Com_Connection_Request:
+      {
+         if(on_connection_request == NULL)
+         {
+         }
+         else
+         {
+            this->on_connection_request(rx_msg->link_id, rx_msg->header, rx_buf->connection_request, this);
+         }
+         break;
+      }
+   case Com_Connection_Reply:
+      {
+         if(on_connection_reply == NULL)
+         {
+         }
+         else
+         {
+            this->on_connection_reply(rx_msg->link_id, rx_msg->header, rx_buf->connection_reply, this);
+         }
+         break;
+      }
    case Com_Vehicle_Identification:
       {
          if(on_vehicle_identification == NULL)
@@ -424,17 +475,6 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          else
          {
             this->on_vehicle_identification(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_identification, this);
-         }
-         break;
-      }
-   case Com_Amy_Stuff:
-      {
-         if(on_amy_stuff == NULL)
-         {
-         }
-         else
-         {
-            this->on_amy_stuff(rx_msg->link_id, rx_msg->header, rx_buf->amy_stuff, this);
          }
          break;
       }
@@ -449,7 +489,7 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
-   case Com_Vehicle_Authorization_Reply:
+   case Com_Vehicle_Authorization_reply:
       {
          if(on_vehicle_authorization_reply == NULL)
          {
@@ -468,6 +508,17 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          else
          {
             this->on_vehicle_mode_command(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_mode_command, this);
+         }
+         break;
+      }
+   case Com_Vehicle_Joystick_Command:
+      {
+         if(on_vehicle_joystick_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_vehicle_joystick_command(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_joystick_command, this);
          }
          break;
       }
@@ -490,17 +541,6 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          else
          {
             this->on_vehicle_telemetry_command(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_telemetry_command, this);
-         }
-         break;
-      }
-   case Com_Vehicle_Waypoint_Command:
-      {
-         if(on_vehicle_waypoint_command == NULL)
-         {
-         }
-         else
-         {
-            this->on_vehicle_waypoint_command(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_waypoint_command, this);
          }
          break;
       }
@@ -559,14 +599,14 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
-   case Com_Vehicle_Ground_Relative_State:
+   case Com_Air_Vehicle_Ground_Relative_State:
       {
-         if(on_vehicle_ground_relative_state == NULL)
+         if(on_air_vehicle_ground_relative_state == NULL)
          {
          }
          else
          {
-            this->on_vehicle_ground_relative_state(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_ground_relative_state, this);
+            this->on_air_vehicle_ground_relative_state(rx_msg->link_id, rx_msg->header, rx_buf->air_vehicle_ground_relative_state, this);
          }
          break;
       }
@@ -581,6 +621,50 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
+   case Com_Payload_Data_Recorder_Command:
+      {
+         if(on_payload_data_recorder_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_payload_data_recorder_command(rx_msg->link_id, rx_msg->header, rx_buf->payload_data_recorder_command, this);
+         }
+         break;
+      }
+   case Com_Payload_Operation_Command:
+      {
+         if(on_payload_operation_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_payload_operation_command(rx_msg->link_id, rx_msg->header, rx_buf->payload_operation_command, this);
+         }
+         break;
+      }
+   case Com_Communications_Payload_Command:
+      {
+         if(on_communications_payload_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_communications_payload_command(rx_msg->link_id, rx_msg->header, rx_buf->communications_payload_command, this);
+         }
+         break;
+      }
+   case Com_Communications_Payload_Configuration_Command:
+      {
+         if(on_communications_payload_configuration_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_communications_payload_configuration_command(rx_msg->link_id, rx_msg->header, rx_buf->communications_payload_configuration_command, this);
+         }
+         break;
+      }
    case Com_Payload_Bay_Mode_Command:
       {
          if(on_payload_bay_mode_command == NULL)
@@ -592,36 +676,168 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
-   case Com_Target_Designation_Command:
+   case Com_Payload_Bay_Status:
       {
-         if(on_target_designation_command == NULL)
+         if(on_payload_bay_status == NULL)
          {
          }
          else
          {
-            this->on_target_designation_command(rx_msg->link_id, rx_msg->header, rx_buf->target_designation_command, this);
+            this->on_payload_bay_status(rx_msg->link_id, rx_msg->header, rx_buf->payload_bay_status, this);
          }
          break;
       }
-   case Com_UGV_Joystick:
+   case Com_Payload_Data_Recorder_Status:
       {
-         if(on_UGV_joystick == NULL)
+         if(on_payload_data_recorder_status == NULL)
          {
          }
          else
          {
-            this->on_UGV_joystick(rx_msg->link_id, rx_msg->header, rx_buf->UGV_joystick, this);
+            this->on_payload_data_recorder_status(rx_msg->link_id, rx_msg->header, rx_buf->payload_data_recorder_status, this);
          }
          break;
       }
-   case Com_UGV_Battery_Status:
+   case Com_Payload_Operating_Status:
       {
-         if(on_UGV_battery_status == NULL)
+         if(on_payload_operating_status == NULL)
          {
          }
          else
          {
-            this->on_UGV_battery_status(rx_msg->link_id, rx_msg->header, rx_buf->UGV_battery_status, this);
+            this->on_payload_operating_status(rx_msg->link_id, rx_msg->header, rx_buf->payload_operating_status, this);
+         }
+         break;
+      }
+   case Com_Communications_Payload_Status:
+      {
+         if(on_communications_payload_status == NULL)
+         {
+         }
+         else
+         {
+            this->on_communications_payload_status(rx_msg->link_id, rx_msg->header, rx_buf->communications_payload_status, this);
+         }
+         break;
+      }
+   case Com_Target_Status:
+      {
+         if(on_target_status == NULL)
+         {
+         }
+         else
+         {
+            this->on_target_status(rx_msg->link_id, rx_msg->header, rx_buf->target_status, this);
+         }
+         break;
+      }
+   case Com_Target_Acknowledgement:
+      {
+         if(on_target_acknowledgement == NULL)
+         {
+         }
+         else
+         {
+            this->on_target_acknowledgement(rx_msg->link_id, rx_msg->header, rx_buf->target_acknowledgement, this);
+         }
+         break;
+      }
+   case Com_UAV_Location:
+      {
+         if(on_UAV_location == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_location(rx_msg->link_id, rx_msg->header, rx_buf->UAV_location, this);
+         }
+         break;
+      }
+   case Com_UAV_Speed:
+      {
+         if(on_UAV_speed == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_speed(rx_msg->link_id, rx_msg->header, rx_buf->UAV_speed, this);
+         }
+         break;
+      }
+   case Com_UAV_Heading:
+      {
+         if(on_UAV_heading == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_heading(rx_msg->link_id, rx_msg->header, rx_buf->UAV_heading, this);
+         }
+         break;
+      }
+   case Com_UAV_Battery:
+      {
+         if(on_UAV_battery == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_battery(rx_msg->link_id, rx_msg->header, rx_buf->UAV_battery, this);
+         }
+         break;
+      }
+   case Com_UAV_Collision_Avodiance_Status:
+      {
+         if(on_UAV_collision_avodiance_status == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_collision_avodiance_status(rx_msg->link_id, rx_msg->header, rx_buf->UAV_collision_avodiance_status, this);
+         }
+         break;
+      }
+   case Com_UAV_Mission_Status:
+      {
+         if(on_UAV_mission_status == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_mission_status(rx_msg->link_id, rx_msg->header, rx_buf->UAV_mission_status, this);
+         }
+         break;
+      }
+   case Com_UAV_Collision_Avodiance_Message:
+      {
+         if(on_UAV_collision_avodiance_message == NULL)
+         {
+         }
+         else
+         {
+            this->on_UAV_collision_avodiance_message(rx_msg->link_id, rx_msg->header, rx_buf->UAV_collision_avodiance_message, this);
+         }
+         break;
+      }
+   case Com_UUV_Status:
+      {
+         if(on_UUV_status == NULL)
+         {
+         }
+         else
+         {
+            this->on_UUV_status(rx_msg->link_id, rx_msg->header, rx_buf->UUV_status, this);
+         }
+         break;
+      }
+   case Com_ROV_Status_Message:
+      {
+         if(on_ROV_status_message == NULL)
+         {
+         }
+         else
+         {
+            this->on_ROV_status_message(rx_msg->link_id, rx_msg->header, rx_buf->ROV_status_message, this);
          }
          break;
       }
@@ -638,20 +854,6 @@ void node::send_enter(
    enter_t enter;
    enter.timestamp = timestamp;
    encode_enter(this->node_id, dest_id, &enter, &com_msg, key);
-   queue.add(&com_msg);
-   return;
-}
-
-void node::send_exit(
-   uint8_t dest_id,
-   float64_t timestamp,
-   bool is_emergency)
-{
-   com_msg_t com_msg;
-   com_msg.header.is_emergency = (uint16_t)is_emergency;
-   exit_t exit;
-   exit.timestamp = timestamp;
-   encode_exit(this->node_id, dest_id, &exit, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -684,12 +886,81 @@ void node::send_pong(
    return;
 }
 
+void node::send_exit(
+   uint8_t dest_id,
+   float64_t timestamp,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   exit_t exit;
+   exit.timestamp = timestamp;
+   encode_exit(this->node_id, dest_id, &exit, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_raw_data(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t length,
+   uint8_t data,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   raw_data_t raw_data;
+   raw_data.timestamp = timestamp;
+   raw_data.length = length;
+   raw_data.data = data;
+   encode_raw_data(this->node_id, dest_id, &raw_data, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_connection_request(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t trace_node_1,
+   uint8_t trace_node_n,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   connection_request_t connection_request;
+   connection_request.timestamp = timestamp;
+   connection_request.trace_node_1 = trace_node_1;
+   connection_request.trace_node_n = trace_node_n;
+   encode_connection_request(this->node_id, dest_id, &connection_request, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_connection_reply(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t connection_ID,
+   uint8_t trace_node_n,
+   uint8_t trace_node_n_1,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   connection_reply_t connection_reply;
+   connection_reply.timestamp = timestamp;
+   connection_reply.connection_ID = connection_ID;
+   connection_reply.trace_node_n = trace_node_n;
+   connection_reply.trace_node_n_1 = trace_node_n_1;
+   encode_connection_reply(this->node_id, dest_id, &connection_reply, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
 void node::send_vehicle_identification(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t vehicle_type,
-   uint16_t owner_ID,
    bool is_emergency)
 {
    com_msg_t com_msg;
@@ -698,22 +969,7 @@ void node::send_vehicle_identification(
    vehicle_identification.timestamp = timestamp;
    vehicle_identification.vehicle_ID = vehicle_ID;
    vehicle_identification.vehicle_type = vehicle_type;
-   vehicle_identification.owner_ID = owner_ID;
    encode_vehicle_identification(this->node_id, dest_id, &vehicle_identification, &com_msg, key);
-   queue.add(&com_msg);
-   return;
-}
-
-void node::send_amy_stuff(
-   uint8_t dest_id,
-   float64_t hello,
-   bool is_emergency)
-{
-   com_msg_t com_msg;
-   com_msg.header.is_emergency = (uint16_t)is_emergency;
-   amy_stuff_t amy_stuff;
-   amy_stuff.hello = hello;
-   encode_amy_stuff(this->node_id, dest_id, &amy_stuff, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -722,9 +978,9 @@ void node::send_vehicle_authorization_request(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t link_key,
-   uint8_t requested_services,
-   uint8_t handover_node,
+   uint8_t vehicle_type,
+   uint8_t authorized_services,
+   uint8_t granted_services,
    bool is_emergency)
 {
    com_msg_t com_msg;
@@ -732,9 +988,9 @@ void node::send_vehicle_authorization_request(
    vehicle_authorization_request_t vehicle_authorization_request;
    vehicle_authorization_request.timestamp = timestamp;
    vehicle_authorization_request.vehicle_ID = vehicle_ID;
-   vehicle_authorization_request.link_key = link_key;
-   vehicle_authorization_request.requested_services = requested_services;
-   vehicle_authorization_request.handover_node = handover_node;
+   vehicle_authorization_request.vehicle_type = vehicle_type;
+   vehicle_authorization_request.authorized_services = authorized_services;
+   vehicle_authorization_request.granted_services = granted_services;
    encode_vehicle_authorization_request(this->node_id, dest_id, &vehicle_authorization_request, &com_msg, key);
    queue.add(&com_msg);
    return;
@@ -780,9 +1036,29 @@ void node::send_vehicle_mode_command(
    return;
 }
 
-void node::send_vehicle_termination_command(
+void node::send_vehicle_joystick_command(
    uint8_t dest_id,
    float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t steering,
+   float32_t throttle,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   vehicle_joystick_command_t vehicle_joystick_command;
+   vehicle_joystick_command.timestamp = timestamp;
+   vehicle_joystick_command.vehicle_ID = vehicle_ID;
+   vehicle_joystick_command.steering = steering;
+   vehicle_joystick_command.throttle = throttle;
+   encode_vehicle_joystick_command(this->node_id, dest_id, &vehicle_joystick_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_vehicle_termination_command(
+   uint8_t dest_id,
+   uint64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t termination_mode,
    bool is_emergency)
@@ -800,7 +1076,8 @@ void node::send_vehicle_termination_command(
 
 void node::send_vehicle_telemetry_command(
    uint8_t dest_id,
-   float64_t timestamp,
+   uint64_t timestamp,
+   uint16_t vehicle_ID,
    uint8_t telemetry_select,
    uint8_t telemetry_rate,
    bool is_emergency)
@@ -809,37 +1086,10 @@ void node::send_vehicle_telemetry_command(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    vehicle_telemetry_command_t vehicle_telemetry_command;
    vehicle_telemetry_command.timestamp = timestamp;
+   vehicle_telemetry_command.vehicle_ID = vehicle_ID;
    vehicle_telemetry_command.telemetry_select = telemetry_select;
    vehicle_telemetry_command.telemetry_rate = telemetry_rate;
    encode_vehicle_telemetry_command(this->node_id, dest_id, &vehicle_telemetry_command, &com_msg, key);
-   queue.add(&com_msg);
-   return;
-}
-
-void node::send_vehicle_waypoint_command(
-   uint8_t dest_id,
-   float64_t timestamp,
-   uint16_t vehicle_ID,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude,
-   int32_t heading,
-   uint8_t waypoint_ID,
-   uint8_t waypoint_type,
-   bool is_emergency)
-{
-   com_msg_t com_msg;
-   com_msg.header.is_emergency = (uint16_t)is_emergency;
-   vehicle_waypoint_command_t vehicle_waypoint_command;
-   vehicle_waypoint_command.timestamp = timestamp;
-   vehicle_waypoint_command.vehicle_ID = vehicle_ID;
-   vehicle_waypoint_command.latitude = latitude;
-   vehicle_waypoint_command.longitude = longitude;
-   vehicle_waypoint_command.altitude = altitude;
-   vehicle_waypoint_command.heading = heading;
-   vehicle_waypoint_command.waypoint_ID = waypoint_ID;
-   vehicle_waypoint_command.waypoint_type = waypoint_type;
-   encode_vehicle_waypoint_command(this->node_id, dest_id, &vehicle_waypoint_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -917,7 +1167,6 @@ void node::send_vehicle_global_position(
    int32_t latitude,
    int32_t longitude,
    int32_t altitude,
-   int32_t heading,
    int16_t x_speed,
    int16_t y_speed,
    int16_t z_speed,
@@ -931,7 +1180,6 @@ void node::send_vehicle_global_position(
    vehicle_global_position.latitude = latitude;
    vehicle_global_position.longitude = longitude;
    vehicle_global_position.altitude = altitude;
-   vehicle_global_position.heading = heading;
    vehicle_global_position.x_speed = x_speed;
    vehicle_global_position.y_speed = y_speed;
    vehicle_global_position.z_speed = z_speed;
@@ -990,7 +1238,7 @@ void node::send_vehicle_attitude(
    return;
 }
 
-void node::send_vehicle_ground_relative_state(
+void node::send_air_vehicle_ground_relative_state(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -1008,20 +1256,20 @@ void node::send_vehicle_ground_relative_state(
 {
    com_msg_t com_msg;
    com_msg.header.is_emergency = (uint16_t)is_emergency;
-   vehicle_ground_relative_state_t vehicle_ground_relative_state;
-   vehicle_ground_relative_state.timestamp = timestamp;
-   vehicle_ground_relative_state.vehicle_ID = vehicle_ID;
-   vehicle_ground_relative_state.angle_of_attack = angle_of_attack;
-   vehicle_ground_relative_state.angle_of_sideslip = angle_of_sideslip;
-   vehicle_ground_relative_state.true_airspeed = true_airspeed;
-   vehicle_ground_relative_state.indicated_airspeed = indicated_airspeed;
-   vehicle_ground_relative_state.north_wind_speed = north_wind_speed;
-   vehicle_ground_relative_state.east_wind_speed = east_wind_speed;
-   vehicle_ground_relative_state.north_ground_speed = north_ground_speed;
-   vehicle_ground_relative_state.east_ground_speed = east_ground_speed;
-   vehicle_ground_relative_state.barometric_pressure = barometric_pressure;
-   vehicle_ground_relative_state.barometric_altitude = barometric_altitude;
-   encode_vehicle_ground_relative_state(this->node_id, dest_id, &vehicle_ground_relative_state, &com_msg, key);
+   air_vehicle_ground_relative_state_t air_vehicle_ground_relative_state;
+   air_vehicle_ground_relative_state.timestamp = timestamp;
+   air_vehicle_ground_relative_state.vehicle_ID = vehicle_ID;
+   air_vehicle_ground_relative_state.angle_of_attack = angle_of_attack;
+   air_vehicle_ground_relative_state.angle_of_sideslip = angle_of_sideslip;
+   air_vehicle_ground_relative_state.true_airspeed = true_airspeed;
+   air_vehicle_ground_relative_state.indicated_airspeed = indicated_airspeed;
+   air_vehicle_ground_relative_state.north_wind_speed = north_wind_speed;
+   air_vehicle_ground_relative_state.east_wind_speed = east_wind_speed;
+   air_vehicle_ground_relative_state.north_ground_speed = north_ground_speed;
+   air_vehicle_ground_relative_state.east_ground_speed = east_ground_speed;
+   air_vehicle_ground_relative_state.barometric_pressure = barometric_pressure;
+   air_vehicle_ground_relative_state.barometric_altitude = barometric_altitude;
+   encode_air_vehicle_ground_relative_state(this->node_id, dest_id, &air_vehicle_ground_relative_state, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1029,7 +1277,7 @@ void node::send_vehicle_ground_relative_state(
 void node::send_payload_bay_command(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_bay_ID,
    uint8_t payload_command,
    bool is_emergency)
 {
@@ -1037,9 +1285,81 @@ void node::send_payload_bay_command(
    com_msg.header.is_emergency = (uint16_t)is_emergency;
    payload_bay_command_t payload_bay_command;
    payload_bay_command.timestamp = timestamp;
-   payload_bay_command.payload_ID = payload_ID;
+   payload_bay_command.payload_bay_ID = payload_bay_ID;
    payload_bay_command.payload_command = payload_command;
    encode_payload_bay_command(this->node_id, dest_id, &payload_bay_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_payload_data_recorder_command(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_recorder_mode,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   payload_data_recorder_command_t payload_data_recorder_command;
+   payload_data_recorder_command.timestamp = timestamp;
+   payload_data_recorder_command.payload_ID = payload_ID;
+   payload_data_recorder_command.payload_recorder_mode = payload_recorder_mode;
+   encode_payload_data_recorder_command(this->node_id, dest_id, &payload_data_recorder_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_payload_operation_command(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_command,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   payload_operation_command_t payload_operation_command;
+   payload_operation_command.timestamp = timestamp;
+   payload_operation_command.payload_ID = payload_ID;
+   payload_operation_command.payload_command = payload_command;
+   encode_payload_operation_command(this->node_id, dest_id, &payload_operation_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_communications_payload_command(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_command,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   communications_payload_command_t communications_payload_command;
+   communications_payload_command.timestamp = timestamp;
+   communications_payload_command.comms_payload_ID = comms_payload_ID;
+   communications_payload_command.comms_payload_command = comms_payload_command;
+   encode_communications_payload_command(this->node_id, dest_id, &communications_payload_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_communications_payload_configuration_command(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_mode,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   communications_payload_configuration_command_t communications_payload_configuration_command;
+   communications_payload_configuration_command.timestamp = timestamp;
+   communications_payload_configuration_command.comms_payload_ID = comms_payload_ID;
+   communications_payload_configuration_command.comms_payload_mode = comms_payload_mode;
+   encode_communications_payload_configuration_command(this->node_id, dest_id, &communications_payload_configuration_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }
@@ -1047,7 +1367,7 @@ void node::send_payload_bay_command(
 void node::send_payload_bay_mode_command(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_ID,
    uint8_t payload_mode,
    bool is_emergency)
 {
@@ -1062,80 +1382,280 @@ void node::send_payload_bay_mode_command(
    return;
 }
 
-void node::send_target_designation_command(
+void node::send_payload_bay_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_bay_ID,
+   uint8_t payload_bay_mode,
+   uint8_t payload_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   payload_bay_status_t payload_bay_status;
+   payload_bay_status.timestamp = timestamp;
+   payload_bay_status.payload_bay_ID = payload_bay_ID;
+   payload_bay_status.payload_bay_mode = payload_bay_mode;
+   payload_bay_status.payload_status = payload_status;
+   encode_payload_bay_status(this->node_id, dest_id, &payload_bay_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_payload_data_recorder_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t data_recorder_mode,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   payload_data_recorder_status_t payload_data_recorder_status;
+   payload_data_recorder_status.timestamp = timestamp;
+   payload_data_recorder_status.data_recorder_mode = data_recorder_mode;
+   encode_payload_data_recorder_status(this->node_id, dest_id, &payload_data_recorder_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_payload_operating_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_mode,
+   uint8_t payload_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   payload_operating_status_t payload_operating_status;
+   payload_operating_status.timestamp = timestamp;
+   payload_operating_status.payload_ID = payload_ID;
+   payload_operating_status.payload_mode = payload_mode;
+   payload_operating_status.payload_status = payload_status;
+   encode_payload_operating_status(this->node_id, dest_id, &payload_operating_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_communications_payload_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t communications_ID,
+   uint8_t communications_mode,
+   uint8_t communications_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   communications_payload_status_t communications_payload_status;
+   communications_payload_status.timestamp = timestamp;
+   communications_payload_status.communications_ID = communications_ID;
+   communications_payload_status.communications_mode = communications_mode;
+   communications_payload_status.communications_status = communications_status;
+   encode_communications_payload_status(this->node_id, dest_id, &communications_payload_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_target_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t target_radius,
+   float64_t target_angle,
+   float64_t target_altitude,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   target_status_t target_status;
+   target_status.timestamp = timestamp;
+   target_status.target_radius = target_radius;
+   target_status.target_angle = target_angle;
+   target_status.target_altitude = target_altitude;
+   encode_target_status(this->node_id, dest_id, &target_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_target_acknowledgement(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t target_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   target_acknowledgement_t target_acknowledgement;
+   target_acknowledgement.timestamp = timestamp;
+   target_acknowledgement.target_status = target_status;
+   encode_target_acknowledgement(this->node_id, dest_id, &target_acknowledgement, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_location(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t longitude,
+   float64_t latitude,
+   float64_t altitude,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_location_t UAV_location;
+   UAV_location.timestamp = timestamp;
+   UAV_location.longitude = longitude;
+   UAV_location.latitude = latitude;
+   UAV_location.altitude = altitude;
+   encode_UAV_location(this->node_id, dest_id, &UAV_location, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_speed(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t speed,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_speed_t UAV_speed;
+   UAV_speed.timestamp = timestamp;
+   UAV_speed.speed = speed;
+   encode_UAV_speed(this->node_id, dest_id, &UAV_speed, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_heading(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t heading,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_heading_t UAV_heading;
+   UAV_heading.timestamp = timestamp;
+   UAV_heading.heading = heading;
+   encode_UAV_heading(this->node_id, dest_id, &UAV_heading, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_battery(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint32_t battery_percentage,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_battery_t UAV_battery;
+   UAV_battery.timestamp = timestamp;
+   UAV_battery.battery_percentage = battery_percentage;
+   encode_UAV_battery(this->node_id, dest_id, &UAV_battery, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_collision_avodiance_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t ca_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_collision_avodiance_status_t UAV_collision_avodiance_status;
+   UAV_collision_avodiance_status.timestamp = timestamp;
+   UAV_collision_avodiance_status.ca_status = ca_status;
+   encode_UAV_collision_avodiance_status(this->node_id, dest_id, &UAV_collision_avodiance_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_mission_status(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t mission_status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_mission_status_t UAV_mission_status;
+   UAV_mission_status.timestamp = timestamp;
+   UAV_mission_status.mission_status = mission_status;
+   encode_UAV_mission_status(this->node_id, dest_id, &UAV_mission_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UAV_collision_avodiance_message(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t vehicle_ID,
+   float64_t velocity,
+   float64_t latitude,
+   float64_t longtitude,
+   float64_t altitude,
+   uint8_t priority,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UAV_collision_avodiance_message_t UAV_collision_avodiance_message;
+   UAV_collision_avodiance_message.timestamp = timestamp;
+   UAV_collision_avodiance_message.vehicle_ID = vehicle_ID;
+   UAV_collision_avodiance_message.velocity = velocity;
+   UAV_collision_avodiance_message.latitude = latitude;
+   UAV_collision_avodiance_message.longtitude = longtitude;
+   UAV_collision_avodiance_message.altitude = altitude;
+   UAV_collision_avodiance_message.priority = priority;
+   encode_UAV_collision_avodiance_message(this->node_id, dest_id, &UAV_collision_avodiance_message, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_UUV_status(
+   uint8_t dest_id,
+   uint8_t status,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   UUV_status_t UUV_status;
+   UUV_status.status = status;
+   encode_UUV_status(this->node_id, dest_id, &UUV_status, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_ROV_status_message(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t payload_ID,
-   uint8_t target_ID,
-   uint8_t target_type,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude,
+   uint16_t depth,
+   uint16_t roll,
+   uint16_t pitch,
+   uint16_t heading,
+   float32_t battery_percent,
    bool is_emergency)
 {
    com_msg_t com_msg;
    com_msg.header.is_emergency = (uint16_t)is_emergency;
-   target_designation_command_t target_designation_command;
-   target_designation_command.timestamp = timestamp;
-   target_designation_command.vehicle_ID = vehicle_ID;
-   target_designation_command.payload_ID = payload_ID;
-   target_designation_command.target_ID = target_ID;
-   target_designation_command.target_type = target_type;
-   target_designation_command.latitude = latitude;
-   target_designation_command.longitude = longitude;
-   target_designation_command.altitude = altitude;
-   encode_target_designation_command(this->node_id, dest_id, &target_designation_command, &com_msg, key);
-   queue.add(&com_msg);
-   return;
-}
-
-void node::send_UGV_joystick(
-   uint8_t dest_id,
-   float64_t timestamp,
-   uint8_t vehicle_id,
-   float32_t steering,
-   float32_t throttle,
-   bool is_emergency)
-{
-   com_msg_t com_msg;
-   com_msg.header.is_emergency = (uint16_t)is_emergency;
-   UGV_joystick_t UGV_joystick;
-   UGV_joystick.timestamp = timestamp;
-   UGV_joystick.vehicle_id = vehicle_id;
-   UGV_joystick.steering = steering;
-   UGV_joystick.throttle = throttle;
-   encode_UGV_joystick(this->node_id, dest_id, &UGV_joystick, &com_msg, key);
-   queue.add(&com_msg);
-   return;
-}
-
-void node::send_UGV_battery_status(
-   uint8_t dest_id,
-   float64_t timestamp,
-   float32_t voltage_3_3V,
-   float32_t voltage_5V,
-   float32_t voltage_12V,
-   float32_t current_3_3V,
-   float32_t current_5V,
-   float32_t current_12V,
-   float32_t current_fore_motor,
-   float32_t current_aft_motor,
-   bool is_emergency)
-{
-   com_msg_t com_msg;
-   com_msg.header.is_emergency = (uint16_t)is_emergency;
-   UGV_battery_status_t UGV_battery_status;
-   UGV_battery_status.timestamp = timestamp;
-   UGV_battery_status.voltage_3_3V = voltage_3_3V;
-   UGV_battery_status.voltage_5V = voltage_5V;
-   UGV_battery_status.voltage_12V = voltage_12V;
-   UGV_battery_status.current_3_3V = current_3_3V;
-   UGV_battery_status.current_5V = current_5V;
-   UGV_battery_status.current_12V = current_12V;
-   UGV_battery_status.current_fore_motor = current_fore_motor;
-   UGV_battery_status.current_aft_motor = current_aft_motor;
-   encode_UGV_battery_status(this->node_id, dest_id, &UGV_battery_status, &com_msg, key);
+   ROV_status_message_t ROV_status_message;
+   ROV_status_message.timestamp = timestamp;
+   ROV_status_message.vehicle_ID = vehicle_ID;
+   ROV_status_message.depth = depth;
+   ROV_status_message.roll = roll;
+   ROV_status_message.pitch = pitch;
+   ROV_status_message.heading = heading;
+   ROV_status_message.battery_percent = battery_percent;
+   encode_ROV_status_message(this->node_id, dest_id, &ROV_status_message, &com_msg, key);
    queue.add(&com_msg);
    return;
 }

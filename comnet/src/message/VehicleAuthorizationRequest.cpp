@@ -12,9 +12,9 @@ msg_offset pack_vehicle_authorization_request(
 {
    offset = pack_float64_t(vehicle_authorization_request->timestamp,offset);
    offset = pack_uint16_t(vehicle_authorization_request->vehicle_ID,offset);
-   offset = pack_uint8_t(vehicle_authorization_request->link_key,offset);
-   offset = pack_uint8_t(vehicle_authorization_request->requested_services,offset);
-   offset = pack_uint8_t(vehicle_authorization_request->handover_node,offset);
+   offset = pack_uint8_t(vehicle_authorization_request->vehicle_type,offset);
+   offset = pack_uint8_t(vehicle_authorization_request->authorized_services,offset);
+   offset = pack_uint8_t(vehicle_authorization_request->granted_services,offset);
    return offset;
 }
 
@@ -24,9 +24,9 @@ msg_offset unpack_vehicle_authorization_request(
 {
    offset = unpack_float64_t(offset, &out_ptr->timestamp);
    offset = unpack_uint16_t(offset, &out_ptr->vehicle_ID);
-   offset = unpack_uint8_t(offset, &out_ptr->link_key);
-   offset = unpack_uint8_t(offset, &out_ptr->requested_services);
-   offset = unpack_uint8_t(offset, &out_ptr->handover_node);
+   offset = unpack_uint8_t(offset, &out_ptr->vehicle_type);
+   offset = unpack_uint8_t(offset, &out_ptr->authorized_services);
+   offset = unpack_uint8_t(offset, &out_ptr->granted_services);
    return offset;
 }
 

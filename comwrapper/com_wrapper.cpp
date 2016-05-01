@@ -30,18 +30,6 @@ void Node::SendEnter(
    emergency);
 }
 
-void Node::SendExit(
-   uint8_t dest_id,
-   float64_t timestamp,
-   bool emergency)
-{
-
-   node->send_exit(
-   dest_id,
-   timestamp,
-   emergency);
-}
-
 void Node::SendPing(
    uint8_t dest_id,
    float64_t timestamp,
@@ -66,12 +54,73 @@ void Node::SendPong(
    emergency);
 }
 
+void Node::SendExit(
+   uint8_t dest_id,
+   float64_t timestamp,
+   bool emergency)
+{
+
+   node->send_exit(
+   dest_id,
+   timestamp,
+   emergency);
+}
+
+void Node::SendRawData(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t length,
+   uint8_t data,
+   bool emergency)
+{
+
+   node->send_raw_data(
+   dest_id,
+   timestamp,
+   length,
+   data,
+   emergency);
+}
+
+void Node::SendConnectionRequest(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t trace_node_1,
+   uint8_t trace_node_n,
+   bool emergency)
+{
+
+   node->send_connection_request(
+   dest_id,
+   timestamp,
+   trace_node_1,
+   trace_node_n,
+   emergency);
+}
+
+void Node::SendConnectionReply(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t connection_ID,
+   uint8_t trace_node_n,
+   uint8_t trace_node_n_1,
+   bool emergency)
+{
+
+   node->send_connection_reply(
+   dest_id,
+   timestamp,
+   connection_ID,
+   trace_node_n,
+   trace_node_n_1,
+   emergency);
+}
+
 void Node::SendVehicleIdentification(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t vehicle_type,
-   uint16_t owner_ID,
    bool emergency)
 {
 
@@ -80,19 +129,6 @@ void Node::SendVehicleIdentification(
    timestamp,
    vehicle_ID,
    vehicle_type,
-   owner_ID,
-   emergency);
-}
-
-void Node::SendAmyStuff(
-   uint8_t dest_id,
-   float64_t hello,
-   bool emergency)
-{
-
-   node->send_amy_stuff(
-   dest_id,
-   hello,
    emergency);
 }
 
@@ -100,9 +136,9 @@ void Node::SendVehicleAuthorizationRequest(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t link_key,
-   uint8_t requested_services,
-   uint8_t handover_node,
+   uint8_t vehicle_type,
+   uint8_t authorized_services,
+   uint8_t granted_services,
    bool emergency)
 {
 
@@ -110,13 +146,13 @@ void Node::SendVehicleAuthorizationRequest(
    dest_id,
    timestamp,
    vehicle_ID,
-   link_key,
-   requested_services,
-   handover_node,
+   vehicle_type,
+   authorized_services,
+   granted_services,
    emergency);
 }
 
-void Node::SendVehicleAuthorizationReply(
+void Node::SendVehicleAuthorizationreply(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -152,9 +188,27 @@ void Node::SendVehicleModeCommand(
    emergency);
 }
 
-void Node::SendVehicleTerminationCommand(
+void Node::SendVehicleJoystickCommand(
    uint8_t dest_id,
    float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t steering,
+   float32_t throttle,
+   bool emergency)
+{
+
+   node->send_vehicle_joystick_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   steering,
+   throttle,
+   emergency);
+}
+
+void Node::SendVehicleTerminationCommand(
+   uint8_t dest_id,
+   uint64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t termination_mode,
    bool emergency)
@@ -170,7 +224,8 @@ void Node::SendVehicleTerminationCommand(
 
 void Node::SendVehicleTelemetryCommand(
    uint8_t dest_id,
-   float64_t timestamp,
+   uint64_t timestamp,
+   uint16_t vehicle_ID,
    uint8_t telemetry_select,
    uint8_t telemetry_rate,
    bool emergency)
@@ -179,34 +234,9 @@ void Node::SendVehicleTelemetryCommand(
    node->send_vehicle_telemetry_command(
    dest_id,
    timestamp,
+   vehicle_ID,
    telemetry_select,
    telemetry_rate,
-   emergency);
-}
-
-void Node::SendVehicleWaypointCommand(
-   uint8_t dest_id,
-   float64_t timestamp,
-   uint16_t vehicle_ID,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude,
-   int32_t heading,
-   uint8_t waypoint_ID,
-   uint8_t waypoint_type,
-   bool emergency)
-{
-
-   node->send_vehicle_waypoint_command(
-   dest_id,
-   timestamp,
-   vehicle_ID,
-   latitude,
-   longitude,
-   altitude,
-   heading,
-   waypoint_ID,
-   waypoint_type,
    emergency);
 }
 
@@ -279,7 +309,6 @@ void Node::SendVehicleGlobalPosition(
    int32_t latitude,
    int32_t longitude,
    int32_t altitude,
-   int32_t heading,
    int16_t x_speed,
    int16_t y_speed,
    int16_t z_speed,
@@ -293,7 +322,6 @@ void Node::SendVehicleGlobalPosition(
    latitude,
    longitude,
    altitude,
-   heading,
    x_speed,
    y_speed,
    z_speed,
@@ -346,7 +374,7 @@ void Node::SendVehicleAttitude(
    emergency);
 }
 
-void Node::SendVehicleGroundRelativeState(
+void Node::SendAirVehicleGroundRelativeState(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -363,7 +391,7 @@ void Node::SendVehicleGroundRelativeState(
    bool emergency)
 {
 
-   node->send_vehicle_ground_relative_state(
+   node->send_air_vehicle_ground_relative_state(
    dest_id,
    timestamp,
    vehicle_ID,
@@ -383,7 +411,7 @@ void Node::SendVehicleGroundRelativeState(
 void Node::SendPayloadBayCommand(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_bay_ID,
    uint8_t payload_command,
    bool emergency)
 {
@@ -391,15 +419,79 @@ void Node::SendPayloadBayCommand(
    node->send_payload_bay_command(
    dest_id,
    timestamp,
+   payload_bay_ID,
+   payload_command,
+   emergency);
+}
+
+void Node::SendPayloadDataRecorderCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_recorder_mode,
+   bool emergency)
+{
+
+   node->send_payload_data_recorder_command(
+   dest_id,
+   timestamp,
+   payload_ID,
+   payload_recorder_mode,
+   emergency);
+}
+
+void Node::SendPayloadOperationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_command,
+   bool emergency)
+{
+
+   node->send_payload_operation_command(
+   dest_id,
+   timestamp,
    payload_ID,
    payload_command,
+   emergency);
+}
+
+void Node::SendCommunicationsPayloadCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_command,
+   bool emergency)
+{
+
+   node->send_communications_payload_command(
+   dest_id,
+   timestamp,
+   comms_payload_ID,
+   comms_payload_command,
+   emergency);
+}
+
+void Node::SendCommunicationsPayloadConfigurationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_mode,
+   bool emergency)
+{
+
+   node->send_communications_payload_configuration_command(
+   dest_id,
+   timestamp,
+   comms_payload_ID,
+   comms_payload_mode,
    emergency);
 }
 
 void Node::SendPayloadBayModeCommand(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_ID,
    uint8_t payload_mode,
    bool emergency)
 {
@@ -412,75 +504,251 @@ void Node::SendPayloadBayModeCommand(
    emergency);
 }
 
-void Node::SendTargetDesignationCommand(
+void Node::SendPayloadBayStatus(
    uint8_t dest_id,
    float64_t timestamp,
-   uint16_t vehicle_ID,
-   uint8_t payload_ID,
-   uint8_t target_ID,
-   uint8_t target_type,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude,
+   uint16_t payload_bay_ID,
+   uint8_t payload_bay_mode,
+   uint8_t payload_status,
    bool emergency)
 {
 
-   node->send_target_designation_command(
+   node->send_payload_bay_status(
    dest_id,
    timestamp,
-   vehicle_ID,
+   payload_bay_ID,
+   payload_bay_mode,
+   payload_status,
+   emergency);
+}
+
+void Node::SendPayloadDataRecorderStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t data_recorder_mode,
+   bool emergency)
+{
+
+   node->send_payload_data_recorder_status(
+   dest_id,
+   timestamp,
+   data_recorder_mode,
+   emergency);
+}
+
+void Node::SendPayloadOperatingStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_mode,
+   uint8_t payload_status,
+   bool emergency)
+{
+
+   node->send_payload_operating_status(
+   dest_id,
+   timestamp,
    payload_ID,
-   target_ID,
-   target_type,
-   latitude,
+   payload_mode,
+   payload_status,
+   emergency);
+}
+
+void Node::SendCommunicationsPayloadStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t communications_ID,
+   uint8_t communications_mode,
+   uint8_t communications_status,
+   bool emergency)
+{
+
+   node->send_communications_payload_status(
+   dest_id,
+   timestamp,
+   communications_ID,
+   communications_mode,
+   communications_status,
+   emergency);
+}
+
+void Node::SendTargetStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t target_radius,
+   float64_t target_angle,
+   float64_t target_altitude,
+   bool emergency)
+{
+
+   node->send_target_status(
+   dest_id,
+   timestamp,
+   target_radius,
+   target_angle,
+   target_altitude,
+   emergency);
+}
+
+void Node::SendTargetAcknowledgement(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t target_status,
+   bool emergency)
+{
+
+   node->send_target_acknowledgement(
+   dest_id,
+   timestamp,
+   target_status,
+   emergency);
+}
+
+void Node::SendUAVLocation(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t longitude,
+   float64_t latitude,
+   float64_t altitude,
+   bool emergency)
+{
+
+   node->send_UAV_location(
+   dest_id,
+   timestamp,
    longitude,
+   latitude,
    altitude,
    emergency);
 }
 
-void Node::SendUGVJoystick(
+void Node::SendUAVSpeed(
    uint8_t dest_id,
    float64_t timestamp,
-   uint8_t vehicle_id,
-   float32_t steering,
-   float32_t throttle,
+   float64_t speed,
    bool emergency)
 {
 
-   node->send_UGV_joystick(
+   node->send_UAV_speed(
    dest_id,
    timestamp,
-   vehicle_id,
-   steering,
-   throttle,
+   speed,
    emergency);
 }
 
-void Node::SendUGVBatteryStatus(
+void Node::SendUAVHeading(
    uint8_t dest_id,
    float64_t timestamp,
-   float32_t voltage_3_3V,
-   float32_t voltage_5V,
-   float32_t voltage_12V,
-   float32_t current_3_3V,
-   float32_t current_5V,
-   float32_t current_12V,
-   float32_t current_fore_motor,
-   float32_t current_aft_motor,
+   float64_t heading,
    bool emergency)
 {
 
-   node->send_UGV_battery_status(
+   node->send_UAV_heading(
    dest_id,
    timestamp,
-   voltage_3_3V,
-   voltage_5V,
-   voltage_12V,
-   current_3_3V,
-   current_5V,
-   current_12V,
-   current_fore_motor,
-   current_aft_motor,
+   heading,
+   emergency);
+}
+
+void Node::SendUAVBattery(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint32_t battery_percentage,
+   bool emergency)
+{
+
+   node->send_UAV_battery(
+   dest_id,
+   timestamp,
+   battery_percentage,
+   emergency);
+}
+
+void Node::SendUAVCollisionAvodianceStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t ca_status,
+   bool emergency)
+{
+
+   node->send_UAV_collision_avodiance_status(
+   dest_id,
+   timestamp,
+   ca_status,
+   emergency);
+}
+
+void Node::SendUAVMissionStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t mission_status,
+   bool emergency)
+{
+
+   node->send_UAV_mission_status(
+   dest_id,
+   timestamp,
+   mission_status,
+   emergency);
+}
+
+void Node::SendUAVCollisionAvodianceMessage(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t vehicle_ID,
+   float64_t velocity,
+   float64_t latitude,
+   float64_t longtitude,
+   float64_t altitude,
+   uint8_t priority,
+   bool emergency)
+{
+
+   node->send_UAV_collision_avodiance_message(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   velocity,
+   latitude,
+   longtitude,
+   altitude,
+   priority,
+   emergency);
+}
+
+void Node::SendUUVStatus(
+   uint8_t dest_id,
+   uint8_t status,
+   bool emergency)
+{
+
+   node->send_UUV_status(
+   dest_id,
+   status,
+   emergency);
+}
+
+void Node::SendROVStatusMessage(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint16_t depth,
+   uint16_t roll,
+   uint16_t pitch,
+   uint16_t heading,
+   float32_t battery_percent,
+   bool emergency)
+{
+
+   node->send_ROV_status_message(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   depth,
+   roll,
+   pitch,
+   heading,
+   battery_percent,
    emergency);
 }
 
@@ -489,16 +757,6 @@ void Node::SendEnter(
    float64_t timestamp)
 {
    node->send_enter(
-   dest_id,
-   timestamp,
-   0);
-}
-
-void Node::SendExit(
-   uint8_t dest_id,
-   float64_t timestamp)
-{
-   node->send_exit(
    dest_id,
    timestamp,
    0);
@@ -524,29 +782,71 @@ void Node::SendPong(
    0);
 }
 
+void Node::SendExit(
+   uint8_t dest_id,
+   float64_t timestamp)
+{
+   node->send_exit(
+   dest_id,
+   timestamp,
+   0);
+}
+
+void Node::SendRawData(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t length,
+   uint8_t data)
+{
+   node->send_raw_data(
+   dest_id,
+   timestamp,
+   length,
+   data,
+   0);
+}
+
+void Node::SendConnectionRequest(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t trace_node_1,
+   uint8_t trace_node_n)
+{
+   node->send_connection_request(
+   dest_id,
+   timestamp,
+   trace_node_1,
+   trace_node_n,
+   0);
+}
+
+void Node::SendConnectionReply(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t connection_ID,
+   uint8_t trace_node_n,
+   uint8_t trace_node_n_1)
+{
+   node->send_connection_reply(
+   dest_id,
+   timestamp,
+   connection_ID,
+   trace_node_n,
+   trace_node_n_1,
+   0);
+}
+
 void Node::SendVehicleIdentification(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t vehicle_type,
-   uint16_t owner_ID)
+   uint8_t vehicle_type)
 {
    node->send_vehicle_identification(
    dest_id,
    timestamp,
    vehicle_ID,
    vehicle_type,
-   owner_ID,
-   0);
-}
-
-void Node::SendAmyStuff(
-   uint8_t dest_id,
-   float64_t hello)
-{
-   node->send_amy_stuff(
-   dest_id,
-   hello,
    0);
 }
 
@@ -554,21 +854,21 @@ void Node::SendVehicleAuthorizationRequest(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
-   uint8_t link_key,
-   uint8_t requested_services,
-   uint8_t handover_node)
+   uint8_t vehicle_type,
+   uint8_t authorized_services,
+   uint8_t granted_services)
 {
    node->send_vehicle_authorization_request(
    dest_id,
    timestamp,
    vehicle_ID,
-   link_key,
-   requested_services,
-   handover_node,
+   vehicle_type,
+   authorized_services,
+   granted_services,
    0);
 }
 
-void Node::SendVehicleAuthorizationReply(
+void Node::SendVehicleAuthorizationreply(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -600,9 +900,25 @@ void Node::SendVehicleModeCommand(
    0);
 }
 
-void Node::SendVehicleTerminationCommand(
+void Node::SendVehicleJoystickCommand(
    uint8_t dest_id,
    float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t steering,
+   float32_t throttle)
+{
+   node->send_vehicle_joystick_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   steering,
+   throttle,
+   0);
+}
+
+void Node::SendVehicleTerminationCommand(
+   uint8_t dest_id,
+   uint64_t timestamp,
    uint16_t vehicle_ID,
    uint8_t termination_mode)
 {
@@ -616,39 +932,17 @@ void Node::SendVehicleTerminationCommand(
 
 void Node::SendVehicleTelemetryCommand(
    uint8_t dest_id,
-   float64_t timestamp,
+   uint64_t timestamp,
+   uint16_t vehicle_ID,
    uint8_t telemetry_select,
    uint8_t telemetry_rate)
 {
    node->send_vehicle_telemetry_command(
    dest_id,
    timestamp,
+   vehicle_ID,
    telemetry_select,
    telemetry_rate,
-   0);
-}
-
-void Node::SendVehicleWaypointCommand(
-   uint8_t dest_id,
-   float64_t timestamp,
-   uint16_t vehicle_ID,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude,
-   int32_t heading,
-   uint8_t waypoint_ID,
-   uint8_t waypoint_type)
-{
-   node->send_vehicle_waypoint_command(
-   dest_id,
-   timestamp,
-   vehicle_ID,
-   latitude,
-   longitude,
-   altitude,
-   heading,
-   waypoint_ID,
-   waypoint_type,
    0);
 }
 
@@ -717,7 +1011,6 @@ void Node::SendVehicleGlobalPosition(
    int32_t latitude,
    int32_t longitude,
    int32_t altitude,
-   int32_t heading,
    int16_t x_speed,
    int16_t y_speed,
    int16_t z_speed)
@@ -729,7 +1022,6 @@ void Node::SendVehicleGlobalPosition(
    latitude,
    longitude,
    altitude,
-   heading,
    x_speed,
    y_speed,
    z_speed,
@@ -778,7 +1070,7 @@ void Node::SendVehicleAttitude(
    0);
 }
 
-void Node::SendVehicleGroundRelativeState(
+void Node::SendAirVehicleGroundRelativeState(
    uint8_t dest_id,
    float64_t timestamp,
    uint16_t vehicle_ID,
@@ -793,7 +1085,7 @@ void Node::SendVehicleGroundRelativeState(
    float32_t barometric_pressure,
    float32_t barometric_altitude)
 {
-   node->send_vehicle_ground_relative_state(
+   node->send_air_vehicle_ground_relative_state(
    dest_id,
    timestamp,
    vehicle_ID,
@@ -813,10 +1105,38 @@ void Node::SendVehicleGroundRelativeState(
 void Node::SendPayloadBayCommand(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_bay_ID,
    uint8_t payload_command)
 {
    node->send_payload_bay_command(
+   dest_id,
+   timestamp,
+   payload_bay_ID,
+   payload_command,
+   0);
+}
+
+void Node::SendPayloadDataRecorderCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_recorder_mode)
+{
+   node->send_payload_data_recorder_command(
+   dest_id,
+   timestamp,
+   payload_ID,
+   payload_recorder_mode,
+   0);
+}
+
+void Node::SendPayloadOperationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_command)
+{
+   node->send_payload_operation_command(
    dest_id,
    timestamp,
    payload_ID,
@@ -824,10 +1144,38 @@ void Node::SendPayloadBayCommand(
    0);
 }
 
+void Node::SendCommunicationsPayloadCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_command)
+{
+   node->send_communications_payload_command(
+   dest_id,
+   timestamp,
+   comms_payload_ID,
+   comms_payload_command,
+   0);
+}
+
+void Node::SendCommunicationsPayloadConfigurationCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t comms_payload_ID,
+   uint8_t comms_payload_mode)
+{
+   node->send_communications_payload_configuration_command(
+   dest_id,
+   timestamp,
+   comms_payload_ID,
+   comms_payload_mode,
+   0);
+}
+
 void Node::SendPayloadBayModeCommand(
    uint8_t dest_id,
    float64_t timestamp,
-   uint32_t payload_ID,
+   uint16_t payload_ID,
    uint8_t payload_mode)
 {
    node->send_payload_bay_mode_command(
@@ -838,69 +1186,221 @@ void Node::SendPayloadBayModeCommand(
    0);
 }
 
-void Node::SendTargetDesignationCommand(
+void Node::SendPayloadBayStatus(
    uint8_t dest_id,
    float64_t timestamp,
-   uint16_t vehicle_ID,
-   uint8_t payload_ID,
-   uint8_t target_ID,
-   uint8_t target_type,
-   int32_t latitude,
-   int32_t longitude,
-   int32_t altitude)
+   uint16_t payload_bay_ID,
+   uint8_t payload_bay_mode,
+   uint8_t payload_status)
 {
-   node->send_target_designation_command(
+   node->send_payload_bay_status(
    dest_id,
    timestamp,
-   vehicle_ID,
+   payload_bay_ID,
+   payload_bay_mode,
+   payload_status,
+   0);
+}
+
+void Node::SendPayloadDataRecorderStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t data_recorder_mode)
+{
+   node->send_payload_data_recorder_status(
+   dest_id,
+   timestamp,
+   data_recorder_mode,
+   0);
+}
+
+void Node::SendPayloadOperatingStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t payload_ID,
+   uint8_t payload_mode,
+   uint8_t payload_status)
+{
+   node->send_payload_operating_status(
+   dest_id,
+   timestamp,
    payload_ID,
-   target_ID,
-   target_type,
-   latitude,
+   payload_mode,
+   payload_status,
+   0);
+}
+
+void Node::SendCommunicationsPayloadStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t communications_ID,
+   uint8_t communications_mode,
+   uint8_t communications_status)
+{
+   node->send_communications_payload_status(
+   dest_id,
+   timestamp,
+   communications_ID,
+   communications_mode,
+   communications_status,
+   0);
+}
+
+void Node::SendTargetStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t target_radius,
+   float64_t target_angle,
+   float64_t target_altitude)
+{
+   node->send_target_status(
+   dest_id,
+   timestamp,
+   target_radius,
+   target_angle,
+   target_altitude,
+   0);
+}
+
+void Node::SendTargetAcknowledgement(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t target_status)
+{
+   node->send_target_acknowledgement(
+   dest_id,
+   timestamp,
+   target_status,
+   0);
+}
+
+void Node::SendUAVLocation(
+   uint8_t dest_id,
+   float64_t timestamp,
+   float64_t longitude,
+   float64_t latitude,
+   float64_t altitude)
+{
+   node->send_UAV_location(
+   dest_id,
+   timestamp,
    longitude,
+   latitude,
    altitude,
    0);
 }
 
-void Node::SendUGVJoystick(
+void Node::SendUAVSpeed(
    uint8_t dest_id,
    float64_t timestamp,
-   uint8_t vehicle_id,
-   float32_t steering,
-   float32_t throttle)
+   float64_t speed)
 {
-   node->send_UGV_joystick(
+   node->send_UAV_speed(
    dest_id,
    timestamp,
-   vehicle_id,
-   steering,
-   throttle,
+   speed,
    0);
 }
 
-void Node::SendUGVBatteryStatus(
+void Node::SendUAVHeading(
    uint8_t dest_id,
    float64_t timestamp,
-   float32_t voltage_3_3V,
-   float32_t voltage_5V,
-   float32_t voltage_12V,
-   float32_t current_3_3V,
-   float32_t current_5V,
-   float32_t current_12V,
-   float32_t current_fore_motor,
-   float32_t current_aft_motor)
+   float64_t heading)
 {
-   node->send_UGV_battery_status(
+   node->send_UAV_heading(
    dest_id,
    timestamp,
-   voltage_3_3V,
-   voltage_5V,
-   voltage_12V,
-   current_3_3V,
-   current_5V,
-   current_12V,
-   current_fore_motor,
-   current_aft_motor,
+   heading,
+   0);
+}
+
+void Node::SendUAVBattery(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint32_t battery_percentage)
+{
+   node->send_UAV_battery(
+   dest_id,
+   timestamp,
+   battery_percentage,
+   0);
+}
+
+void Node::SendUAVCollisionAvodianceStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t ca_status)
+{
+   node->send_UAV_collision_avodiance_status(
+   dest_id,
+   timestamp,
+   ca_status,
+   0);
+}
+
+void Node::SendUAVMissionStatus(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t mission_status)
+{
+   node->send_UAV_mission_status(
+   dest_id,
+   timestamp,
+   mission_status,
+   0);
+}
+
+void Node::SendUAVCollisionAvodianceMessage(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint8_t vehicle_ID,
+   float64_t velocity,
+   float64_t latitude,
+   float64_t longtitude,
+   float64_t altitude,
+   uint8_t priority)
+{
+   node->send_UAV_collision_avodiance_message(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   velocity,
+   latitude,
+   longtitude,
+   altitude,
+   priority,
+   0);
+}
+
+void Node::SendUUVStatus(
+   uint8_t dest_id,
+   uint8_t status)
+{
+   node->send_UUV_status(
+   dest_id,
+   status,
+   0);
+}
+
+void Node::SendROVStatusMessage(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint16_t depth,
+   uint16_t roll,
+   uint16_t pitch,
+   uint16_t heading,
+   float32_t battery_percent)
+{
+   node->send_ROV_status_message(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   depth,
+   roll,
+   pitch,
+   heading,
+   battery_percent,
    0);
 }
 
@@ -1080,22 +1580,6 @@ void Node::RegisterEnterEvent(EnterDelegate^ EnterEvent)
    node->register_on_enter(static_cast<comnet::enter_callback>(OnEnterPtr.ToPointer()));
 }
 
-void* Node::ExitHelper(int8_t link_id, com_header_t header, exit_t exit, comnet::node* ptr)
-{
-   Header^ managed_header = gcnew Header(header);
-   Exit^ managed_exit = gcnew Exit(exit);
-   OnExitDelegate(link_id, managed_header, managed_exit, this);
-   return 0;
-}
-
-void Node::RegisterExitEvent(ExitDelegate^ ExitEvent)
-{
-   OnExitDelegate = ExitEvent;
-   OnExitCallback = gcnew ExitCallback(this, &Node::ExitHelper);
-   OnExitPtr = Marshal::GetFunctionPointerForDelegate(OnExitCallback);
-   node->register_on_exit(static_cast<comnet::exit_callback>(OnExitPtr.ToPointer()));
-}
-
 void* Node::PingHelper(int8_t link_id, com_header_t header, ping_t ping, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
@@ -1128,6 +1612,70 @@ void Node::RegisterPongEvent(PongDelegate^ PongEvent)
    node->register_on_pong(static_cast<comnet::pong_callback>(OnPongPtr.ToPointer()));
 }
 
+void* Node::ExitHelper(int8_t link_id, com_header_t header, exit_t exit, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   Exit^ managed_exit = gcnew Exit(exit);
+   OnExitDelegate(link_id, managed_header, managed_exit, this);
+   return 0;
+}
+
+void Node::RegisterExitEvent(ExitDelegate^ ExitEvent)
+{
+   OnExitDelegate = ExitEvent;
+   OnExitCallback = gcnew ExitCallback(this, &Node::ExitHelper);
+   OnExitPtr = Marshal::GetFunctionPointerForDelegate(OnExitCallback);
+   node->register_on_exit(static_cast<comnet::exit_callback>(OnExitPtr.ToPointer()));
+}
+
+void* Node::RawDataHelper(int8_t link_id, com_header_t header, raw_data_t raw_data, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   RawData^ managed_raw_data = gcnew RawData(raw_data);
+   OnRawDataDelegate(link_id, managed_header, managed_raw_data, this);
+   return 0;
+}
+
+void Node::RegisterRawDataEvent(RawDataDelegate^ RawDataEvent)
+{
+   OnRawDataDelegate = RawDataEvent;
+   OnRawDataCallback = gcnew RawDataCallback(this, &Node::RawDataHelper);
+   OnRawDataPtr = Marshal::GetFunctionPointerForDelegate(OnRawDataCallback);
+   node->register_on_raw_data(static_cast<comnet::raw_data_callback>(OnRawDataPtr.ToPointer()));
+}
+
+void* Node::ConnectionRequestHelper(int8_t link_id, com_header_t header, connection_request_t connection_request, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   ConnectionRequest^ managed_connection_request = gcnew ConnectionRequest(connection_request);
+   OnConnectionRequestDelegate(link_id, managed_header, managed_connection_request, this);
+   return 0;
+}
+
+void Node::RegisterConnectionRequestEvent(ConnectionRequestDelegate^ ConnectionRequestEvent)
+{
+   OnConnectionRequestDelegate = ConnectionRequestEvent;
+   OnConnectionRequestCallback = gcnew ConnectionRequestCallback(this, &Node::ConnectionRequestHelper);
+   OnConnectionRequestPtr = Marshal::GetFunctionPointerForDelegate(OnConnectionRequestCallback);
+   node->register_on_connection_request(static_cast<comnet::connection_request_callback>(OnConnectionRequestPtr.ToPointer()));
+}
+
+void* Node::ConnectionReplyHelper(int8_t link_id, com_header_t header, connection_reply_t connection_reply, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   ConnectionReply^ managed_connection_reply = gcnew ConnectionReply(connection_reply);
+   OnConnectionReplyDelegate(link_id, managed_header, managed_connection_reply, this);
+   return 0;
+}
+
+void Node::RegisterConnectionReplyEvent(ConnectionReplyDelegate^ ConnectionReplyEvent)
+{
+   OnConnectionReplyDelegate = ConnectionReplyEvent;
+   OnConnectionReplyCallback = gcnew ConnectionReplyCallback(this, &Node::ConnectionReplyHelper);
+   OnConnectionReplyPtr = Marshal::GetFunctionPointerForDelegate(OnConnectionReplyCallback);
+   node->register_on_connection_reply(static_cast<comnet::connection_reply_callback>(OnConnectionReplyPtr.ToPointer()));
+}
+
 void* Node::VehicleIdentificationHelper(int8_t link_id, com_header_t header, vehicle_identification_t vehicle_identification, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
@@ -1142,22 +1690,6 @@ void Node::RegisterVehicleIdentificationEvent(VehicleIdentificationDelegate^ Veh
    OnVehicleIdentificationCallback = gcnew VehicleIdentificationCallback(this, &Node::VehicleIdentificationHelper);
    OnVehicleIdentificationPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleIdentificationCallback);
    node->register_on_vehicle_identification(static_cast<comnet::vehicle_identification_callback>(OnVehicleIdentificationPtr.ToPointer()));
-}
-
-void* Node::AmyStuffHelper(int8_t link_id, com_header_t header, amy_stuff_t amy_stuff, comnet::node* ptr)
-{
-   Header^ managed_header = gcnew Header(header);
-   AmyStuff^ managed_amy_stuff = gcnew AmyStuff(amy_stuff);
-   OnAmyStuffDelegate(link_id, managed_header, managed_amy_stuff, this);
-   return 0;
-}
-
-void Node::RegisterAmyStuffEvent(AmyStuffDelegate^ AmyStuffEvent)
-{
-   OnAmyStuffDelegate = AmyStuffEvent;
-   OnAmyStuffCallback = gcnew AmyStuffCallback(this, &Node::AmyStuffHelper);
-   OnAmyStuffPtr = Marshal::GetFunctionPointerForDelegate(OnAmyStuffCallback);
-   node->register_on_amy_stuff(static_cast<comnet::amy_stuff_callback>(OnAmyStuffPtr.ToPointer()));
 }
 
 void* Node::VehicleAuthorizationRequestHelper(int8_t link_id, com_header_t header, vehicle_authorization_request_t vehicle_authorization_request, comnet::node* ptr)
@@ -1176,20 +1708,20 @@ void Node::RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestD
    node->register_on_vehicle_authorization_request(static_cast<comnet::vehicle_authorization_request_callback>(OnVehicleAuthorizationRequestPtr.ToPointer()));
 }
 
-void* Node::VehicleAuthorizationReplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr)
+void* Node::VehicleAuthorizationreplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   VehicleAuthorizationReply^ managed_vehicle_authorization_reply = gcnew VehicleAuthorizationReply(vehicle_authorization_reply);
-   OnVehicleAuthorizationReplyDelegate(link_id, managed_header, managed_vehicle_authorization_reply, this);
+   VehicleAuthorizationreply^ managed_vehicle_authorization_reply = gcnew VehicleAuthorizationreply(vehicle_authorization_reply);
+   OnVehicleAuthorizationreplyDelegate(link_id, managed_header, managed_vehicle_authorization_reply, this);
    return 0;
 }
 
-void Node::RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate^ VehicleAuthorizationReplyEvent)
+void Node::RegisterVehicleAuthorizationreplyEvent(VehicleAuthorizationreplyDelegate^ VehicleAuthorizationreplyEvent)
 {
-   OnVehicleAuthorizationReplyDelegate = VehicleAuthorizationReplyEvent;
-   OnVehicleAuthorizationReplyCallback = gcnew VehicleAuthorizationReplyCallback(this, &Node::VehicleAuthorizationReplyHelper);
-   OnVehicleAuthorizationReplyPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleAuthorizationReplyCallback);
-   node->register_on_vehicle_authorization_reply(static_cast<comnet::vehicle_authorization_reply_callback>(OnVehicleAuthorizationReplyPtr.ToPointer()));
+   OnVehicleAuthorizationreplyDelegate = VehicleAuthorizationreplyEvent;
+   OnVehicleAuthorizationreplyCallback = gcnew VehicleAuthorizationreplyCallback(this, &Node::VehicleAuthorizationreplyHelper);
+   OnVehicleAuthorizationreplyPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleAuthorizationreplyCallback);
+   node->register_on_vehicle_authorization_reply(static_cast<comnet::vehicle_authorization_reply_callback>(OnVehicleAuthorizationreplyPtr.ToPointer()));
 }
 
 void* Node::VehicleModeCommandHelper(int8_t link_id, com_header_t header, vehicle_mode_command_t vehicle_mode_command, comnet::node* ptr)
@@ -1206,6 +1738,22 @@ void Node::RegisterVehicleModeCommandEvent(VehicleModeCommandDelegate^ VehicleMo
    OnVehicleModeCommandCallback = gcnew VehicleModeCommandCallback(this, &Node::VehicleModeCommandHelper);
    OnVehicleModeCommandPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleModeCommandCallback);
    node->register_on_vehicle_mode_command(static_cast<comnet::vehicle_mode_command_callback>(OnVehicleModeCommandPtr.ToPointer()));
+}
+
+void* Node::VehicleJoystickCommandHelper(int8_t link_id, com_header_t header, vehicle_joystick_command_t vehicle_joystick_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   VehicleJoystickCommand^ managed_vehicle_joystick_command = gcnew VehicleJoystickCommand(vehicle_joystick_command);
+   OnVehicleJoystickCommandDelegate(link_id, managed_header, managed_vehicle_joystick_command, this);
+   return 0;
+}
+
+void Node::RegisterVehicleJoystickCommandEvent(VehicleJoystickCommandDelegate^ VehicleJoystickCommandEvent)
+{
+   OnVehicleJoystickCommandDelegate = VehicleJoystickCommandEvent;
+   OnVehicleJoystickCommandCallback = gcnew VehicleJoystickCommandCallback(this, &Node::VehicleJoystickCommandHelper);
+   OnVehicleJoystickCommandPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleJoystickCommandCallback);
+   node->register_on_vehicle_joystick_command(static_cast<comnet::vehicle_joystick_command_callback>(OnVehicleJoystickCommandPtr.ToPointer()));
 }
 
 void* Node::VehicleTerminationCommandHelper(int8_t link_id, com_header_t header, vehicle_termination_command_t vehicle_termination_command, comnet::node* ptr)
@@ -1238,22 +1786,6 @@ void Node::RegisterVehicleTelemetryCommandEvent(VehicleTelemetryCommandDelegate^
    OnVehicleTelemetryCommandCallback = gcnew VehicleTelemetryCommandCallback(this, &Node::VehicleTelemetryCommandHelper);
    OnVehicleTelemetryCommandPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleTelemetryCommandCallback);
    node->register_on_vehicle_telemetry_command(static_cast<comnet::vehicle_telemetry_command_callback>(OnVehicleTelemetryCommandPtr.ToPointer()));
-}
-
-void* Node::VehicleWaypointCommandHelper(int8_t link_id, com_header_t header, vehicle_waypoint_command_t vehicle_waypoint_command, comnet::node* ptr)
-{
-   Header^ managed_header = gcnew Header(header);
-   VehicleWaypointCommand^ managed_vehicle_waypoint_command = gcnew VehicleWaypointCommand(vehicle_waypoint_command);
-   OnVehicleWaypointCommandDelegate(link_id, managed_header, managed_vehicle_waypoint_command, this);
-   return 0;
-}
-
-void Node::RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate^ VehicleWaypointCommandEvent)
-{
-   OnVehicleWaypointCommandDelegate = VehicleWaypointCommandEvent;
-   OnVehicleWaypointCommandCallback = gcnew VehicleWaypointCommandCallback(this, &Node::VehicleWaypointCommandHelper);
-   OnVehicleWaypointCommandPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleWaypointCommandCallback);
-   node->register_on_vehicle_waypoint_command(static_cast<comnet::vehicle_waypoint_command_callback>(OnVehicleWaypointCommandPtr.ToPointer()));
 }
 
 void* Node::VehicleSystemStatusHelper(int8_t link_id, com_header_t header, vehicle_system_status_t vehicle_system_status, comnet::node* ptr)
@@ -1336,20 +1868,20 @@ void Node::RegisterVehicleAttitudeEvent(VehicleAttitudeDelegate^ VehicleAttitude
    node->register_on_vehicle_attitude(static_cast<comnet::vehicle_attitude_callback>(OnVehicleAttitudePtr.ToPointer()));
 }
 
-void* Node::VehicleGroundRelativeStateHelper(int8_t link_id, com_header_t header, vehicle_ground_relative_state_t vehicle_ground_relative_state, comnet::node* ptr)
+void* Node::AirVehicleGroundRelativeStateHelper(int8_t link_id, com_header_t header, air_vehicle_ground_relative_state_t air_vehicle_ground_relative_state, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   VehicleGroundRelativeState^ managed_vehicle_ground_relative_state = gcnew VehicleGroundRelativeState(vehicle_ground_relative_state);
-   OnVehicleGroundRelativeStateDelegate(link_id, managed_header, managed_vehicle_ground_relative_state, this);
+   AirVehicleGroundRelativeState^ managed_air_vehicle_ground_relative_state = gcnew AirVehicleGroundRelativeState(air_vehicle_ground_relative_state);
+   OnAirVehicleGroundRelativeStateDelegate(link_id, managed_header, managed_air_vehicle_ground_relative_state, this);
    return 0;
 }
 
-void Node::RegisterVehicleGroundRelativeStateEvent(VehicleGroundRelativeStateDelegate^ VehicleGroundRelativeStateEvent)
+void Node::RegisterAirVehicleGroundRelativeStateEvent(AirVehicleGroundRelativeStateDelegate^ AirVehicleGroundRelativeStateEvent)
 {
-   OnVehicleGroundRelativeStateDelegate = VehicleGroundRelativeStateEvent;
-   OnVehicleGroundRelativeStateCallback = gcnew VehicleGroundRelativeStateCallback(this, &Node::VehicleGroundRelativeStateHelper);
-   OnVehicleGroundRelativeStatePtr = Marshal::GetFunctionPointerForDelegate(OnVehicleGroundRelativeStateCallback);
-   node->register_on_vehicle_ground_relative_state(static_cast<comnet::vehicle_ground_relative_state_callback>(OnVehicleGroundRelativeStatePtr.ToPointer()));
+   OnAirVehicleGroundRelativeStateDelegate = AirVehicleGroundRelativeStateEvent;
+   OnAirVehicleGroundRelativeStateCallback = gcnew AirVehicleGroundRelativeStateCallback(this, &Node::AirVehicleGroundRelativeStateHelper);
+   OnAirVehicleGroundRelativeStatePtr = Marshal::GetFunctionPointerForDelegate(OnAirVehicleGroundRelativeStateCallback);
+   node->register_on_air_vehicle_ground_relative_state(static_cast<comnet::air_vehicle_ground_relative_state_callback>(OnAirVehicleGroundRelativeStatePtr.ToPointer()));
 }
 
 void* Node::PayloadBayCommandHelper(int8_t link_id, com_header_t header, payload_bay_command_t payload_bay_command, comnet::node* ptr)
@@ -1368,6 +1900,70 @@ void Node::RegisterPayloadBayCommandEvent(PayloadBayCommandDelegate^ PayloadBayC
    node->register_on_payload_bay_command(static_cast<comnet::payload_bay_command_callback>(OnPayloadBayCommandPtr.ToPointer()));
 }
 
+void* Node::PayloadDataRecorderCommandHelper(int8_t link_id, com_header_t header, payload_data_recorder_command_t payload_data_recorder_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   PayloadDataRecorderCommand^ managed_payload_data_recorder_command = gcnew PayloadDataRecorderCommand(payload_data_recorder_command);
+   OnPayloadDataRecorderCommandDelegate(link_id, managed_header, managed_payload_data_recorder_command, this);
+   return 0;
+}
+
+void Node::RegisterPayloadDataRecorderCommandEvent(PayloadDataRecorderCommandDelegate^ PayloadDataRecorderCommandEvent)
+{
+   OnPayloadDataRecorderCommandDelegate = PayloadDataRecorderCommandEvent;
+   OnPayloadDataRecorderCommandCallback = gcnew PayloadDataRecorderCommandCallback(this, &Node::PayloadDataRecorderCommandHelper);
+   OnPayloadDataRecorderCommandPtr = Marshal::GetFunctionPointerForDelegate(OnPayloadDataRecorderCommandCallback);
+   node->register_on_payload_data_recorder_command(static_cast<comnet::payload_data_recorder_command_callback>(OnPayloadDataRecorderCommandPtr.ToPointer()));
+}
+
+void* Node::PayloadOperationCommandHelper(int8_t link_id, com_header_t header, payload_operation_command_t payload_operation_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   PayloadOperationCommand^ managed_payload_operation_command = gcnew PayloadOperationCommand(payload_operation_command);
+   OnPayloadOperationCommandDelegate(link_id, managed_header, managed_payload_operation_command, this);
+   return 0;
+}
+
+void Node::RegisterPayloadOperationCommandEvent(PayloadOperationCommandDelegate^ PayloadOperationCommandEvent)
+{
+   OnPayloadOperationCommandDelegate = PayloadOperationCommandEvent;
+   OnPayloadOperationCommandCallback = gcnew PayloadOperationCommandCallback(this, &Node::PayloadOperationCommandHelper);
+   OnPayloadOperationCommandPtr = Marshal::GetFunctionPointerForDelegate(OnPayloadOperationCommandCallback);
+   node->register_on_payload_operation_command(static_cast<comnet::payload_operation_command_callback>(OnPayloadOperationCommandPtr.ToPointer()));
+}
+
+void* Node::CommunicationsPayloadCommandHelper(int8_t link_id, com_header_t header, communications_payload_command_t communications_payload_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   CommunicationsPayloadCommand^ managed_communications_payload_command = gcnew CommunicationsPayloadCommand(communications_payload_command);
+   OnCommunicationsPayloadCommandDelegate(link_id, managed_header, managed_communications_payload_command, this);
+   return 0;
+}
+
+void Node::RegisterCommunicationsPayloadCommandEvent(CommunicationsPayloadCommandDelegate^ CommunicationsPayloadCommandEvent)
+{
+   OnCommunicationsPayloadCommandDelegate = CommunicationsPayloadCommandEvent;
+   OnCommunicationsPayloadCommandCallback = gcnew CommunicationsPayloadCommandCallback(this, &Node::CommunicationsPayloadCommandHelper);
+   OnCommunicationsPayloadCommandPtr = Marshal::GetFunctionPointerForDelegate(OnCommunicationsPayloadCommandCallback);
+   node->register_on_communications_payload_command(static_cast<comnet::communications_payload_command_callback>(OnCommunicationsPayloadCommandPtr.ToPointer()));
+}
+
+void* Node::CommunicationsPayloadConfigurationCommandHelper(int8_t link_id, com_header_t header, communications_payload_configuration_command_t communications_payload_configuration_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   CommunicationsPayloadConfigurationCommand^ managed_communications_payload_configuration_command = gcnew CommunicationsPayloadConfigurationCommand(communications_payload_configuration_command);
+   OnCommunicationsPayloadConfigurationCommandDelegate(link_id, managed_header, managed_communications_payload_configuration_command, this);
+   return 0;
+}
+
+void Node::RegisterCommunicationsPayloadConfigurationCommandEvent(CommunicationsPayloadConfigurationCommandDelegate^ CommunicationsPayloadConfigurationCommandEvent)
+{
+   OnCommunicationsPayloadConfigurationCommandDelegate = CommunicationsPayloadConfigurationCommandEvent;
+   OnCommunicationsPayloadConfigurationCommandCallback = gcnew CommunicationsPayloadConfigurationCommandCallback(this, &Node::CommunicationsPayloadConfigurationCommandHelper);
+   OnCommunicationsPayloadConfigurationCommandPtr = Marshal::GetFunctionPointerForDelegate(OnCommunicationsPayloadConfigurationCommandCallback);
+   node->register_on_communications_payload_configuration_command(static_cast<comnet::communications_payload_configuration_command_callback>(OnCommunicationsPayloadConfigurationCommandPtr.ToPointer()));
+}
+
 void* Node::PayloadBayModeCommandHelper(int8_t link_id, com_header_t header, payload_bay_mode_command_t payload_bay_mode_command, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
@@ -1384,51 +1980,243 @@ void Node::RegisterPayloadBayModeCommandEvent(PayloadBayModeCommandDelegate^ Pay
    node->register_on_payload_bay_mode_command(static_cast<comnet::payload_bay_mode_command_callback>(OnPayloadBayModeCommandPtr.ToPointer()));
 }
 
-void* Node::TargetDesignationCommandHelper(int8_t link_id, com_header_t header, target_designation_command_t target_designation_command, comnet::node* ptr)
+void* Node::PayloadBayStatusHelper(int8_t link_id, com_header_t header, payload_bay_status_t payload_bay_status, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   TargetDesignationCommand^ managed_target_designation_command = gcnew TargetDesignationCommand(target_designation_command);
-   OnTargetDesignationCommandDelegate(link_id, managed_header, managed_target_designation_command, this);
+   PayloadBayStatus^ managed_payload_bay_status = gcnew PayloadBayStatus(payload_bay_status);
+   OnPayloadBayStatusDelegate(link_id, managed_header, managed_payload_bay_status, this);
    return 0;
 }
 
-void Node::RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate^ TargetDesignationCommandEvent)
+void Node::RegisterPayloadBayStatusEvent(PayloadBayStatusDelegate^ PayloadBayStatusEvent)
 {
-   OnTargetDesignationCommandDelegate = TargetDesignationCommandEvent;
-   OnTargetDesignationCommandCallback = gcnew TargetDesignationCommandCallback(this, &Node::TargetDesignationCommandHelper);
-   OnTargetDesignationCommandPtr = Marshal::GetFunctionPointerForDelegate(OnTargetDesignationCommandCallback);
-   node->register_on_target_designation_command(static_cast<comnet::target_designation_command_callback>(OnTargetDesignationCommandPtr.ToPointer()));
+   OnPayloadBayStatusDelegate = PayloadBayStatusEvent;
+   OnPayloadBayStatusCallback = gcnew PayloadBayStatusCallback(this, &Node::PayloadBayStatusHelper);
+   OnPayloadBayStatusPtr = Marshal::GetFunctionPointerForDelegate(OnPayloadBayStatusCallback);
+   node->register_on_payload_bay_status(static_cast<comnet::payload_bay_status_callback>(OnPayloadBayStatusPtr.ToPointer()));
 }
 
-void* Node::UGVJoystickHelper(int8_t link_id, com_header_t header, UGV_joystick_t UGV_joystick, comnet::node* ptr)
+void* Node::PayloadDataRecorderStatusHelper(int8_t link_id, com_header_t header, payload_data_recorder_status_t payload_data_recorder_status, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   UGVJoystick^ managed_UGV_joystick = gcnew UGVJoystick(UGV_joystick);
-   OnUGVJoystickDelegate(link_id, managed_header, managed_UGV_joystick, this);
+   PayloadDataRecorderStatus^ managed_payload_data_recorder_status = gcnew PayloadDataRecorderStatus(payload_data_recorder_status);
+   OnPayloadDataRecorderStatusDelegate(link_id, managed_header, managed_payload_data_recorder_status, this);
    return 0;
 }
 
-void Node::RegisterUGVJoystickEvent(UGVJoystickDelegate^ UGVJoystickEvent)
+void Node::RegisterPayloadDataRecorderStatusEvent(PayloadDataRecorderStatusDelegate^ PayloadDataRecorderStatusEvent)
 {
-   OnUGVJoystickDelegate = UGVJoystickEvent;
-   OnUGVJoystickCallback = gcnew UGVJoystickCallback(this, &Node::UGVJoystickHelper);
-   OnUGVJoystickPtr = Marshal::GetFunctionPointerForDelegate(OnUGVJoystickCallback);
-   node->register_on_UGV_joystick(static_cast<comnet::UGV_joystick_callback>(OnUGVJoystickPtr.ToPointer()));
+   OnPayloadDataRecorderStatusDelegate = PayloadDataRecorderStatusEvent;
+   OnPayloadDataRecorderStatusCallback = gcnew PayloadDataRecorderStatusCallback(this, &Node::PayloadDataRecorderStatusHelper);
+   OnPayloadDataRecorderStatusPtr = Marshal::GetFunctionPointerForDelegate(OnPayloadDataRecorderStatusCallback);
+   node->register_on_payload_data_recorder_status(static_cast<comnet::payload_data_recorder_status_callback>(OnPayloadDataRecorderStatusPtr.ToPointer()));
 }
 
-void* Node::UGVBatteryStatusHelper(int8_t link_id, com_header_t header, UGV_battery_status_t UGV_battery_status, comnet::node* ptr)
+void* Node::PayloadOperatingStatusHelper(int8_t link_id, com_header_t header, payload_operating_status_t payload_operating_status, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
-   UGVBatteryStatus^ managed_UGV_battery_status = gcnew UGVBatteryStatus(UGV_battery_status);
-   OnUGVBatteryStatusDelegate(link_id, managed_header, managed_UGV_battery_status, this);
+   PayloadOperatingStatus^ managed_payload_operating_status = gcnew PayloadOperatingStatus(payload_operating_status);
+   OnPayloadOperatingStatusDelegate(link_id, managed_header, managed_payload_operating_status, this);
    return 0;
 }
 
-void Node::RegisterUGVBatteryStatusEvent(UGVBatteryStatusDelegate^ UGVBatteryStatusEvent)
+void Node::RegisterPayloadOperatingStatusEvent(PayloadOperatingStatusDelegate^ PayloadOperatingStatusEvent)
 {
-   OnUGVBatteryStatusDelegate = UGVBatteryStatusEvent;
-   OnUGVBatteryStatusCallback = gcnew UGVBatteryStatusCallback(this, &Node::UGVBatteryStatusHelper);
-   OnUGVBatteryStatusPtr = Marshal::GetFunctionPointerForDelegate(OnUGVBatteryStatusCallback);
-   node->register_on_UGV_battery_status(static_cast<comnet::UGV_battery_status_callback>(OnUGVBatteryStatusPtr.ToPointer()));
+   OnPayloadOperatingStatusDelegate = PayloadOperatingStatusEvent;
+   OnPayloadOperatingStatusCallback = gcnew PayloadOperatingStatusCallback(this, &Node::PayloadOperatingStatusHelper);
+   OnPayloadOperatingStatusPtr = Marshal::GetFunctionPointerForDelegate(OnPayloadOperatingStatusCallback);
+   node->register_on_payload_operating_status(static_cast<comnet::payload_operating_status_callback>(OnPayloadOperatingStatusPtr.ToPointer()));
+}
+
+void* Node::CommunicationsPayloadStatusHelper(int8_t link_id, com_header_t header, communications_payload_status_t communications_payload_status, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   CommunicationsPayloadStatus^ managed_communications_payload_status = gcnew CommunicationsPayloadStatus(communications_payload_status);
+   OnCommunicationsPayloadStatusDelegate(link_id, managed_header, managed_communications_payload_status, this);
+   return 0;
+}
+
+void Node::RegisterCommunicationsPayloadStatusEvent(CommunicationsPayloadStatusDelegate^ CommunicationsPayloadStatusEvent)
+{
+   OnCommunicationsPayloadStatusDelegate = CommunicationsPayloadStatusEvent;
+   OnCommunicationsPayloadStatusCallback = gcnew CommunicationsPayloadStatusCallback(this, &Node::CommunicationsPayloadStatusHelper);
+   OnCommunicationsPayloadStatusPtr = Marshal::GetFunctionPointerForDelegate(OnCommunicationsPayloadStatusCallback);
+   node->register_on_communications_payload_status(static_cast<comnet::communications_payload_status_callback>(OnCommunicationsPayloadStatusPtr.ToPointer()));
+}
+
+void* Node::TargetStatusHelper(int8_t link_id, com_header_t header, target_status_t target_status, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   TargetStatus^ managed_target_status = gcnew TargetStatus(target_status);
+   OnTargetStatusDelegate(link_id, managed_header, managed_target_status, this);
+   return 0;
+}
+
+void Node::RegisterTargetStatusEvent(TargetStatusDelegate^ TargetStatusEvent)
+{
+   OnTargetStatusDelegate = TargetStatusEvent;
+   OnTargetStatusCallback = gcnew TargetStatusCallback(this, &Node::TargetStatusHelper);
+   OnTargetStatusPtr = Marshal::GetFunctionPointerForDelegate(OnTargetStatusCallback);
+   node->register_on_target_status(static_cast<comnet::target_status_callback>(OnTargetStatusPtr.ToPointer()));
+}
+
+void* Node::TargetAcknowledgementHelper(int8_t link_id, com_header_t header, target_acknowledgement_t target_acknowledgement, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   TargetAcknowledgement^ managed_target_acknowledgement = gcnew TargetAcknowledgement(target_acknowledgement);
+   OnTargetAcknowledgementDelegate(link_id, managed_header, managed_target_acknowledgement, this);
+   return 0;
+}
+
+void Node::RegisterTargetAcknowledgementEvent(TargetAcknowledgementDelegate^ TargetAcknowledgementEvent)
+{
+   OnTargetAcknowledgementDelegate = TargetAcknowledgementEvent;
+   OnTargetAcknowledgementCallback = gcnew TargetAcknowledgementCallback(this, &Node::TargetAcknowledgementHelper);
+   OnTargetAcknowledgementPtr = Marshal::GetFunctionPointerForDelegate(OnTargetAcknowledgementCallback);
+   node->register_on_target_acknowledgement(static_cast<comnet::target_acknowledgement_callback>(OnTargetAcknowledgementPtr.ToPointer()));
+}
+
+void* Node::UAVLocationHelper(int8_t link_id, com_header_t header, UAV_location_t UAV_location, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVLocation^ managed_UAV_location = gcnew UAVLocation(UAV_location);
+   OnUAVLocationDelegate(link_id, managed_header, managed_UAV_location, this);
+   return 0;
+}
+
+void Node::RegisterUAVLocationEvent(UAVLocationDelegate^ UAVLocationEvent)
+{
+   OnUAVLocationDelegate = UAVLocationEvent;
+   OnUAVLocationCallback = gcnew UAVLocationCallback(this, &Node::UAVLocationHelper);
+   OnUAVLocationPtr = Marshal::GetFunctionPointerForDelegate(OnUAVLocationCallback);
+   node->register_on_UAV_location(static_cast<comnet::UAV_location_callback>(OnUAVLocationPtr.ToPointer()));
+}
+
+void* Node::UAVSpeedHelper(int8_t link_id, com_header_t header, UAV_speed_t UAV_speed, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVSpeed^ managed_UAV_speed = gcnew UAVSpeed(UAV_speed);
+   OnUAVSpeedDelegate(link_id, managed_header, managed_UAV_speed, this);
+   return 0;
+}
+
+void Node::RegisterUAVSpeedEvent(UAVSpeedDelegate^ UAVSpeedEvent)
+{
+   OnUAVSpeedDelegate = UAVSpeedEvent;
+   OnUAVSpeedCallback = gcnew UAVSpeedCallback(this, &Node::UAVSpeedHelper);
+   OnUAVSpeedPtr = Marshal::GetFunctionPointerForDelegate(OnUAVSpeedCallback);
+   node->register_on_UAV_speed(static_cast<comnet::UAV_speed_callback>(OnUAVSpeedPtr.ToPointer()));
+}
+
+void* Node::UAVHeadingHelper(int8_t link_id, com_header_t header, UAV_heading_t UAV_heading, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVHeading^ managed_UAV_heading = gcnew UAVHeading(UAV_heading);
+   OnUAVHeadingDelegate(link_id, managed_header, managed_UAV_heading, this);
+   return 0;
+}
+
+void Node::RegisterUAVHeadingEvent(UAVHeadingDelegate^ UAVHeadingEvent)
+{
+   OnUAVHeadingDelegate = UAVHeadingEvent;
+   OnUAVHeadingCallback = gcnew UAVHeadingCallback(this, &Node::UAVHeadingHelper);
+   OnUAVHeadingPtr = Marshal::GetFunctionPointerForDelegate(OnUAVHeadingCallback);
+   node->register_on_UAV_heading(static_cast<comnet::UAV_heading_callback>(OnUAVHeadingPtr.ToPointer()));
+}
+
+void* Node::UAVBatteryHelper(int8_t link_id, com_header_t header, UAV_battery_t UAV_battery, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVBattery^ managed_UAV_battery = gcnew UAVBattery(UAV_battery);
+   OnUAVBatteryDelegate(link_id, managed_header, managed_UAV_battery, this);
+   return 0;
+}
+
+void Node::RegisterUAVBatteryEvent(UAVBatteryDelegate^ UAVBatteryEvent)
+{
+   OnUAVBatteryDelegate = UAVBatteryEvent;
+   OnUAVBatteryCallback = gcnew UAVBatteryCallback(this, &Node::UAVBatteryHelper);
+   OnUAVBatteryPtr = Marshal::GetFunctionPointerForDelegate(OnUAVBatteryCallback);
+   node->register_on_UAV_battery(static_cast<comnet::UAV_battery_callback>(OnUAVBatteryPtr.ToPointer()));
+}
+
+void* Node::UAVCollisionAvodianceStatusHelper(int8_t link_id, com_header_t header, UAV_collision_avodiance_status_t UAV_collision_avodiance_status, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVCollisionAvodianceStatus^ managed_UAV_collision_avodiance_status = gcnew UAVCollisionAvodianceStatus(UAV_collision_avodiance_status);
+   OnUAVCollisionAvodianceStatusDelegate(link_id, managed_header, managed_UAV_collision_avodiance_status, this);
+   return 0;
+}
+
+void Node::RegisterUAVCollisionAvodianceStatusEvent(UAVCollisionAvodianceStatusDelegate^ UAVCollisionAvodianceStatusEvent)
+{
+   OnUAVCollisionAvodianceStatusDelegate = UAVCollisionAvodianceStatusEvent;
+   OnUAVCollisionAvodianceStatusCallback = gcnew UAVCollisionAvodianceStatusCallback(this, &Node::UAVCollisionAvodianceStatusHelper);
+   OnUAVCollisionAvodianceStatusPtr = Marshal::GetFunctionPointerForDelegate(OnUAVCollisionAvodianceStatusCallback);
+   node->register_on_UAV_collision_avodiance_status(static_cast<comnet::UAV_collision_avodiance_status_callback>(OnUAVCollisionAvodianceStatusPtr.ToPointer()));
+}
+
+void* Node::UAVMissionStatusHelper(int8_t link_id, com_header_t header, UAV_mission_status_t UAV_mission_status, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVMissionStatus^ managed_UAV_mission_status = gcnew UAVMissionStatus(UAV_mission_status);
+   OnUAVMissionStatusDelegate(link_id, managed_header, managed_UAV_mission_status, this);
+   return 0;
+}
+
+void Node::RegisterUAVMissionStatusEvent(UAVMissionStatusDelegate^ UAVMissionStatusEvent)
+{
+   OnUAVMissionStatusDelegate = UAVMissionStatusEvent;
+   OnUAVMissionStatusCallback = gcnew UAVMissionStatusCallback(this, &Node::UAVMissionStatusHelper);
+   OnUAVMissionStatusPtr = Marshal::GetFunctionPointerForDelegate(OnUAVMissionStatusCallback);
+   node->register_on_UAV_mission_status(static_cast<comnet::UAV_mission_status_callback>(OnUAVMissionStatusPtr.ToPointer()));
+}
+
+void* Node::UAVCollisionAvodianceMessageHelper(int8_t link_id, com_header_t header, UAV_collision_avodiance_message_t UAV_collision_avodiance_message, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UAVCollisionAvodianceMessage^ managed_UAV_collision_avodiance_message = gcnew UAVCollisionAvodianceMessage(UAV_collision_avodiance_message);
+   OnUAVCollisionAvodianceMessageDelegate(link_id, managed_header, managed_UAV_collision_avodiance_message, this);
+   return 0;
+}
+
+void Node::RegisterUAVCollisionAvodianceMessageEvent(UAVCollisionAvodianceMessageDelegate^ UAVCollisionAvodianceMessageEvent)
+{
+   OnUAVCollisionAvodianceMessageDelegate = UAVCollisionAvodianceMessageEvent;
+   OnUAVCollisionAvodianceMessageCallback = gcnew UAVCollisionAvodianceMessageCallback(this, &Node::UAVCollisionAvodianceMessageHelper);
+   OnUAVCollisionAvodianceMessagePtr = Marshal::GetFunctionPointerForDelegate(OnUAVCollisionAvodianceMessageCallback);
+   node->register_on_UAV_collision_avodiance_message(static_cast<comnet::UAV_collision_avodiance_message_callback>(OnUAVCollisionAvodianceMessagePtr.ToPointer()));
+}
+
+void* Node::UUVStatusHelper(int8_t link_id, com_header_t header, UUV_status_t UUV_status, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   UUVStatus^ managed_UUV_status = gcnew UUVStatus(UUV_status);
+   OnUUVStatusDelegate(link_id, managed_header, managed_UUV_status, this);
+   return 0;
+}
+
+void Node::RegisterUUVStatusEvent(UUVStatusDelegate^ UUVStatusEvent)
+{
+   OnUUVStatusDelegate = UUVStatusEvent;
+   OnUUVStatusCallback = gcnew UUVStatusCallback(this, &Node::UUVStatusHelper);
+   OnUUVStatusPtr = Marshal::GetFunctionPointerForDelegate(OnUUVStatusCallback);
+   node->register_on_UUV_status(static_cast<comnet::UUV_status_callback>(OnUUVStatusPtr.ToPointer()));
+}
+
+void* Node::ROVStatusMessageHelper(int8_t link_id, com_header_t header, ROV_status_message_t ROV_status_message, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   ROVStatusMessage^ managed_ROV_status_message = gcnew ROVStatusMessage(ROV_status_message);
+   OnROVStatusMessageDelegate(link_id, managed_header, managed_ROV_status_message, this);
+   return 0;
+}
+
+void Node::RegisterROVStatusMessageEvent(ROVStatusMessageDelegate^ ROVStatusMessageEvent)
+{
+   OnROVStatusMessageDelegate = ROVStatusMessageEvent;
+   OnROVStatusMessageCallback = gcnew ROVStatusMessageCallback(this, &Node::ROVStatusMessageHelper);
+   OnROVStatusMessagePtr = Marshal::GetFunctionPointerForDelegate(OnROVStatusMessageCallback);
+   node->register_on_ROV_status_message(static_cast<comnet::ROV_status_message_callback>(OnROVStatusMessagePtr.ToPointer()));
 }
 

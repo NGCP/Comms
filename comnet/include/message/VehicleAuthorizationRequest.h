@@ -16,9 +16,9 @@ using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
    uint16_t vehicle_ID;
-   uint8_t link_key;
-   uint8_t requested_services;
-   uint8_t handover_node;
+   uint8_t vehicle_type;
+   uint8_t authorized_services;
+   uint8_t granted_services;
 } vehicle_authorization_request_t;
 
 msg_offset pack_vehicle_authorization_request(

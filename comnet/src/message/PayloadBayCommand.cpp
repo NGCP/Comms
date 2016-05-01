@@ -11,7 +11,7 @@ msg_offset pack_payload_bay_command(
    msg_offset offset)
 {
    offset = pack_float64_t(payload_bay_command->timestamp,offset);
-   offset = pack_uint32_t(payload_bay_command->payload_ID,offset);
+   offset = pack_uint16_t(payload_bay_command->payload_bay_ID,offset);
    offset = pack_uint8_t(payload_bay_command->payload_command,offset);
    return offset;
 }
@@ -21,7 +21,7 @@ msg_offset unpack_payload_bay_command(
    payload_bay_command_t* out_ptr)
 {
    offset = unpack_float64_t(offset, &out_ptr->timestamp);
-   offset = unpack_uint32_t(offset, &out_ptr->payload_ID);
+   offset = unpack_uint16_t(offset, &out_ptr->payload_bay_ID);
    offset = unpack_uint8_t(offset, &out_ptr->payload_command);
    return offset;
 }
@@ -44,7 +44,7 @@ void encode_payload_bay_command(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_length = 13;
+   msg->header.message_length = 11;
    msg->header.message_type = Com_Payload_Bay_Command;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

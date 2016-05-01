@@ -13,7 +13,6 @@ msg_offset pack_vehicle_identification(
    offset = pack_float64_t(vehicle_identification->timestamp,offset);
    offset = pack_uint16_t(vehicle_identification->vehicle_ID,offset);
    offset = pack_uint8_t(vehicle_identification->vehicle_type,offset);
-   offset = pack_uint16_t(vehicle_identification->owner_ID,offset);
    return offset;
 }
 
@@ -24,7 +23,6 @@ msg_offset unpack_vehicle_identification(
    offset = unpack_float64_t(offset, &out_ptr->timestamp);
    offset = unpack_uint16_t(offset, &out_ptr->vehicle_ID);
    offset = unpack_uint8_t(offset, &out_ptr->vehicle_type);
-   offset = unpack_uint16_t(offset, &out_ptr->owner_ID);
    return offset;
 }
 
@@ -46,7 +44,7 @@ void encode_vehicle_identification(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_length = 13;
+   msg->header.message_length = 11;
    msg->header.message_type = Com_Vehicle_Identification;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

@@ -17,7 +17,6 @@ typedef struct {
    float64_t timestamp;
    uint16_t vehicle_ID;
    uint8_t vehicle_type;
-   uint16_t owner_ID;
 } vehicle_identification_t;
 
 msg_offset pack_vehicle_identification(

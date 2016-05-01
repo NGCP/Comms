@@ -19,7 +19,6 @@ typedef struct {
    int32_t latitude;
    int32_t longitude;
    int32_t altitude;
-   int32_t heading;
    int16_t x_speed;
    int16_t y_speed;
    int16_t z_speed;

@@ -15,7 +15,6 @@ msg_offset pack_vehicle_global_position(
    offset = pack_int32_t(vehicle_global_position->latitude,offset);
    offset = pack_int32_t(vehicle_global_position->longitude,offset);
    offset = pack_int32_t(vehicle_global_position->altitude,offset);
-   offset = pack_int32_t(vehicle_global_position->heading,offset);
    offset = pack_int16_t(vehicle_global_position->x_speed,offset);
    offset = pack_int16_t(vehicle_global_position->y_speed,offset);
    offset = pack_int16_t(vehicle_global_position->z_speed,offset);
@@ -31,7 +30,6 @@ msg_offset unpack_vehicle_global_position(
    offset = unpack_int32_t(offset, &out_ptr->latitude);
    offset = unpack_int32_t(offset, &out_ptr->longitude);
    offset = unpack_int32_t(offset, &out_ptr->altitude);
-   offset = unpack_int32_t(offset, &out_ptr->heading);
    offset = unpack_int16_t(offset, &out_ptr->x_speed);
    offset = unpack_int16_t(offset, &out_ptr->y_speed);
    offset = unpack_int16_t(offset, &out_ptr->z_speed);
@@ -56,7 +54,7 @@ void encode_vehicle_global_position(
    offset = msg->data;
    msg->header.node_src_id = src_id;
    msg->header.node_dest_id = dest_id;
-   msg->header.message_length = 32;
+   msg->header.message_length = 28;
    msg->header.message_type = Com_Vehicle_Global_Position;
    offset = pack_sync(offset);
    offset = pack_header(&msg->header, offset);

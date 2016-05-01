@@ -58,21 +58,6 @@ namespace Comnet
       }
    };
 
-   /** Redefine c++ Exit struct as c# struct which is auto generated*/ 
-   public ref struct Exit
-   {
-      float64_t timestamp;
-      Exit(){}
-      Exit(const Exit% to_copy)
-      {
-         timestamp = to_copy.timestamp;
-      }
-      Exit(const exit_t to_copy)
-      {
-         timestamp = to_copy.timestamp;
-      }
-   };
-
    /** Redefine c++ Ping struct as c# struct which is auto generated*/ 
    public ref struct Ping
    {
@@ -103,42 +88,105 @@ namespace Comnet
       }
    };
 
+   /** Redefine c++ Exit struct as c# struct which is auto generated*/ 
+   public ref struct Exit
+   {
+      float64_t timestamp;
+      Exit(){}
+      Exit(const Exit% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+      }
+      Exit(const exit_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+      }
+   };
+
+   /** Redefine c++ Raw_Data struct as c# struct which is auto generated*/ 
+   public ref struct RawData
+   {
+      float64_t timestamp;
+      uint16_t length;
+      uint8_t data;
+      RawData(){}
+      RawData(const RawData% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         length = to_copy.length;
+         data = to_copy.data;
+      }
+      RawData(const raw_data_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         length = to_copy.length;
+         data = to_copy.data;
+      }
+   };
+
+   /** Redefine c++ Connection_Request struct as c# struct which is auto generated*/ 
+   public ref struct ConnectionRequest
+   {
+      float64_t timestamp;
+      uint8_t trace_node_1;
+      uint8_t trace_node_n;
+      ConnectionRequest(){}
+      ConnectionRequest(const ConnectionRequest% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         trace_node_1 = to_copy.trace_node_1;
+         trace_node_n = to_copy.trace_node_n;
+      }
+      ConnectionRequest(const connection_request_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         trace_node_1 = to_copy.trace_node_1;
+         trace_node_n = to_copy.trace_node_n;
+      }
+   };
+
+   /** Redefine c++ Connection_Reply struct as c# struct which is auto generated*/ 
+   public ref struct ConnectionReply
+   {
+      float64_t timestamp;
+      uint8_t connection_ID;
+      uint8_t trace_node_n;
+      uint8_t trace_node_n_1;
+      ConnectionReply(){}
+      ConnectionReply(const ConnectionReply% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         connection_ID = to_copy.connection_ID;
+         trace_node_n = to_copy.trace_node_n;
+         trace_node_n_1 = to_copy.trace_node_n_1;
+      }
+      ConnectionReply(const connection_reply_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         connection_ID = to_copy.connection_ID;
+         trace_node_n = to_copy.trace_node_n;
+         trace_node_n_1 = to_copy.trace_node_n_1;
+      }
+   };
+
    /** Redefine c++ Vehicle_Identification struct as c# struct which is auto generated*/ 
    public ref struct VehicleIdentification
    {
       float64_t timestamp;
       uint16_t vehicle_ID;
       uint8_t vehicle_type;
-      uint16_t owner_ID;
       VehicleIdentification(){}
       VehicleIdentification(const VehicleIdentification% to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
          vehicle_type = to_copy.vehicle_type;
-         owner_ID = to_copy.owner_ID;
       }
       VehicleIdentification(const vehicle_identification_t to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
          vehicle_type = to_copy.vehicle_type;
-         owner_ID = to_copy.owner_ID;
-      }
-   };
-
-   /** Redefine c++ Amy_Stuff struct as c# struct which is auto generated*/ 
-   public ref struct AmyStuff
-   {
-      float64_t hello;
-      AmyStuff(){}
-      AmyStuff(const AmyStuff% to_copy)
-      {
-         hello = to_copy.hello;
-      }
-      AmyStuff(const amy_stuff_t to_copy)
-      {
-         hello = to_copy.hello;
       }
    };
 
@@ -147,38 +195,11 @@ namespace Comnet
    {
       float64_t timestamp;
       uint16_t vehicle_ID;
-      uint8_t link_key;
-      uint8_t requested_services;
-      uint8_t handover_node;
-      VehicleAuthorizationRequest(){}
-      VehicleAuthorizationRequest(const VehicleAuthorizationRequest% to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_ID = to_copy.vehicle_ID;
-         link_key = to_copy.link_key;
-         requested_services = to_copy.requested_services;
-         handover_node = to_copy.handover_node;
-      }
-      VehicleAuthorizationRequest(const vehicle_authorization_request_t to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_ID = to_copy.vehicle_ID;
-         link_key = to_copy.link_key;
-         requested_services = to_copy.requested_services;
-         handover_node = to_copy.handover_node;
-      }
-   };
-
-   /** Redefine c++ Vehicle_Authorization_Reply struct as c# struct which is auto generated*/ 
-   public ref struct VehicleAuthorizationReply
-   {
-      float64_t timestamp;
-      uint16_t vehicle_ID;
       uint8_t vehicle_type;
       uint8_t authorized_services;
       uint8_t granted_services;
-      VehicleAuthorizationReply(){}
-      VehicleAuthorizationReply(const VehicleAuthorizationReply% to_copy)
+      VehicleAuthorizationRequest(){}
+      VehicleAuthorizationRequest(const VehicleAuthorizationRequest% to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -186,7 +207,34 @@ namespace Comnet
          authorized_services = to_copy.authorized_services;
          granted_services = to_copy.granted_services;
       }
-      VehicleAuthorizationReply(const vehicle_authorization_reply_t to_copy)
+      VehicleAuthorizationRequest(const vehicle_authorization_request_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         vehicle_type = to_copy.vehicle_type;
+         authorized_services = to_copy.authorized_services;
+         granted_services = to_copy.granted_services;
+      }
+   };
+
+   /** Redefine c++ Vehicle_Authorization_reply struct as c# struct which is auto generated*/ 
+   public ref struct VehicleAuthorizationreply
+   {
+      float64_t timestamp;
+      uint16_t vehicle_ID;
+      uint8_t vehicle_type;
+      uint8_t authorized_services;
+      uint8_t granted_services;
+      VehicleAuthorizationreply(){}
+      VehicleAuthorizationreply(const VehicleAuthorizationreply% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         vehicle_type = to_copy.vehicle_type;
+         authorized_services = to_copy.authorized_services;
+         granted_services = to_copy.granted_services;
+      }
+      VehicleAuthorizationreply(const vehicle_authorization_reply_t to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -217,10 +265,34 @@ namespace Comnet
       }
    };
 
+   /** Redefine c++ Vehicle_Joystick_Command struct as c# struct which is auto generated*/ 
+   public ref struct VehicleJoystickCommand
+   {
+      float64_t timestamp;
+      uint16_t vehicle_ID;
+      float32_t steering;
+      float32_t throttle;
+      VehicleJoystickCommand(){}
+      VehicleJoystickCommand(const VehicleJoystickCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         steering = to_copy.steering;
+         throttle = to_copy.throttle;
+      }
+      VehicleJoystickCommand(const vehicle_joystick_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         steering = to_copy.steering;
+         throttle = to_copy.throttle;
+      }
+   };
+
    /** Redefine c++ Vehicle_Termination_Command struct as c# struct which is auto generated*/ 
    public ref struct VehicleTerminationCommand
    {
-      float64_t timestamp;
+      uint64_t timestamp;
       uint16_t vehicle_ID;
       uint8_t termination_mode;
       VehicleTerminationCommand(){}
@@ -241,57 +313,24 @@ namespace Comnet
    /** Redefine c++ Vehicle_Telemetry_Command struct as c# struct which is auto generated*/ 
    public ref struct VehicleTelemetryCommand
    {
-      float64_t timestamp;
+      uint64_t timestamp;
+      uint16_t vehicle_ID;
       uint8_t telemetry_select;
       uint8_t telemetry_rate;
       VehicleTelemetryCommand(){}
       VehicleTelemetryCommand(const VehicleTelemetryCommand% to_copy)
       {
          timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
          telemetry_select = to_copy.telemetry_select;
          telemetry_rate = to_copy.telemetry_rate;
       }
       VehicleTelemetryCommand(const vehicle_telemetry_command_t to_copy)
       {
          timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
          telemetry_select = to_copy.telemetry_select;
          telemetry_rate = to_copy.telemetry_rate;
-      }
-   };
-
-   /** Redefine c++ Vehicle_Waypoint_Command struct as c# struct which is auto generated*/ 
-   public ref struct VehicleWaypointCommand
-   {
-      float64_t timestamp;
-      uint16_t vehicle_ID;
-      int32_t latitude;
-      int32_t longitude;
-      int32_t altitude;
-      int32_t heading;
-      uint8_t waypoint_ID;
-      uint8_t waypoint_type;
-      VehicleWaypointCommand(){}
-      VehicleWaypointCommand(const VehicleWaypointCommand% to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_ID = to_copy.vehicle_ID;
-         latitude = to_copy.latitude;
-         longitude = to_copy.longitude;
-         altitude = to_copy.altitude;
-         heading = to_copy.heading;
-         waypoint_ID = to_copy.waypoint_ID;
-         waypoint_type = to_copy.waypoint_type;
-      }
-      VehicleWaypointCommand(const vehicle_waypoint_command_t to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_ID = to_copy.vehicle_ID;
-         latitude = to_copy.latitude;
-         longitude = to_copy.longitude;
-         altitude = to_copy.altitude;
-         heading = to_copy.heading;
-         waypoint_ID = to_copy.waypoint_ID;
-         waypoint_type = to_copy.waypoint_type;
       }
    };
 
@@ -390,7 +429,6 @@ namespace Comnet
       int32_t latitude;
       int32_t longitude;
       int32_t altitude;
-      int32_t heading;
       int16_t x_speed;
       int16_t y_speed;
       int16_t z_speed;
@@ -402,7 +440,6 @@ namespace Comnet
          latitude = to_copy.latitude;
          longitude = to_copy.longitude;
          altitude = to_copy.altitude;
-         heading = to_copy.heading;
          x_speed = to_copy.x_speed;
          y_speed = to_copy.y_speed;
          z_speed = to_copy.z_speed;
@@ -414,7 +451,6 @@ namespace Comnet
          latitude = to_copy.latitude;
          longitude = to_copy.longitude;
          altitude = to_copy.altitude;
-         heading = to_copy.heading;
          x_speed = to_copy.x_speed;
          y_speed = to_copy.y_speed;
          z_speed = to_copy.z_speed;
@@ -484,8 +520,8 @@ namespace Comnet
       }
    };
 
-   /** Redefine c++ Vehicle_Ground_Relative_State struct as c# struct which is auto generated*/ 
-   public ref struct VehicleGroundRelativeState
+   /** Redefine c++ Air_Vehicle_Ground_Relative_State struct as c# struct which is auto generated*/ 
+   public ref struct AirVehicleGroundRelativeState
    {
       float64_t timestamp;
       uint16_t vehicle_ID;
@@ -499,8 +535,8 @@ namespace Comnet
       float32_t east_ground_speed;
       float32_t barometric_pressure;
       float32_t barometric_altitude;
-      VehicleGroundRelativeState(){}
-      VehicleGroundRelativeState(const VehicleGroundRelativeState% to_copy)
+      AirVehicleGroundRelativeState(){}
+      AirVehicleGroundRelativeState(const AirVehicleGroundRelativeState% to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -515,7 +551,7 @@ namespace Comnet
          barometric_pressure = to_copy.barometric_pressure;
          barometric_altitude = to_copy.barometric_altitude;
       }
-      VehicleGroundRelativeState(const vehicle_ground_relative_state_t to_copy)
+      AirVehicleGroundRelativeState(const air_vehicle_ground_relative_state_t to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
@@ -536,16 +572,58 @@ namespace Comnet
    public ref struct PayloadBayCommand
    {
       float64_t timestamp;
-      uint32_t payload_ID;
+      uint16_t payload_bay_ID;
       uint8_t payload_command;
       PayloadBayCommand(){}
       PayloadBayCommand(const PayloadBayCommand% to_copy)
       {
          timestamp = to_copy.timestamp;
-         payload_ID = to_copy.payload_ID;
+         payload_bay_ID = to_copy.payload_bay_ID;
          payload_command = to_copy.payload_command;
       }
       PayloadBayCommand(const payload_bay_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_bay_ID = to_copy.payload_bay_ID;
+         payload_command = to_copy.payload_command;
+      }
+   };
+
+   /** Redefine c++ Payload_Data_Recorder_Command struct as c# struct which is auto generated*/ 
+   public ref struct PayloadDataRecorderCommand
+   {
+      float64_t timestamp;
+      uint16_t payload_ID;
+      uint8_t payload_recorder_mode;
+      PayloadDataRecorderCommand(){}
+      PayloadDataRecorderCommand(const PayloadDataRecorderCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_ID = to_copy.payload_ID;
+         payload_recorder_mode = to_copy.payload_recorder_mode;
+      }
+      PayloadDataRecorderCommand(const payload_data_recorder_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_ID = to_copy.payload_ID;
+         payload_recorder_mode = to_copy.payload_recorder_mode;
+      }
+   };
+
+   /** Redefine c++ Payload_Operation_Command struct as c# struct which is auto generated*/ 
+   public ref struct PayloadOperationCommand
+   {
+      float64_t timestamp;
+      uint16_t payload_ID;
+      uint8_t payload_command;
+      PayloadOperationCommand(){}
+      PayloadOperationCommand(const PayloadOperationCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_ID = to_copy.payload_ID;
+         payload_command = to_copy.payload_command;
+      }
+      PayloadOperationCommand(const payload_operation_command_t to_copy)
       {
          timestamp = to_copy.timestamp;
          payload_ID = to_copy.payload_ID;
@@ -553,11 +631,53 @@ namespace Comnet
       }
    };
 
+   /** Redefine c++ Communications_Payload_Command struct as c# struct which is auto generated*/ 
+   public ref struct CommunicationsPayloadCommand
+   {
+      float64_t timestamp;
+      uint16_t comms_payload_ID;
+      uint8_t comms_payload_command;
+      CommunicationsPayloadCommand(){}
+      CommunicationsPayloadCommand(const CommunicationsPayloadCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         comms_payload_ID = to_copy.comms_payload_ID;
+         comms_payload_command = to_copy.comms_payload_command;
+      }
+      CommunicationsPayloadCommand(const communications_payload_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         comms_payload_ID = to_copy.comms_payload_ID;
+         comms_payload_command = to_copy.comms_payload_command;
+      }
+   };
+
+   /** Redefine c++ Communications_Payload_Configuration_Command struct as c# struct which is auto generated*/ 
+   public ref struct CommunicationsPayloadConfigurationCommand
+   {
+      float64_t timestamp;
+      uint16_t comms_payload_ID;
+      uint8_t comms_payload_mode;
+      CommunicationsPayloadConfigurationCommand(){}
+      CommunicationsPayloadConfigurationCommand(const CommunicationsPayloadConfigurationCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         comms_payload_ID = to_copy.comms_payload_ID;
+         comms_payload_mode = to_copy.comms_payload_mode;
+      }
+      CommunicationsPayloadConfigurationCommand(const communications_payload_configuration_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         comms_payload_ID = to_copy.comms_payload_ID;
+         comms_payload_mode = to_copy.comms_payload_mode;
+      }
+   };
+
    /** Redefine c++ Payload_Bay_Mode_Command struct as c# struct which is auto generated*/ 
    public ref struct PayloadBayModeCommand
    {
       float64_t timestamp;
-      uint32_t payload_ID;
+      uint16_t payload_ID;
       uint8_t payload_mode;
       PayloadBayModeCommand(){}
       PayloadBayModeCommand(const PayloadBayModeCommand% to_copy)
@@ -574,102 +694,330 @@ namespace Comnet
       }
    };
 
-   /** Redefine c++ Target_Designation_Command struct as c# struct which is auto generated*/ 
-   public ref struct TargetDesignationCommand
+   /** Redefine c++ Payload_Bay_Status struct as c# struct which is auto generated*/ 
+   public ref struct PayloadBayStatus
+   {
+      float64_t timestamp;
+      uint16_t payload_bay_ID;
+      uint8_t payload_bay_mode;
+      uint8_t payload_status;
+      PayloadBayStatus(){}
+      PayloadBayStatus(const PayloadBayStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_bay_ID = to_copy.payload_bay_ID;
+         payload_bay_mode = to_copy.payload_bay_mode;
+         payload_status = to_copy.payload_status;
+      }
+      PayloadBayStatus(const payload_bay_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_bay_ID = to_copy.payload_bay_ID;
+         payload_bay_mode = to_copy.payload_bay_mode;
+         payload_status = to_copy.payload_status;
+      }
+   };
+
+   /** Redefine c++ Payload_Data_Recorder_Status struct as c# struct which is auto generated*/ 
+   public ref struct PayloadDataRecorderStatus
+   {
+      float64_t timestamp;
+      uint8_t data_recorder_mode;
+      PayloadDataRecorderStatus(){}
+      PayloadDataRecorderStatus(const PayloadDataRecorderStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         data_recorder_mode = to_copy.data_recorder_mode;
+      }
+      PayloadDataRecorderStatus(const payload_data_recorder_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         data_recorder_mode = to_copy.data_recorder_mode;
+      }
+   };
+
+   /** Redefine c++ Payload_Operating_Status struct as c# struct which is auto generated*/ 
+   public ref struct PayloadOperatingStatus
+   {
+      float64_t timestamp;
+      uint16_t payload_ID;
+      uint8_t payload_mode;
+      uint8_t payload_status;
+      PayloadOperatingStatus(){}
+      PayloadOperatingStatus(const PayloadOperatingStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_ID = to_copy.payload_ID;
+         payload_mode = to_copy.payload_mode;
+         payload_status = to_copy.payload_status;
+      }
+      PayloadOperatingStatus(const payload_operating_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         payload_ID = to_copy.payload_ID;
+         payload_mode = to_copy.payload_mode;
+         payload_status = to_copy.payload_status;
+      }
+   };
+
+   /** Redefine c++ Communications_Payload_Status struct as c# struct which is auto generated*/ 
+   public ref struct CommunicationsPayloadStatus
+   {
+      float64_t timestamp;
+      uint16_t communications_ID;
+      uint8_t communications_mode;
+      uint8_t communications_status;
+      CommunicationsPayloadStatus(){}
+      CommunicationsPayloadStatus(const CommunicationsPayloadStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         communications_ID = to_copy.communications_ID;
+         communications_mode = to_copy.communications_mode;
+         communications_status = to_copy.communications_status;
+      }
+      CommunicationsPayloadStatus(const communications_payload_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         communications_ID = to_copy.communications_ID;
+         communications_mode = to_copy.communications_mode;
+         communications_status = to_copy.communications_status;
+      }
+   };
+
+   /** Redefine c++ Target_Status struct as c# struct which is auto generated*/ 
+   public ref struct TargetStatus
+   {
+      float64_t timestamp;
+      float64_t target_radius;
+      float64_t target_angle;
+      float64_t target_altitude;
+      TargetStatus(){}
+      TargetStatus(const TargetStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         target_radius = to_copy.target_radius;
+         target_angle = to_copy.target_angle;
+         target_altitude = to_copy.target_altitude;
+      }
+      TargetStatus(const target_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         target_radius = to_copy.target_radius;
+         target_angle = to_copy.target_angle;
+         target_altitude = to_copy.target_altitude;
+      }
+   };
+
+   /** Redefine c++ Target_Acknowledgement struct as c# struct which is auto generated*/ 
+   public ref struct TargetAcknowledgement
+   {
+      float64_t timestamp;
+      uint8_t target_status;
+      TargetAcknowledgement(){}
+      TargetAcknowledgement(const TargetAcknowledgement% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         target_status = to_copy.target_status;
+      }
+      TargetAcknowledgement(const target_acknowledgement_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         target_status = to_copy.target_status;
+      }
+   };
+
+   /** Redefine c++ UAV_Location struct as c# struct which is auto generated*/ 
+   public ref struct UAVLocation
+   {
+      float64_t timestamp;
+      float64_t longitude;
+      float64_t latitude;
+      float64_t altitude;
+      UAVLocation(){}
+      UAVLocation(const UAVLocation% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         longitude = to_copy.longitude;
+         latitude = to_copy.latitude;
+         altitude = to_copy.altitude;
+      }
+      UAVLocation(const UAV_location_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         longitude = to_copy.longitude;
+         latitude = to_copy.latitude;
+         altitude = to_copy.altitude;
+      }
+   };
+
+   /** Redefine c++ UAV_Speed struct as c# struct which is auto generated*/ 
+   public ref struct UAVSpeed
+   {
+      float64_t timestamp;
+      float64_t speed;
+      UAVSpeed(){}
+      UAVSpeed(const UAVSpeed% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         speed = to_copy.speed;
+      }
+      UAVSpeed(const UAV_speed_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         speed = to_copy.speed;
+      }
+   };
+
+   /** Redefine c++ UAV_Heading struct as c# struct which is auto generated*/ 
+   public ref struct UAVHeading
+   {
+      float64_t timestamp;
+      float64_t heading;
+      UAVHeading(){}
+      UAVHeading(const UAVHeading% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         heading = to_copy.heading;
+      }
+      UAVHeading(const UAV_heading_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         heading = to_copy.heading;
+      }
+   };
+
+   /** Redefine c++ UAV_Battery struct as c# struct which is auto generated*/ 
+   public ref struct UAVBattery
+   {
+      float64_t timestamp;
+      uint32_t battery_percentage;
+      UAVBattery(){}
+      UAVBattery(const UAVBattery% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         battery_percentage = to_copy.battery_percentage;
+      }
+      UAVBattery(const UAV_battery_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         battery_percentage = to_copy.battery_percentage;
+      }
+   };
+
+   /** Redefine c++ UAV_Collision_Avodiance_Status struct as c# struct which is auto generated*/ 
+   public ref struct UAVCollisionAvodianceStatus
+   {
+      float64_t timestamp;
+      uint8_t ca_status;
+      UAVCollisionAvodianceStatus(){}
+      UAVCollisionAvodianceStatus(const UAVCollisionAvodianceStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         ca_status = to_copy.ca_status;
+      }
+      UAVCollisionAvodianceStatus(const UAV_collision_avodiance_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         ca_status = to_copy.ca_status;
+      }
+   };
+
+   /** Redefine c++ UAV_Mission_Status struct as c# struct which is auto generated*/ 
+   public ref struct UAVMissionStatus
+   {
+      float64_t timestamp;
+      uint8_t mission_status;
+      UAVMissionStatus(){}
+      UAVMissionStatus(const UAVMissionStatus% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         mission_status = to_copy.mission_status;
+      }
+      UAVMissionStatus(const UAV_mission_status_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         mission_status = to_copy.mission_status;
+      }
+   };
+
+   /** Redefine c++ UAV_Collision_Avodiance_Message struct as c# struct which is auto generated*/ 
+   public ref struct UAVCollisionAvodianceMessage
+   {
+      float64_t timestamp;
+      uint8_t vehicle_ID;
+      float64_t velocity;
+      float64_t latitude;
+      float64_t longtitude;
+      float64_t altitude;
+      uint8_t priority;
+      UAVCollisionAvodianceMessage(){}
+      UAVCollisionAvodianceMessage(const UAVCollisionAvodianceMessage% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         velocity = to_copy.velocity;
+         latitude = to_copy.latitude;
+         longtitude = to_copy.longtitude;
+         altitude = to_copy.altitude;
+         priority = to_copy.priority;
+      }
+      UAVCollisionAvodianceMessage(const UAV_collision_avodiance_message_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         velocity = to_copy.velocity;
+         latitude = to_copy.latitude;
+         longtitude = to_copy.longtitude;
+         altitude = to_copy.altitude;
+         priority = to_copy.priority;
+      }
+   };
+
+   /** Redefine c++ UUV_Status struct as c# struct which is auto generated*/ 
+   public ref struct UUVStatus
+   {
+      uint8_t status;
+      UUVStatus(){}
+      UUVStatus(const UUVStatus% to_copy)
+      {
+         status = to_copy.status;
+      }
+      UUVStatus(const UUV_status_t to_copy)
+      {
+         status = to_copy.status;
+      }
+   };
+
+   /** Redefine c++ ROV_Status_Message struct as c# struct which is auto generated*/ 
+   public ref struct ROVStatusMessage
    {
       float64_t timestamp;
       uint16_t vehicle_ID;
-      uint8_t payload_ID;
-      uint8_t target_ID;
-      uint8_t target_type;
-      int32_t latitude;
-      int32_t longitude;
-      int32_t altitude;
-      TargetDesignationCommand(){}
-      TargetDesignationCommand(const TargetDesignationCommand% to_copy)
+      uint16_t depth;
+      uint16_t roll;
+      uint16_t pitch;
+      uint16_t heading;
+      float32_t battery_percent;
+      ROVStatusMessage(){}
+      ROVStatusMessage(const ROVStatusMessage% to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
-         payload_ID = to_copy.payload_ID;
-         target_ID = to_copy.target_ID;
-         target_type = to_copy.target_type;
-         latitude = to_copy.latitude;
-         longitude = to_copy.longitude;
-         altitude = to_copy.altitude;
+         depth = to_copy.depth;
+         roll = to_copy.roll;
+         pitch = to_copy.pitch;
+         heading = to_copy.heading;
+         battery_percent = to_copy.battery_percent;
       }
-      TargetDesignationCommand(const target_designation_command_t to_copy)
+      ROVStatusMessage(const ROV_status_message_t to_copy)
       {
          timestamp = to_copy.timestamp;
          vehicle_ID = to_copy.vehicle_ID;
-         payload_ID = to_copy.payload_ID;
-         target_ID = to_copy.target_ID;
-         target_type = to_copy.target_type;
-         latitude = to_copy.latitude;
-         longitude = to_copy.longitude;
-         altitude = to_copy.altitude;
-      }
-   };
-
-   /** Redefine c++ UGV_Joystick struct as c# struct which is auto generated*/ 
-   public ref struct UGVJoystick
-   {
-      float64_t timestamp;
-      uint8_t vehicle_id;
-      float32_t steering;
-      float32_t throttle;
-      UGVJoystick(){}
-      UGVJoystick(const UGVJoystick% to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_id = to_copy.vehicle_id;
-         steering = to_copy.steering;
-         throttle = to_copy.throttle;
-      }
-      UGVJoystick(const UGV_joystick_t to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         vehicle_id = to_copy.vehicle_id;
-         steering = to_copy.steering;
-         throttle = to_copy.throttle;
-      }
-   };
-
-   /** Redefine c++ UGV_Battery_Status struct as c# struct which is auto generated*/ 
-   public ref struct UGVBatteryStatus
-   {
-      float64_t timestamp;
-      float32_t voltage_3_3V;
-      float32_t voltage_5V;
-      float32_t voltage_12V;
-      float32_t current_3_3V;
-      float32_t current_5V;
-      float32_t current_12V;
-      float32_t current_fore_motor;
-      float32_t current_aft_motor;
-      UGVBatteryStatus(){}
-      UGVBatteryStatus(const UGVBatteryStatus% to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         voltage_3_3V = to_copy.voltage_3_3V;
-         voltage_5V = to_copy.voltage_5V;
-         voltage_12V = to_copy.voltage_12V;
-         current_3_3V = to_copy.current_3_3V;
-         current_5V = to_copy.current_5V;
-         current_12V = to_copy.current_12V;
-         current_fore_motor = to_copy.current_fore_motor;
-         current_aft_motor = to_copy.current_aft_motor;
-      }
-      UGVBatteryStatus(const UGV_battery_status_t to_copy)
-      {
-         timestamp = to_copy.timestamp;
-         voltage_3_3V = to_copy.voltage_3_3V;
-         voltage_5V = to_copy.voltage_5V;
-         voltage_12V = to_copy.voltage_12V;
-         current_3_3V = to_copy.current_3_3V;
-         current_5V = to_copy.current_5V;
-         current_12V = to_copy.current_12V;
-         current_fore_motor = to_copy.current_fore_motor;
-         current_aft_motor = to_copy.current_aft_motor;
+         depth = to_copy.depth;
+         roll = to_copy.roll;
+         pitch = to_copy.pitch;
+         heading = to_copy.heading;
+         battery_percent = to_copy.battery_percent;
       }
    };
 
@@ -679,27 +1027,31 @@ namespace Comnet
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* EnterCallback(int8_t, com_header_t, enter_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* ExitCallback(int8_t, com_header_t, exit_t, comnet::node*);
-   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PingCallback(int8_t, com_header_t, ping_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PongCallback(int8_t, com_header_t, pong_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* VehicleIdentificationCallback(int8_t, com_header_t, vehicle_identification_t, comnet::node*);
+   public delegate void* ExitCallback(int8_t, com_header_t, exit_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* AmyStuffCallback(int8_t, com_header_t, amy_stuff_t, comnet::node*);
+   public delegate void* RawDataCallback(int8_t, com_header_t, raw_data_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* ConnectionRequestCallback(int8_t, com_header_t, connection_request_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* ConnectionReplyCallback(int8_t, com_header_t, connection_reply_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* VehicleIdentificationCallback(int8_t, com_header_t, vehicle_identification_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleAuthorizationRequestCallback(int8_t, com_header_t, vehicle_authorization_request_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* VehicleAuthorizationReplyCallback(int8_t, com_header_t, vehicle_authorization_reply_t, comnet::node*);
+   public delegate void* VehicleAuthorizationreplyCallback(int8_t, com_header_t, vehicle_authorization_reply_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleModeCommandCallback(int8_t, com_header_t, vehicle_mode_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* VehicleJoystickCommandCallback(int8_t, com_header_t, vehicle_joystick_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleTerminationCommandCallback(int8_t, com_header_t, vehicle_termination_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleTelemetryCommandCallback(int8_t, com_header_t, vehicle_telemetry_command_t, comnet::node*);
-   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* VehicleWaypointCommandCallback(int8_t, com_header_t, vehicle_waypoint_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleSystemStatusCallback(int8_t, com_header_t, vehicle_system_status_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
@@ -711,17 +1063,49 @@ namespace Comnet
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* VehicleAttitudeCallback(int8_t, com_header_t, vehicle_attitude_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* VehicleGroundRelativeStateCallback(int8_t, com_header_t, vehicle_ground_relative_state_t, comnet::node*);
+   public delegate void* AirVehicleGroundRelativeStateCallback(int8_t, com_header_t, air_vehicle_ground_relative_state_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PayloadBayCommandCallback(int8_t, com_header_t, payload_bay_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* PayloadDataRecorderCommandCallback(int8_t, com_header_t, payload_data_recorder_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* PayloadOperationCommandCallback(int8_t, com_header_t, payload_operation_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* CommunicationsPayloadCommandCallback(int8_t, com_header_t, communications_payload_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* CommunicationsPayloadConfigurationCommandCallback(int8_t, com_header_t, communications_payload_configuration_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PayloadBayModeCommandCallback(int8_t, com_header_t, payload_bay_mode_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* TargetDesignationCommandCallback(int8_t, com_header_t, target_designation_command_t, comnet::node*);
+   public delegate void* PayloadBayStatusCallback(int8_t, com_header_t, payload_bay_status_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* UGVJoystickCallback(int8_t, com_header_t, UGV_joystick_t, comnet::node*);
+   public delegate void* PayloadDataRecorderStatusCallback(int8_t, com_header_t, payload_data_recorder_status_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
-   public delegate void* UGVBatteryStatusCallback(int8_t, com_header_t, UGV_battery_status_t, comnet::node*);
+   public delegate void* PayloadOperatingStatusCallback(int8_t, com_header_t, payload_operating_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* CommunicationsPayloadStatusCallback(int8_t, com_header_t, communications_payload_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* TargetStatusCallback(int8_t, com_header_t, target_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* TargetAcknowledgementCallback(int8_t, com_header_t, target_acknowledgement_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVLocationCallback(int8_t, com_header_t, UAV_location_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVSpeedCallback(int8_t, com_header_t, UAV_speed_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVHeadingCallback(int8_t, com_header_t, UAV_heading_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVBatteryCallback(int8_t, com_header_t, UAV_battery_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVCollisionAvodianceStatusCallback(int8_t, com_header_t, UAV_collision_avodiance_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVMissionStatusCallback(int8_t, com_header_t, UAV_mission_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UAVCollisionAvodianceMessageCallback(int8_t, com_header_t, UAV_collision_avodiance_message_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* UUVStatusCallback(int8_t, com_header_t, UUV_status_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* ROVStatusMessageCallback(int8_t, com_header_t, ROV_status_message_t, comnet::node*);
 
    /** Redefine c++ node class as c++/cli managed class for c#. Just look up c++ class for documentation.*/
    public ref class Node
@@ -742,10 +1126,6 @@ namespace Comnet
       uint8_t dest_id,
       float64_t timestamp);
 
-   void SendExit(
-      uint8_t dest_id,
-      float64_t timestamp);
-
    void SendPing(
       uint8_t dest_id,
       float64_t timestamp);
@@ -754,26 +1134,44 @@ namespace Comnet
       uint8_t dest_id,
       float64_t timestamp);
 
+   void SendExit(
+      uint8_t dest_id,
+      float64_t timestamp);
+
+   void SendRawData(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t length,
+      uint8_t data);
+
+   void SendConnectionRequest(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t trace_node_1,
+      uint8_t trace_node_n);
+
+   void SendConnectionReply(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t connection_ID,
+      uint8_t trace_node_n,
+      uint8_t trace_node_n_1);
+
    void SendVehicleIdentification(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
-      uint8_t vehicle_type,
-      uint16_t owner_ID);
-
-   void SendAmyStuff(
-      uint8_t dest_id,
-      float64_t hello);
+      uint8_t vehicle_type);
 
    void SendVehicleAuthorizationRequest(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
-      uint8_t link_key,
-      uint8_t requested_services,
-      uint8_t handover_node);
+      uint8_t vehicle_type,
+      uint8_t authorized_services,
+      uint8_t granted_services);
 
-   void SendVehicleAuthorizationReply(
+   void SendVehicleAuthorizationreply(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -787,28 +1185,25 @@ namespace Comnet
       uint16_t vehicle_ID,
       uint8_t vehicle_mode);
 
-   void SendVehicleTerminationCommand(
+   void SendVehicleJoystickCommand(
       uint8_t dest_id,
       float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t steering,
+      float32_t throttle);
+
+   void SendVehicleTerminationCommand(
+      uint8_t dest_id,
+      uint64_t timestamp,
       uint16_t vehicle_ID,
       uint8_t termination_mode);
 
    void SendVehicleTelemetryCommand(
       uint8_t dest_id,
-      float64_t timestamp,
+      uint64_t timestamp,
+      uint16_t vehicle_ID,
       uint8_t telemetry_select,
       uint8_t telemetry_rate);
-
-   void SendVehicleWaypointCommand(
-      uint8_t dest_id,
-      float64_t timestamp,
-      uint16_t vehicle_ID,
-      int32_t latitude,
-      int32_t longitude,
-      int32_t altitude,
-      int32_t heading,
-      uint8_t waypoint_ID,
-      uint8_t waypoint_type);
 
    void SendVehicleSystemStatus(
       uint8_t dest_id,
@@ -844,7 +1239,6 @@ namespace Comnet
       int32_t latitude,
       int32_t longitude,
       int32_t altitude,
-      int32_t heading,
       int16_t x_speed,
       int16_t y_speed,
       int16_t z_speed);
@@ -868,7 +1262,7 @@ namespace Comnet
       float32_t pitch,
       float32_t yaw);
 
-   void SendVehicleGroundRelativeState(
+   void SendAirVehicleGroundRelativeState(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -886,51 +1280,134 @@ namespace Comnet
    void SendPayloadBayCommand(
       uint8_t dest_id,
       float64_t timestamp,
-      uint32_t payload_ID,
+      uint16_t payload_bay_ID,
       uint8_t payload_command);
+
+   void SendPayloadDataRecorderCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_recorder_mode);
+
+   void SendPayloadOperationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_command);
+
+   void SendCommunicationsPayloadCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t comms_payload_ID,
+      uint8_t comms_payload_command);
+
+   void SendCommunicationsPayloadConfigurationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t comms_payload_ID,
+      uint8_t comms_payload_mode);
 
    void SendPayloadBayModeCommand(
       uint8_t dest_id,
       float64_t timestamp,
-      uint32_t payload_ID,
+      uint16_t payload_ID,
       uint8_t payload_mode);
 
-   void SendTargetDesignationCommand(
+   void SendPayloadBayStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_bay_ID,
+      uint8_t payload_bay_mode,
+      uint8_t payload_status);
+
+   void SendPayloadDataRecorderStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t data_recorder_mode);
+
+   void SendPayloadOperatingStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_mode,
+      uint8_t payload_status);
+
+   void SendCommunicationsPayloadStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t communications_ID,
+      uint8_t communications_mode,
+      uint8_t communications_status);
+
+   void SendTargetStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t target_radius,
+      float64_t target_angle,
+      float64_t target_altitude);
+
+   void SendTargetAcknowledgement(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t target_status);
+
+   void SendUAVLocation(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t longitude,
+      float64_t latitude,
+      float64_t altitude);
+
+   void SendUAVSpeed(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t speed);
+
+   void SendUAVHeading(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t heading);
+
+   void SendUAVBattery(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint32_t battery_percentage);
+
+   void SendUAVCollisionAvodianceStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t ca_status);
+
+   void SendUAVMissionStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t mission_status);
+
+   void SendUAVCollisionAvodianceMessage(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t vehicle_ID,
+      float64_t velocity,
+      float64_t latitude,
+      float64_t longtitude,
+      float64_t altitude,
+      uint8_t priority);
+
+   void SendUUVStatus(
+      uint8_t dest_id,
+      uint8_t status);
+
+   void SendROVStatusMessage(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
-      uint8_t payload_ID,
-      uint8_t target_ID,
-      uint8_t target_type,
-      int32_t latitude,
-      int32_t longitude,
-      int32_t altitude);
-
-   void SendUGVJoystick(
-      uint8_t dest_id,
-      float64_t timestamp,
-      uint8_t vehicle_id,
-      float32_t steering,
-      float32_t throttle);
-
-   void SendUGVBatteryStatus(
-      uint8_t dest_id,
-      float64_t timestamp,
-      float32_t voltage_3_3V,
-      float32_t voltage_5V,
-      float32_t voltage_12V,
-      float32_t current_3_3V,
-      float32_t current_5V,
-      float32_t current_12V,
-      float32_t current_fore_motor,
-      float32_t current_aft_motor);
+      uint16_t depth,
+      uint16_t roll,
+      uint16_t pitch,
+      uint16_t heading,
+      float32_t battery_percent);
 
    void SendEnter(
-      uint8_t dest_id,
-      float64_t timestamp,
-      bool emergency);
-
-   void SendExit(
       uint8_t dest_id,
       float64_t timestamp,
       bool emergency);
@@ -945,29 +1422,50 @@ namespace Comnet
       float64_t timestamp,
       bool emergency);
 
+   void SendExit(
+      uint8_t dest_id,
+      float64_t timestamp,
+      bool emergency);
+
+   void SendRawData(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t length,
+      uint8_t data,
+      bool emergency);
+
+   void SendConnectionRequest(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t trace_node_1,
+      uint8_t trace_node_n,
+      bool emergency);
+
+   void SendConnectionReply(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t connection_ID,
+      uint8_t trace_node_n,
+      uint8_t trace_node_n_1,
+      bool emergency);
+
    void SendVehicleIdentification(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
       uint8_t vehicle_type,
-      uint16_t owner_ID,
-      bool emergency);
-
-   void SendAmyStuff(
-      uint8_t dest_id,
-      float64_t hello,
       bool emergency);
 
    void SendVehicleAuthorizationRequest(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
-      uint8_t link_key,
-      uint8_t requested_services,
-      uint8_t handover_node,
+      uint8_t vehicle_type,
+      uint8_t authorized_services,
+      uint8_t granted_services,
       bool emergency);
 
-   void SendVehicleAuthorizationReply(
+   void SendVehicleAuthorizationreply(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -983,30 +1481,27 @@ namespace Comnet
       uint8_t vehicle_mode,
       bool emergency);
 
-   void SendVehicleTerminationCommand(
+   void SendVehicleJoystickCommand(
       uint8_t dest_id,
       float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t steering,
+      float32_t throttle,
+      bool emergency);
+
+   void SendVehicleTerminationCommand(
+      uint8_t dest_id,
+      uint64_t timestamp,
       uint16_t vehicle_ID,
       uint8_t termination_mode,
       bool emergency);
 
    void SendVehicleTelemetryCommand(
       uint8_t dest_id,
-      float64_t timestamp,
+      uint64_t timestamp,
+      uint16_t vehicle_ID,
       uint8_t telemetry_select,
       uint8_t telemetry_rate,
-      bool emergency);
-
-   void SendVehicleWaypointCommand(
-      uint8_t dest_id,
-      float64_t timestamp,
-      uint16_t vehicle_ID,
-      int32_t latitude,
-      int32_t longitude,
-      int32_t altitude,
-      int32_t heading,
-      uint8_t waypoint_ID,
-      uint8_t waypoint_type,
       bool emergency);
 
    void SendVehicleSystemStatus(
@@ -1045,7 +1540,6 @@ namespace Comnet
       int32_t latitude,
       int32_t longitude,
       int32_t altitude,
-      int32_t heading,
       int16_t x_speed,
       int16_t y_speed,
       int16_t z_speed,
@@ -1072,7 +1566,7 @@ namespace Comnet
       float32_t yaw,
       bool emergency);
 
-   void SendVehicleGroundRelativeState(
+   void SendAirVehicleGroundRelativeState(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
@@ -1091,97 +1585,237 @@ namespace Comnet
    void SendPayloadBayCommand(
       uint8_t dest_id,
       float64_t timestamp,
-      uint32_t payload_ID,
+      uint16_t payload_bay_ID,
       uint8_t payload_command,
+      bool emergency);
+
+   void SendPayloadDataRecorderCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_recorder_mode,
+      bool emergency);
+
+   void SendPayloadOperationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_command,
+      bool emergency);
+
+   void SendCommunicationsPayloadCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t comms_payload_ID,
+      uint8_t comms_payload_command,
+      bool emergency);
+
+   void SendCommunicationsPayloadConfigurationCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t comms_payload_ID,
+      uint8_t comms_payload_mode,
       bool emergency);
 
    void SendPayloadBayModeCommand(
       uint8_t dest_id,
       float64_t timestamp,
-      uint32_t payload_ID,
+      uint16_t payload_ID,
       uint8_t payload_mode,
       bool emergency);
 
-   void SendTargetDesignationCommand(
+   void SendPayloadBayStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_bay_ID,
+      uint8_t payload_bay_mode,
+      uint8_t payload_status,
+      bool emergency);
+
+   void SendPayloadDataRecorderStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t data_recorder_mode,
+      bool emergency);
+
+   void SendPayloadOperatingStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t payload_ID,
+      uint8_t payload_mode,
+      uint8_t payload_status,
+      bool emergency);
+
+   void SendCommunicationsPayloadStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t communications_ID,
+      uint8_t communications_mode,
+      uint8_t communications_status,
+      bool emergency);
+
+   void SendTargetStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t target_radius,
+      float64_t target_angle,
+      float64_t target_altitude,
+      bool emergency);
+
+   void SendTargetAcknowledgement(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t target_status,
+      bool emergency);
+
+   void SendUAVLocation(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t longitude,
+      float64_t latitude,
+      float64_t altitude,
+      bool emergency);
+
+   void SendUAVSpeed(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t speed,
+      bool emergency);
+
+   void SendUAVHeading(
+      uint8_t dest_id,
+      float64_t timestamp,
+      float64_t heading,
+      bool emergency);
+
+   void SendUAVBattery(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint32_t battery_percentage,
+      bool emergency);
+
+   void SendUAVCollisionAvodianceStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t ca_status,
+      bool emergency);
+
+   void SendUAVMissionStatus(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t mission_status,
+      bool emergency);
+
+   void SendUAVCollisionAvodianceMessage(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint8_t vehicle_ID,
+      float64_t velocity,
+      float64_t latitude,
+      float64_t longtitude,
+      float64_t altitude,
+      uint8_t priority,
+      bool emergency);
+
+   void SendUUVStatus(
+      uint8_t dest_id,
+      uint8_t status,
+      bool emergency);
+
+   void SendROVStatusMessage(
       uint8_t dest_id,
       float64_t timestamp,
       uint16_t vehicle_ID,
-      uint8_t payload_ID,
-      uint8_t target_ID,
-      uint8_t target_type,
-      int32_t latitude,
-      int32_t longitude,
-      int32_t altitude,
-      bool emergency);
-
-   void SendUGVJoystick(
-      uint8_t dest_id,
-      float64_t timestamp,
-      uint8_t vehicle_id,
-      float32_t steering,
-      float32_t throttle,
-      bool emergency);
-
-   void SendUGVBatteryStatus(
-      uint8_t dest_id,
-      float64_t timestamp,
-      float32_t voltage_3_3V,
-      float32_t voltage_5V,
-      float32_t voltage_12V,
-      float32_t current_3_3V,
-      float32_t current_5V,
-      float32_t current_12V,
-      float32_t current_fore_motor,
-      float32_t current_aft_motor,
+      uint16_t depth,
+      uint16_t roll,
+      uint16_t pitch,
+      uint16_t heading,
+      float32_t battery_percent,
       bool emergency);
 
    delegate void EnterDelegate(int8_t, Header^%, Enter^%, Comnet::Node^);
-   delegate void ExitDelegate(int8_t, Header^%, Exit^%, Comnet::Node^);
    delegate void PingDelegate(int8_t, Header^%, Ping^%, Comnet::Node^);
    delegate void PongDelegate(int8_t, Header^%, Pong^%, Comnet::Node^);
+   delegate void ExitDelegate(int8_t, Header^%, Exit^%, Comnet::Node^);
+   delegate void RawDataDelegate(int8_t, Header^%, RawData^%, Comnet::Node^);
+   delegate void ConnectionRequestDelegate(int8_t, Header^%, ConnectionRequest^%, Comnet::Node^);
+   delegate void ConnectionReplyDelegate(int8_t, Header^%, ConnectionReply^%, Comnet::Node^);
    delegate void VehicleIdentificationDelegate(int8_t, Header^%, VehicleIdentification^%, Comnet::Node^);
-   delegate void AmyStuffDelegate(int8_t, Header^%, AmyStuff^%, Comnet::Node^);
    delegate void VehicleAuthorizationRequestDelegate(int8_t, Header^%, VehicleAuthorizationRequest^%, Comnet::Node^);
-   delegate void VehicleAuthorizationReplyDelegate(int8_t, Header^%, VehicleAuthorizationReply^%, Comnet::Node^);
+   delegate void VehicleAuthorizationreplyDelegate(int8_t, Header^%, VehicleAuthorizationreply^%, Comnet::Node^);
    delegate void VehicleModeCommandDelegate(int8_t, Header^%, VehicleModeCommand^%, Comnet::Node^);
+   delegate void VehicleJoystickCommandDelegate(int8_t, Header^%, VehicleJoystickCommand^%, Comnet::Node^);
    delegate void VehicleTerminationCommandDelegate(int8_t, Header^%, VehicleTerminationCommand^%, Comnet::Node^);
    delegate void VehicleTelemetryCommandDelegate(int8_t, Header^%, VehicleTelemetryCommand^%, Comnet::Node^);
-   delegate void VehicleWaypointCommandDelegate(int8_t, Header^%, VehicleWaypointCommand^%, Comnet::Node^);
    delegate void VehicleSystemStatusDelegate(int8_t, Header^%, VehicleSystemStatus^%, Comnet::Node^);
    delegate void VehicleInertialStateDelegate(int8_t, Header^%, VehicleInertialState^%, Comnet::Node^);
    delegate void VehicleGlobalPositionDelegate(int8_t, Header^%, VehicleGlobalPosition^%, Comnet::Node^);
    delegate void VehicleBodySensedStateDelegate(int8_t, Header^%, VehicleBodySensedState^%, Comnet::Node^);
    delegate void VehicleAttitudeDelegate(int8_t, Header^%, VehicleAttitude^%, Comnet::Node^);
-   delegate void VehicleGroundRelativeStateDelegate(int8_t, Header^%, VehicleGroundRelativeState^%, Comnet::Node^);
+   delegate void AirVehicleGroundRelativeStateDelegate(int8_t, Header^%, AirVehicleGroundRelativeState^%, Comnet::Node^);
    delegate void PayloadBayCommandDelegate(int8_t, Header^%, PayloadBayCommand^%, Comnet::Node^);
+   delegate void PayloadDataRecorderCommandDelegate(int8_t, Header^%, PayloadDataRecorderCommand^%, Comnet::Node^);
+   delegate void PayloadOperationCommandDelegate(int8_t, Header^%, PayloadOperationCommand^%, Comnet::Node^);
+   delegate void CommunicationsPayloadCommandDelegate(int8_t, Header^%, CommunicationsPayloadCommand^%, Comnet::Node^);
+   delegate void CommunicationsPayloadConfigurationCommandDelegate(int8_t, Header^%, CommunicationsPayloadConfigurationCommand^%, Comnet::Node^);
    delegate void PayloadBayModeCommandDelegate(int8_t, Header^%, PayloadBayModeCommand^%, Comnet::Node^);
-   delegate void TargetDesignationCommandDelegate(int8_t, Header^%, TargetDesignationCommand^%, Comnet::Node^);
-   delegate void UGVJoystickDelegate(int8_t, Header^%, UGVJoystick^%, Comnet::Node^);
-   delegate void UGVBatteryStatusDelegate(int8_t, Header^%, UGVBatteryStatus^%, Comnet::Node^);
+   delegate void PayloadBayStatusDelegate(int8_t, Header^%, PayloadBayStatus^%, Comnet::Node^);
+   delegate void PayloadDataRecorderStatusDelegate(int8_t, Header^%, PayloadDataRecorderStatus^%, Comnet::Node^);
+   delegate void PayloadOperatingStatusDelegate(int8_t, Header^%, PayloadOperatingStatus^%, Comnet::Node^);
+   delegate void CommunicationsPayloadStatusDelegate(int8_t, Header^%, CommunicationsPayloadStatus^%, Comnet::Node^);
+   delegate void TargetStatusDelegate(int8_t, Header^%, TargetStatus^%, Comnet::Node^);
+   delegate void TargetAcknowledgementDelegate(int8_t, Header^%, TargetAcknowledgement^%, Comnet::Node^);
+   delegate void UAVLocationDelegate(int8_t, Header^%, UAVLocation^%, Comnet::Node^);
+   delegate void UAVSpeedDelegate(int8_t, Header^%, UAVSpeed^%, Comnet::Node^);
+   delegate void UAVHeadingDelegate(int8_t, Header^%, UAVHeading^%, Comnet::Node^);
+   delegate void UAVBatteryDelegate(int8_t, Header^%, UAVBattery^%, Comnet::Node^);
+   delegate void UAVCollisionAvodianceStatusDelegate(int8_t, Header^%, UAVCollisionAvodianceStatus^%, Comnet::Node^);
+   delegate void UAVMissionStatusDelegate(int8_t, Header^%, UAVMissionStatus^%, Comnet::Node^);
+   delegate void UAVCollisionAvodianceMessageDelegate(int8_t, Header^%, UAVCollisionAvodianceMessage^%, Comnet::Node^);
+   delegate void UUVStatusDelegate(int8_t, Header^%, UUVStatus^%, Comnet::Node^);
+   delegate void ROVStatusMessageDelegate(int8_t, Header^%, ROVStatusMessage^%, Comnet::Node^);
 
    void RegisterEnterEvent(EnterDelegate^ EnterEvent);
-   void RegisterExitEvent(ExitDelegate^ ExitEvent);
    void RegisterPingEvent(PingDelegate^ PingEvent);
    void RegisterPongEvent(PongDelegate^ PongEvent);
+   void RegisterExitEvent(ExitDelegate^ ExitEvent);
+   void RegisterRawDataEvent(RawDataDelegate^ RawDataEvent);
+   void RegisterConnectionRequestEvent(ConnectionRequestDelegate^ ConnectionRequestEvent);
+   void RegisterConnectionReplyEvent(ConnectionReplyDelegate^ ConnectionReplyEvent);
    void RegisterVehicleIdentificationEvent(VehicleIdentificationDelegate^ VehicleIdentificationEvent);
-   void RegisterAmyStuffEvent(AmyStuffDelegate^ AmyStuffEvent);
    void RegisterVehicleAuthorizationRequestEvent(VehicleAuthorizationRequestDelegate^ VehicleAuthorizationRequestEvent);
-   void RegisterVehicleAuthorizationReplyEvent(VehicleAuthorizationReplyDelegate^ VehicleAuthorizationReplyEvent);
+   void RegisterVehicleAuthorizationreplyEvent(VehicleAuthorizationreplyDelegate^ VehicleAuthorizationreplyEvent);
    void RegisterVehicleModeCommandEvent(VehicleModeCommandDelegate^ VehicleModeCommandEvent);
+   void RegisterVehicleJoystickCommandEvent(VehicleJoystickCommandDelegate^ VehicleJoystickCommandEvent);
    void RegisterVehicleTerminationCommandEvent(VehicleTerminationCommandDelegate^ VehicleTerminationCommandEvent);
    void RegisterVehicleTelemetryCommandEvent(VehicleTelemetryCommandDelegate^ VehicleTelemetryCommandEvent);
-   void RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate^ VehicleWaypointCommandEvent);
    void RegisterVehicleSystemStatusEvent(VehicleSystemStatusDelegate^ VehicleSystemStatusEvent);
    void RegisterVehicleInertialStateEvent(VehicleInertialStateDelegate^ VehicleInertialStateEvent);
    void RegisterVehicleGlobalPositionEvent(VehicleGlobalPositionDelegate^ VehicleGlobalPositionEvent);
    void RegisterVehicleBodySensedStateEvent(VehicleBodySensedStateDelegate^ VehicleBodySensedStateEvent);
    void RegisterVehicleAttitudeEvent(VehicleAttitudeDelegate^ VehicleAttitudeEvent);
-   void RegisterVehicleGroundRelativeStateEvent(VehicleGroundRelativeStateDelegate^ VehicleGroundRelativeStateEvent);
+   void RegisterAirVehicleGroundRelativeStateEvent(AirVehicleGroundRelativeStateDelegate^ AirVehicleGroundRelativeStateEvent);
    void RegisterPayloadBayCommandEvent(PayloadBayCommandDelegate^ PayloadBayCommandEvent);
+   void RegisterPayloadDataRecorderCommandEvent(PayloadDataRecorderCommandDelegate^ PayloadDataRecorderCommandEvent);
+   void RegisterPayloadOperationCommandEvent(PayloadOperationCommandDelegate^ PayloadOperationCommandEvent);
+   void RegisterCommunicationsPayloadCommandEvent(CommunicationsPayloadCommandDelegate^ CommunicationsPayloadCommandEvent);
+   void RegisterCommunicationsPayloadConfigurationCommandEvent(CommunicationsPayloadConfigurationCommandDelegate^ CommunicationsPayloadConfigurationCommandEvent);
    void RegisterPayloadBayModeCommandEvent(PayloadBayModeCommandDelegate^ PayloadBayModeCommandEvent);
-   void RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate^ TargetDesignationCommandEvent);
-   void RegisterUGVJoystickEvent(UGVJoystickDelegate^ UGVJoystickEvent);
-   void RegisterUGVBatteryStatusEvent(UGVBatteryStatusDelegate^ UGVBatteryStatusEvent);
+   void RegisterPayloadBayStatusEvent(PayloadBayStatusDelegate^ PayloadBayStatusEvent);
+   void RegisterPayloadDataRecorderStatusEvent(PayloadDataRecorderStatusDelegate^ PayloadDataRecorderStatusEvent);
+   void RegisterPayloadOperatingStatusEvent(PayloadOperatingStatusDelegate^ PayloadOperatingStatusEvent);
+   void RegisterCommunicationsPayloadStatusEvent(CommunicationsPayloadStatusDelegate^ CommunicationsPayloadStatusEvent);
+   void RegisterTargetStatusEvent(TargetStatusDelegate^ TargetStatusEvent);
+   void RegisterTargetAcknowledgementEvent(TargetAcknowledgementDelegate^ TargetAcknowledgementEvent);
+   void RegisterUAVLocationEvent(UAVLocationDelegate^ UAVLocationEvent);
+   void RegisterUAVSpeedEvent(UAVSpeedDelegate^ UAVSpeedEvent);
+   void RegisterUAVHeadingEvent(UAVHeadingDelegate^ UAVHeadingEvent);
+   void RegisterUAVBatteryEvent(UAVBatteryDelegate^ UAVBatteryEvent);
+   void RegisterUAVCollisionAvodianceStatusEvent(UAVCollisionAvodianceStatusDelegate^ UAVCollisionAvodianceStatusEvent);
+   void RegisterUAVMissionStatusEvent(UAVMissionStatusDelegate^ UAVMissionStatusEvent);
+   void RegisterUAVCollisionAvodianceMessageEvent(UAVCollisionAvodianceMessageDelegate^ UAVCollisionAvodianceMessageEvent);
+   void RegisterUUVStatusEvent(UUVStatusDelegate^ UUVStatusEvent);
+   void RegisterROVStatusMessageEvent(ROVStatusMessageDelegate^ ROVStatusMessageEvent);
 
    private:
       comnet::node* node;
@@ -1189,10 +1823,6 @@ namespace Comnet
       IntPtr OnEnterPtr;
       EnterCallback^ OnEnterCallback;
       EnterDelegate^ OnEnterDelegate;
-
-      IntPtr OnExitPtr;
-      ExitCallback^ OnExitCallback;
-      ExitDelegate^ OnExitDelegate;
 
       IntPtr OnPingPtr;
       PingCallback^ OnPingCallback;
@@ -1202,25 +1832,41 @@ namespace Comnet
       PongCallback^ OnPongCallback;
       PongDelegate^ OnPongDelegate;
 
+      IntPtr OnExitPtr;
+      ExitCallback^ OnExitCallback;
+      ExitDelegate^ OnExitDelegate;
+
+      IntPtr OnRawDataPtr;
+      RawDataCallback^ OnRawDataCallback;
+      RawDataDelegate^ OnRawDataDelegate;
+
+      IntPtr OnConnectionRequestPtr;
+      ConnectionRequestCallback^ OnConnectionRequestCallback;
+      ConnectionRequestDelegate^ OnConnectionRequestDelegate;
+
+      IntPtr OnConnectionReplyPtr;
+      ConnectionReplyCallback^ OnConnectionReplyCallback;
+      ConnectionReplyDelegate^ OnConnectionReplyDelegate;
+
       IntPtr OnVehicleIdentificationPtr;
       VehicleIdentificationCallback^ OnVehicleIdentificationCallback;
       VehicleIdentificationDelegate^ OnVehicleIdentificationDelegate;
-
-      IntPtr OnAmyStuffPtr;
-      AmyStuffCallback^ OnAmyStuffCallback;
-      AmyStuffDelegate^ OnAmyStuffDelegate;
 
       IntPtr OnVehicleAuthorizationRequestPtr;
       VehicleAuthorizationRequestCallback^ OnVehicleAuthorizationRequestCallback;
       VehicleAuthorizationRequestDelegate^ OnVehicleAuthorizationRequestDelegate;
 
-      IntPtr OnVehicleAuthorizationReplyPtr;
-      VehicleAuthorizationReplyCallback^ OnVehicleAuthorizationReplyCallback;
-      VehicleAuthorizationReplyDelegate^ OnVehicleAuthorizationReplyDelegate;
+      IntPtr OnVehicleAuthorizationreplyPtr;
+      VehicleAuthorizationreplyCallback^ OnVehicleAuthorizationreplyCallback;
+      VehicleAuthorizationreplyDelegate^ OnVehicleAuthorizationreplyDelegate;
 
       IntPtr OnVehicleModeCommandPtr;
       VehicleModeCommandCallback^ OnVehicleModeCommandCallback;
       VehicleModeCommandDelegate^ OnVehicleModeCommandDelegate;
+
+      IntPtr OnVehicleJoystickCommandPtr;
+      VehicleJoystickCommandCallback^ OnVehicleJoystickCommandCallback;
+      VehicleJoystickCommandDelegate^ OnVehicleJoystickCommandDelegate;
 
       IntPtr OnVehicleTerminationCommandPtr;
       VehicleTerminationCommandCallback^ OnVehicleTerminationCommandCallback;
@@ -1229,10 +1875,6 @@ namespace Comnet
       IntPtr OnVehicleTelemetryCommandPtr;
       VehicleTelemetryCommandCallback^ OnVehicleTelemetryCommandCallback;
       VehicleTelemetryCommandDelegate^ OnVehicleTelemetryCommandDelegate;
-
-      IntPtr OnVehicleWaypointCommandPtr;
-      VehicleWaypointCommandCallback^ OnVehicleWaypointCommandCallback;
-      VehicleWaypointCommandDelegate^ OnVehicleWaypointCommandDelegate;
 
       IntPtr OnVehicleSystemStatusPtr;
       VehicleSystemStatusCallback^ OnVehicleSystemStatusCallback;
@@ -1254,53 +1896,135 @@ namespace Comnet
       VehicleAttitudeCallback^ OnVehicleAttitudeCallback;
       VehicleAttitudeDelegate^ OnVehicleAttitudeDelegate;
 
-      IntPtr OnVehicleGroundRelativeStatePtr;
-      VehicleGroundRelativeStateCallback^ OnVehicleGroundRelativeStateCallback;
-      VehicleGroundRelativeStateDelegate^ OnVehicleGroundRelativeStateDelegate;
+      IntPtr OnAirVehicleGroundRelativeStatePtr;
+      AirVehicleGroundRelativeStateCallback^ OnAirVehicleGroundRelativeStateCallback;
+      AirVehicleGroundRelativeStateDelegate^ OnAirVehicleGroundRelativeStateDelegate;
 
       IntPtr OnPayloadBayCommandPtr;
       PayloadBayCommandCallback^ OnPayloadBayCommandCallback;
       PayloadBayCommandDelegate^ OnPayloadBayCommandDelegate;
 
+      IntPtr OnPayloadDataRecorderCommandPtr;
+      PayloadDataRecorderCommandCallback^ OnPayloadDataRecorderCommandCallback;
+      PayloadDataRecorderCommandDelegate^ OnPayloadDataRecorderCommandDelegate;
+
+      IntPtr OnPayloadOperationCommandPtr;
+      PayloadOperationCommandCallback^ OnPayloadOperationCommandCallback;
+      PayloadOperationCommandDelegate^ OnPayloadOperationCommandDelegate;
+
+      IntPtr OnCommunicationsPayloadCommandPtr;
+      CommunicationsPayloadCommandCallback^ OnCommunicationsPayloadCommandCallback;
+      CommunicationsPayloadCommandDelegate^ OnCommunicationsPayloadCommandDelegate;
+
+      IntPtr OnCommunicationsPayloadConfigurationCommandPtr;
+      CommunicationsPayloadConfigurationCommandCallback^ OnCommunicationsPayloadConfigurationCommandCallback;
+      CommunicationsPayloadConfigurationCommandDelegate^ OnCommunicationsPayloadConfigurationCommandDelegate;
+
       IntPtr OnPayloadBayModeCommandPtr;
       PayloadBayModeCommandCallback^ OnPayloadBayModeCommandCallback;
       PayloadBayModeCommandDelegate^ OnPayloadBayModeCommandDelegate;
 
-      IntPtr OnTargetDesignationCommandPtr;
-      TargetDesignationCommandCallback^ OnTargetDesignationCommandCallback;
-      TargetDesignationCommandDelegate^ OnTargetDesignationCommandDelegate;
+      IntPtr OnPayloadBayStatusPtr;
+      PayloadBayStatusCallback^ OnPayloadBayStatusCallback;
+      PayloadBayStatusDelegate^ OnPayloadBayStatusDelegate;
 
-      IntPtr OnUGVJoystickPtr;
-      UGVJoystickCallback^ OnUGVJoystickCallback;
-      UGVJoystickDelegate^ OnUGVJoystickDelegate;
+      IntPtr OnPayloadDataRecorderStatusPtr;
+      PayloadDataRecorderStatusCallback^ OnPayloadDataRecorderStatusCallback;
+      PayloadDataRecorderStatusDelegate^ OnPayloadDataRecorderStatusDelegate;
 
-      IntPtr OnUGVBatteryStatusPtr;
-      UGVBatteryStatusCallback^ OnUGVBatteryStatusCallback;
-      UGVBatteryStatusDelegate^ OnUGVBatteryStatusDelegate;
+      IntPtr OnPayloadOperatingStatusPtr;
+      PayloadOperatingStatusCallback^ OnPayloadOperatingStatusCallback;
+      PayloadOperatingStatusDelegate^ OnPayloadOperatingStatusDelegate;
+
+      IntPtr OnCommunicationsPayloadStatusPtr;
+      CommunicationsPayloadStatusCallback^ OnCommunicationsPayloadStatusCallback;
+      CommunicationsPayloadStatusDelegate^ OnCommunicationsPayloadStatusDelegate;
+
+      IntPtr OnTargetStatusPtr;
+      TargetStatusCallback^ OnTargetStatusCallback;
+      TargetStatusDelegate^ OnTargetStatusDelegate;
+
+      IntPtr OnTargetAcknowledgementPtr;
+      TargetAcknowledgementCallback^ OnTargetAcknowledgementCallback;
+      TargetAcknowledgementDelegate^ OnTargetAcknowledgementDelegate;
+
+      IntPtr OnUAVLocationPtr;
+      UAVLocationCallback^ OnUAVLocationCallback;
+      UAVLocationDelegate^ OnUAVLocationDelegate;
+
+      IntPtr OnUAVSpeedPtr;
+      UAVSpeedCallback^ OnUAVSpeedCallback;
+      UAVSpeedDelegate^ OnUAVSpeedDelegate;
+
+      IntPtr OnUAVHeadingPtr;
+      UAVHeadingCallback^ OnUAVHeadingCallback;
+      UAVHeadingDelegate^ OnUAVHeadingDelegate;
+
+      IntPtr OnUAVBatteryPtr;
+      UAVBatteryCallback^ OnUAVBatteryCallback;
+      UAVBatteryDelegate^ OnUAVBatteryDelegate;
+
+      IntPtr OnUAVCollisionAvodianceStatusPtr;
+      UAVCollisionAvodianceStatusCallback^ OnUAVCollisionAvodianceStatusCallback;
+      UAVCollisionAvodianceStatusDelegate^ OnUAVCollisionAvodianceStatusDelegate;
+
+      IntPtr OnUAVMissionStatusPtr;
+      UAVMissionStatusCallback^ OnUAVMissionStatusCallback;
+      UAVMissionStatusDelegate^ OnUAVMissionStatusDelegate;
+
+      IntPtr OnUAVCollisionAvodianceMessagePtr;
+      UAVCollisionAvodianceMessageCallback^ OnUAVCollisionAvodianceMessageCallback;
+      UAVCollisionAvodianceMessageDelegate^ OnUAVCollisionAvodianceMessageDelegate;
+
+      IntPtr OnUUVStatusPtr;
+      UUVStatusCallback^ OnUUVStatusCallback;
+      UUVStatusDelegate^ OnUUVStatusDelegate;
+
+      IntPtr OnROVStatusMessagePtr;
+      ROVStatusMessageCallback^ OnROVStatusMessageCallback;
+      ROVStatusMessageDelegate^ OnROVStatusMessageDelegate;
 
       void* EnterHelper(int8_t link_id, com_header_t header, enter_t enter, comnet::node* ptr);
-      void* ExitHelper(int8_t link_id, com_header_t header, exit_t exit, comnet::node* ptr);
       void* PingHelper(int8_t link_id, com_header_t header, ping_t ping, comnet::node* ptr);
       void* PongHelper(int8_t link_id, com_header_t header, pong_t pong, comnet::node* ptr);
+      void* ExitHelper(int8_t link_id, com_header_t header, exit_t exit, comnet::node* ptr);
+      void* RawDataHelper(int8_t link_id, com_header_t header, raw_data_t raw_data, comnet::node* ptr);
+      void* ConnectionRequestHelper(int8_t link_id, com_header_t header, connection_request_t connection_request, comnet::node* ptr);
+      void* ConnectionReplyHelper(int8_t link_id, com_header_t header, connection_reply_t connection_reply, comnet::node* ptr);
       void* VehicleIdentificationHelper(int8_t link_id, com_header_t header, vehicle_identification_t vehicle_identification, comnet::node* ptr);
-      void* AmyStuffHelper(int8_t link_id, com_header_t header, amy_stuff_t amy_stuff, comnet::node* ptr);
       void* VehicleAuthorizationRequestHelper(int8_t link_id, com_header_t header, vehicle_authorization_request_t vehicle_authorization_request, comnet::node* ptr);
-      void* VehicleAuthorizationReplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr);
+      void* VehicleAuthorizationreplyHelper(int8_t link_id, com_header_t header, vehicle_authorization_reply_t vehicle_authorization_reply, comnet::node* ptr);
       void* VehicleModeCommandHelper(int8_t link_id, com_header_t header, vehicle_mode_command_t vehicle_mode_command, comnet::node* ptr);
+      void* VehicleJoystickCommandHelper(int8_t link_id, com_header_t header, vehicle_joystick_command_t vehicle_joystick_command, comnet::node* ptr);
       void* VehicleTerminationCommandHelper(int8_t link_id, com_header_t header, vehicle_termination_command_t vehicle_termination_command, comnet::node* ptr);
       void* VehicleTelemetryCommandHelper(int8_t link_id, com_header_t header, vehicle_telemetry_command_t vehicle_telemetry_command, comnet::node* ptr);
-      void* VehicleWaypointCommandHelper(int8_t link_id, com_header_t header, vehicle_waypoint_command_t vehicle_waypoint_command, comnet::node* ptr);
       void* VehicleSystemStatusHelper(int8_t link_id, com_header_t header, vehicle_system_status_t vehicle_system_status, comnet::node* ptr);
       void* VehicleInertialStateHelper(int8_t link_id, com_header_t header, vehicle_inertial_state_t vehicle_inertial_state, comnet::node* ptr);
       void* VehicleGlobalPositionHelper(int8_t link_id, com_header_t header, vehicle_global_position_t vehicle_global_position, comnet::node* ptr);
       void* VehicleBodySensedStateHelper(int8_t link_id, com_header_t header, vehicle_body_sensed_state_t vehicle_body_sensed_state, comnet::node* ptr);
       void* VehicleAttitudeHelper(int8_t link_id, com_header_t header, vehicle_attitude_t vehicle_attitude, comnet::node* ptr);
-      void* VehicleGroundRelativeStateHelper(int8_t link_id, com_header_t header, vehicle_ground_relative_state_t vehicle_ground_relative_state, comnet::node* ptr);
+      void* AirVehicleGroundRelativeStateHelper(int8_t link_id, com_header_t header, air_vehicle_ground_relative_state_t air_vehicle_ground_relative_state, comnet::node* ptr);
       void* PayloadBayCommandHelper(int8_t link_id, com_header_t header, payload_bay_command_t payload_bay_command, comnet::node* ptr);
+      void* PayloadDataRecorderCommandHelper(int8_t link_id, com_header_t header, payload_data_recorder_command_t payload_data_recorder_command, comnet::node* ptr);
+      void* PayloadOperationCommandHelper(int8_t link_id, com_header_t header, payload_operation_command_t payload_operation_command, comnet::node* ptr);
+      void* CommunicationsPayloadCommandHelper(int8_t link_id, com_header_t header, communications_payload_command_t communications_payload_command, comnet::node* ptr);
+      void* CommunicationsPayloadConfigurationCommandHelper(int8_t link_id, com_header_t header, communications_payload_configuration_command_t communications_payload_configuration_command, comnet::node* ptr);
       void* PayloadBayModeCommandHelper(int8_t link_id, com_header_t header, payload_bay_mode_command_t payload_bay_mode_command, comnet::node* ptr);
-      void* TargetDesignationCommandHelper(int8_t link_id, com_header_t header, target_designation_command_t target_designation_command, comnet::node* ptr);
-      void* UGVJoystickHelper(int8_t link_id, com_header_t header, UGV_joystick_t UGV_joystick, comnet::node* ptr);
-      void* UGVBatteryStatusHelper(int8_t link_id, com_header_t header, UGV_battery_status_t UGV_battery_status, comnet::node* ptr);
+      void* PayloadBayStatusHelper(int8_t link_id, com_header_t header, payload_bay_status_t payload_bay_status, comnet::node* ptr);
+      void* PayloadDataRecorderStatusHelper(int8_t link_id, com_header_t header, payload_data_recorder_status_t payload_data_recorder_status, comnet::node* ptr);
+      void* PayloadOperatingStatusHelper(int8_t link_id, com_header_t header, payload_operating_status_t payload_operating_status, comnet::node* ptr);
+      void* CommunicationsPayloadStatusHelper(int8_t link_id, com_header_t header, communications_payload_status_t communications_payload_status, comnet::node* ptr);
+      void* TargetStatusHelper(int8_t link_id, com_header_t header, target_status_t target_status, comnet::node* ptr);
+      void* TargetAcknowledgementHelper(int8_t link_id, com_header_t header, target_acknowledgement_t target_acknowledgement, comnet::node* ptr);
+      void* UAVLocationHelper(int8_t link_id, com_header_t header, UAV_location_t UAV_location, comnet::node* ptr);
+      void* UAVSpeedHelper(int8_t link_id, com_header_t header, UAV_speed_t UAV_speed, comnet::node* ptr);
+      void* UAVHeadingHelper(int8_t link_id, com_header_t header, UAV_heading_t UAV_heading, comnet::node* ptr);
+      void* UAVBatteryHelper(int8_t link_id, com_header_t header, UAV_battery_t UAV_battery, comnet::node* ptr);
+      void* UAVCollisionAvodianceStatusHelper(int8_t link_id, com_header_t header, UAV_collision_avodiance_status_t UAV_collision_avodiance_status, comnet::node* ptr);
+      void* UAVMissionStatusHelper(int8_t link_id, com_header_t header, UAV_mission_status_t UAV_mission_status, comnet::node* ptr);
+      void* UAVCollisionAvodianceMessageHelper(int8_t link_id, com_header_t header, UAV_collision_avodiance_message_t UAV_collision_avodiance_message, comnet::node* ptr);
+      void* UUVStatusHelper(int8_t link_id, com_header_t header, UUV_status_t UUV_status, comnet::node* ptr);
+      void* ROVStatusMessageHelper(int8_t link_id, com_header_t header, ROV_status_message_t ROV_status_message, comnet::node* ptr);
 
    };
 }

@@ -15,7 +15,7 @@ using CryptoPP::AES;
 using CryptoPP::CFB_Mode;
 typedef struct {
    float64_t timestamp;
-   uint32_t payload_ID;
+   uint16_t payload_bay_ID;
    uint8_t payload_command;
 } payload_bay_command_t;
 
