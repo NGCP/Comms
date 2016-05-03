@@ -76,7 +76,7 @@ comnet/src/message/PayloadBayStatus.cpp
 
 target_link_libraries (NGCP_COM ${CMAKE_THREAD_LIBS_INIT})
 
-target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/cryptopp563/linux/libcryptopp.a)
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/cryptopp563/osx/libcryptopp.a)
 
-target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/linux/libxbee.so)
+target_link_libraries (NGCP_COM ${CMAKE_CURRENT_SOURCE_DIR}/libxbee3-3.0.11/osx/libxbee.so)
 
