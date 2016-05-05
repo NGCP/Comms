@@ -14,7 +14,7 @@ comcol = tree.findall('message')
 f = open("callbacklist.cpp", "w+")
 
 for message in comcol:
-	name = message.get('name')
-	f.write("void* " + name + "(int8_t link_id, com_header_t header, ping_t ping, comnet::node* node)\n")
+	name = message.get('name').lower()    
+	f.write("void* " + name + "(int8_t link_id, com_header_t header," + name + "_t " + name + ", comnet::node* node)\n")
 	f.write("{\n\n}\n\n")
 f.close()
