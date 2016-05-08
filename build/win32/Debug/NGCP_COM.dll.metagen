@@ -211,6 +211,16 @@ Class Comnet.AirVehicleGroundRelativeState: AutoLayout, AnsiClass, Class, Public
     Single east_ground_speed : Public
     Single barometric_pressure : Public
     Single barometric_altitude : Public
+Class Comnet.VehicleWaypointCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(vehicle_waypoint_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Comnet.VehicleWaypointCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Single latitude : Public
+    Single longitude : Public
+    Single altitude : Public
 Class Comnet.PayloadBayCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(payload_bay_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(Comnet.PayloadBayCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -309,6 +319,20 @@ Class Comnet.TargetAcknowledgement: AutoLayout, AnsiClass, Class, Public, Before
   Fields:
     Double timestamp : Public
     Byte target_status : Public
+Class Comnet.TargetDesignationCommand: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(target_designation_command_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Comnet.TargetDesignationCommand): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte dest_ID : Public
+    Double timestamp : Public
+    UInt16 vehicle_ID : Public
+    Byte payload_ID : Public
+    Byte target_ID : Public
+    Byte target_type : Public
+    Int32 latitude : Public
+    Int32 longitude : Public
+    Int32 altitude : Public
 Class Comnet.UAVLocation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(UAV_location_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(Comnet.UAVLocation): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -523,6 +547,13 @@ Class Comnet.AirVehicleGroundRelativeStateCallback: AutoLayout, AnsiClass, Class
     Invoke(SByte, com_header_t, air_vehicle_ground_relative_state_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, com_header_t, air_vehicle_ground_relative_state_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Comnet.VehicleWaypointCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, com_header_t, vehicle_waypoint_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, com_header_t, vehicle_waypoint_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class Comnet.PayloadBayCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
@@ -607,6 +638,13 @@ Class Comnet.TargetAcknowledgementCallback: AutoLayout, AnsiClass, Class, Public
     Invoke(SByte, com_header_t, target_acknowledgement_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, com_header_t, target_acknowledgement_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Comnet.TargetDesignationCommandCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, com_header_t, target_designation_command_t, node*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, com_header_t, target_designation_command_t, node*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class Comnet.UAVLocationCallback: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
@@ -676,6 +714,10 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.IDisposable
   Methods:
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+    SendUAVBattery(Byte, Double, UInt32): PrivateScope, Public, HideBySig
+    SendUAVCollisionAvodianceStatus(Byte, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendUAVCollisionAvodianceStatus(Byte, Double, Byte): PrivateScope, Public, HideBySig
+    SendUAVMissionStatus(Byte, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendUAVMissionStatus(Byte, Double, Byte): PrivateScope, Public, HideBySig
     SendUAVCollisionAvodianceMessage(Byte, Double, Byte, Double, Double, Double, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendUAVCollisionAvodianceMessage(Byte, Double, Byte, Double, Double, Double, Double, Byte): PrivateScope, Public, HideBySig
@@ -703,6 +745,7 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     RegisterVehicleBodySensedStateEvent(VehicleBodySensedStateDelegate): PrivateScope, Public, HideBySig
     RegisterVehicleAttitudeEvent(VehicleAttitudeDelegate): PrivateScope, Public, HideBySig
     RegisterAirVehicleGroundRelativeStateEvent(AirVehicleGroundRelativeStateDelegate): PrivateScope, Public, HideBySig
+    RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate): PrivateScope, Public, HideBySig
     RegisterPayloadBayCommandEvent(PayloadBayCommandDelegate): PrivateScope, Public, HideBySig
     RegisterPayloadDataRecorderCommandEvent(PayloadDataRecorderCommandDelegate): PrivateScope, Public, HideBySig
     RegisterPayloadOperationCommandEvent(PayloadOperationCommandDelegate): PrivateScope, Public, HideBySig
@@ -715,6 +758,7 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     RegisterCommunicationsPayloadStatusEvent(CommunicationsPayloadStatusDelegate): PrivateScope, Public, HideBySig
     RegisterTargetStatusEvent(TargetStatusDelegate): PrivateScope, Public, HideBySig
     RegisterTargetAcknowledgementEvent(TargetAcknowledgementDelegate): PrivateScope, Public, HideBySig
+    RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate): PrivateScope, Public, HideBySig
     RegisterUAVLocationEvent(UAVLocationDelegate): PrivateScope, Public, HideBySig
     RegisterUAVSpeedEvent(UAVSpeedDelegate): PrivateScope, Public, HideBySig
     RegisterUAVHeadingEvent(UAVHeadingDelegate): PrivateScope, Public, HideBySig
@@ -772,6 +816,8 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     SendVehicleAttitude(Byte, Double, UInt16, Single, Single, Single): PrivateScope, Public, HideBySig
     SendAirVehicleGroundRelativeState(Byte, Double, UInt16, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendAirVehicleGroundRelativeState(Byte, Double, UInt16, Single, Single, Single, Single, Single, Single, Single, Single, Single, Single): PrivateScope, Public, HideBySig
+    SendVehicleWaypointCommand(Byte, Double, UInt16, Single, Single, Single, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendVehicleWaypointCommand(Byte, Double, UInt16, Single, Single, Single): PrivateScope, Public, HideBySig
     SendPayloadBayCommand(Byte, Double, UInt16, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendPayloadBayCommand(Byte, Double, UInt16, Byte): PrivateScope, Public, HideBySig
     SendPayloadDataRecorderCommand(Byte, Double, UInt16, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
@@ -796,6 +842,8 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     SendTargetStatus(Byte, Double, Double, Double, Double): PrivateScope, Public, HideBySig
     SendTargetAcknowledgement(Byte, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendTargetAcknowledgement(Byte, Double, Byte): PrivateScope, Public, HideBySig
+    SendTargetDesignationCommand(Byte, Byte, Double, UInt16, Byte, Byte, Byte, Int32, Int32, Int32, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SendTargetDesignationCommand(Byte, Byte, Double, UInt16, Byte, Byte, Byte, Int32, Int32, Int32): PrivateScope, Public, HideBySig
     SendUAVLocation(Byte, Double, Double, Double, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendUAVLocation(Byte, Double, Double, Double, Double): PrivateScope, Public, HideBySig
     SendUAVSpeed(Byte, Double, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
@@ -803,10 +851,6 @@ Class Comnet.Node: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     SendUAVHeading(Byte, Double, Double, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SendUAVHeading(Byte, Double, Double): PrivateScope, Public, HideBySig
     SendUAVBattery(Byte, Double, UInt32, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
-    SendUAVBattery(Byte, Double, UInt32): PrivateScope, Public, HideBySig
-    SendUAVCollisionAvodianceStatus(Byte, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
-    SendUAVCollisionAvodianceStatus(Byte, Double, Byte): PrivateScope, Public, HideBySig
-    SendUAVMissionStatus(Byte, Double, Byte, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
 Class Comnet.Node+EnterDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
@@ -947,6 +991,13 @@ Class Comnet.Node+AirVehicleGroundRelativeStateDelegate: AutoLayout, AnsiClass, 
     Invoke(SByte, Header&, AirVehicleGroundRelativeState&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, Header&, AirVehicleGroundRelativeState&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(Header&, AirVehicleGroundRelativeState&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Comnet.Node+VehicleWaypointCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, VehicleWaypointCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, VehicleWaypointCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, VehicleWaypointCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class Comnet.Node+PayloadBayCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
@@ -1031,6 +1082,13 @@ Class Comnet.Node+TargetAcknowledgementDelegate: AutoLayout, AnsiClass, Class, N
     Invoke(SByte, Header&, TargetAcknowledgement&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(SByte, Header&, TargetAcknowledgement&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(Header&, TargetAcknowledgement&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Comnet.Node+TargetDesignationCommandDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(SByte, Header&, TargetDesignationCommand&, Node): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(SByte, Header&, TargetDesignationCommand&, Node, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(Header&, TargetDesignationCommand&, IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class Comnet.Node+UAVLocationDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName

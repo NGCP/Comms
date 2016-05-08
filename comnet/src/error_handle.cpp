@@ -1,14 +1,7 @@
 #include <error_handle.h>
 
 #include <unordered_map> 
-
-class HashErrorType {
-public:
-  template<typename T>
-  std::size_t operator ()(const T& t) const {
-    return static_cast<std::size_t>(t);
-  }
-};
+#include <map>
 
 namespace comnet {
 namespace error { 
@@ -16,7 +9,7 @@ namespace error {
 /**
    Operating system error map.
  */
-  std::unordered_map<OSErrors, char*, HashErrorType> os_error_map = { 
+  std::map<OSErrors, const char*> os_error_map = { 
    _ERROR(error_no_os, "Not operating system specific."),
    _ERROR(error_windows, "Windows error."),
    _ERROR(error_wsa_service, "WSA Service error."),
@@ -28,7 +21,7 @@ namespace error {
 /**
    Connection Error map.
  */
-  std::unordered_map<ConnectErrors, char*, HashErrorType> connect_error_map = { 
+  std::map<ConnectErrors, const char*> connect_error_map = { 
    _ERROR(error_no_connection_error, "No connection error."),
    _ERROR(error_con_unknown_error, "Unknown Error."),
    _ERROR(error_udp_error, "UDP error."),
@@ -52,7 +45,7 @@ namespace error {
 /**
    Internal Error map.
  */
-  std::unordered_map<InternalErrors, char*, HashErrorType> internal_error_map = {
+  std::map<InternalErrors, const char*> internal_error_map = {
    _ERROR(error_no_internal_error, "No internal error."),
    _ERROR(error_intern_unknown_error, "Unknown internal error."),
    _ERROR(error_internal_connection_error, "No live connection."),

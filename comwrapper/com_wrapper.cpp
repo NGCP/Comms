@@ -408,6 +408,26 @@ void Node::SendAirVehicleGroundRelativeState(
    emergency);
 }
 
+void Node::SendVehicleWaypointCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t latitude,
+   float32_t longitude,
+   float32_t altitude,
+   bool emergency)
+{
+
+   node->send_vehicle_waypoint_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   latitude,
+   longitude,
+   altitude,
+   emergency);
+}
+
 void Node::SendPayloadBayCommand(
    uint8_t dest_id,
    float64_t timestamp,
@@ -601,6 +621,34 @@ void Node::SendTargetAcknowledgement(
    dest_id,
    timestamp,
    target_status,
+   emergency);
+}
+
+void Node::SendTargetDesignationCommand(
+   uint8_t dest_id,
+   uint8_t dest_ID,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t payload_ID,
+   uint8_t target_ID,
+   uint8_t target_type,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude,
+   bool emergency)
+{
+
+   node->send_target_designation_command(
+   dest_id,
+   dest_ID,
+   timestamp,
+   vehicle_ID,
+   payload_ID,
+   target_ID,
+   target_type,
+   latitude,
+   longitude,
+   altitude,
    emergency);
 }
 
@@ -1102,6 +1150,24 @@ void Node::SendAirVehicleGroundRelativeState(
    0);
 }
 
+void Node::SendVehicleWaypointCommand(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t latitude,
+   float32_t longitude,
+   float32_t altitude)
+{
+   node->send_vehicle_waypoint_command(
+   dest_id,
+   timestamp,
+   vehicle_ID,
+   latitude,
+   longitude,
+   altitude,
+   0);
+}
+
 void Node::SendPayloadBayCommand(
    uint8_t dest_id,
    float64_t timestamp,
@@ -1271,6 +1337,32 @@ void Node::SendTargetAcknowledgement(
    dest_id,
    timestamp,
    target_status,
+   0);
+}
+
+void Node::SendTargetDesignationCommand(
+   uint8_t dest_id,
+   uint8_t dest_ID,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t payload_ID,
+   uint8_t target_ID,
+   uint8_t target_type,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude)
+{
+   node->send_target_designation_command(
+   dest_id,
+   dest_ID,
+   timestamp,
+   vehicle_ID,
+   payload_ID,
+   target_ID,
+   target_type,
+   latitude,
+   longitude,
+   altitude,
    0);
 }
 
@@ -1884,6 +1976,22 @@ void Node::RegisterAirVehicleGroundRelativeStateEvent(AirVehicleGroundRelativeSt
    node->register_on_air_vehicle_ground_relative_state(static_cast<comnet::air_vehicle_ground_relative_state_callback>(OnAirVehicleGroundRelativeStatePtr.ToPointer()));
 }
 
+void* Node::VehicleWaypointCommandHelper(int8_t link_id, com_header_t header, vehicle_waypoint_command_t vehicle_waypoint_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   VehicleWaypointCommand^ managed_vehicle_waypoint_command = gcnew VehicleWaypointCommand(vehicle_waypoint_command);
+   OnVehicleWaypointCommandDelegate(link_id, managed_header, managed_vehicle_waypoint_command, this);
+   return 0;
+}
+
+void Node::RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate^ VehicleWaypointCommandEvent)
+{
+   OnVehicleWaypointCommandDelegate = VehicleWaypointCommandEvent;
+   OnVehicleWaypointCommandCallback = gcnew VehicleWaypointCommandCallback(this, &Node::VehicleWaypointCommandHelper);
+   OnVehicleWaypointCommandPtr = Marshal::GetFunctionPointerForDelegate(OnVehicleWaypointCommandCallback);
+   node->register_on_vehicle_waypoint_command(static_cast<comnet::vehicle_waypoint_command_callback>(OnVehicleWaypointCommandPtr.ToPointer()));
+}
+
 void* Node::PayloadBayCommandHelper(int8_t link_id, com_header_t header, payload_bay_command_t payload_bay_command, comnet::node* ptr)
 {
    Header^ managed_header = gcnew Header(header);
@@ -2074,6 +2182,22 @@ void Node::RegisterTargetAcknowledgementEvent(TargetAcknowledgementDelegate^ Tar
    OnTargetAcknowledgementCallback = gcnew TargetAcknowledgementCallback(this, &Node::TargetAcknowledgementHelper);
    OnTargetAcknowledgementPtr = Marshal::GetFunctionPointerForDelegate(OnTargetAcknowledgementCallback);
    node->register_on_target_acknowledgement(static_cast<comnet::target_acknowledgement_callback>(OnTargetAcknowledgementPtr.ToPointer()));
+}
+
+void* Node::TargetDesignationCommandHelper(int8_t link_id, com_header_t header, target_designation_command_t target_designation_command, comnet::node* ptr)
+{
+   Header^ managed_header = gcnew Header(header);
+   TargetDesignationCommand^ managed_target_designation_command = gcnew TargetDesignationCommand(target_designation_command);
+   OnTargetDesignationCommandDelegate(link_id, managed_header, managed_target_designation_command, this);
+   return 0;
+}
+
+void Node::RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate^ TargetDesignationCommandEvent)
+{
+   OnTargetDesignationCommandDelegate = TargetDesignationCommandEvent;
+   OnTargetDesignationCommandCallback = gcnew TargetDesignationCommandCallback(this, &Node::TargetDesignationCommandHelper);
+   OnTargetDesignationCommandPtr = Marshal::GetFunctionPointerForDelegate(OnTargetDesignationCommandCallback);
+   node->register_on_target_designation_command(static_cast<comnet::target_designation_command_callback>(OnTargetDesignationCommandPtr.ToPointer()));
 }
 
 void* Node::UAVLocationHelper(int8_t link_id, com_header_t header, UAV_location_t UAV_location, comnet::node* ptr)

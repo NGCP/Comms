@@ -73,6 +73,8 @@ namespace comnet
    typedef void* (*vehicle_attitude_callback)(int8_t, com_header_t, vehicle_attitude_t, comnet::node* node_ptr);
    /**Global function call back used for message Air_Vehicle_Ground_Relative_State must be implemented on platform for use*/ 
    typedef void* (*air_vehicle_ground_relative_state_callback)(int8_t, com_header_t, air_vehicle_ground_relative_state_t, comnet::node* node_ptr);
+   /**Global function call back used for message Vehicle_Waypoint_Command must be implemented on platform for use*/ 
+   typedef void* (*vehicle_waypoint_command_callback)(int8_t, com_header_t, vehicle_waypoint_command_t, comnet::node* node_ptr);
    /**Global function call back used for message Payload_Bay_Command must be implemented on platform for use*/ 
    typedef void* (*payload_bay_command_callback)(int8_t, com_header_t, payload_bay_command_t, comnet::node* node_ptr);
    /**Global function call back used for message Payload_Data_Recorder_Command must be implemented on platform for use*/ 
@@ -97,6 +99,8 @@ namespace comnet
    typedef void* (*target_status_callback)(int8_t, com_header_t, target_status_t, comnet::node* node_ptr);
    /**Global function call back used for message Target_Acknowledgement must be implemented on platform for use*/ 
    typedef void* (*target_acknowledgement_callback)(int8_t, com_header_t, target_acknowledgement_t, comnet::node* node_ptr);
+   /**Global function call back used for message Target_Designation_Command must be implemented on platform for use*/ 
+   typedef void* (*target_designation_command_callback)(int8_t, com_header_t, target_designation_command_t, comnet::node* node_ptr);
    /**Global function call back used for message UAV_Location must be implemented on platform for use*/ 
    typedef void* (*UAV_location_callback)(int8_t, com_header_t, UAV_location_t, comnet::node* node_ptr);
    /**Global function call back used for message UAV_Speed must be implemented on platform for use*/ 
@@ -344,6 +348,16 @@ namespace comnet
          float32_t barometric_altitude,
          bool is_emergency = false);
 
+      /**Public definition of the send Vehicle_Waypoint_Command message which will be put into the message queue.*/ 
+      void send_vehicle_waypoint_command(
+         uint8_t dest_id,
+         float64_t timestamp,
+         uint16_t vehicle_ID,
+         float32_t latitude,
+         float32_t longitude,
+         float32_t altitude,
+         bool is_emergency = false);
+
       /**Public definition of the send Payload_Bay_Command message which will be put into the message queue.*/ 
       void send_payload_bay_command(
          uint8_t dest_id,
@@ -440,6 +454,20 @@ namespace comnet
          uint8_t dest_id,
          float64_t timestamp,
          uint8_t target_status,
+         bool is_emergency = false);
+
+      /**Public definition of the send Target_Designation_Command message which will be put into the message queue.*/ 
+      void send_target_designation_command(
+         uint8_t dest_id,
+         uint8_t dest_ID,
+         float64_t timestamp,
+         uint16_t vehicle_ID,
+         uint8_t payload_ID,
+         uint8_t target_ID,
+         uint8_t target_type,
+         int32_t latitude,
+         int32_t longitude,
+         int32_t altitude,
          bool is_emergency = false);
 
       /**Public definition of the send UAV_Location message which will be put into the message queue.*/ 
@@ -556,6 +584,8 @@ namespace comnet
       void register_on_vehicle_attitude(vehicle_attitude_callback callback){on_vehicle_attitude = callback;}
       /**Public definition of the register on Air_Vehicle_Ground_Relative_State message which will use the message call back.*/ 
       void register_on_air_vehicle_ground_relative_state(air_vehicle_ground_relative_state_callback callback){on_air_vehicle_ground_relative_state = callback;}
+      /**Public definition of the register on Vehicle_Waypoint_Command message which will use the message call back.*/ 
+      void register_on_vehicle_waypoint_command(vehicle_waypoint_command_callback callback){on_vehicle_waypoint_command = callback;}
       /**Public definition of the register on Payload_Bay_Command message which will use the message call back.*/ 
       void register_on_payload_bay_command(payload_bay_command_callback callback){on_payload_bay_command = callback;}
       /**Public definition of the register on Payload_Data_Recorder_Command message which will use the message call back.*/ 
@@ -580,6 +610,8 @@ namespace comnet
       void register_on_target_status(target_status_callback callback){on_target_status = callback;}
       /**Public definition of the register on Target_Acknowledgement message which will use the message call back.*/ 
       void register_on_target_acknowledgement(target_acknowledgement_callback callback){on_target_acknowledgement = callback;}
+      /**Public definition of the register on Target_Designation_Command message which will use the message call back.*/ 
+      void register_on_target_designation_command(target_designation_command_callback callback){on_target_designation_command = callback;}
       /**Public definition of the register on UAV_Location message which will use the message call back.*/ 
       void register_on_UAV_location(UAV_location_callback callback){on_UAV_location = callback;}
       /**Public definition of the register on UAV_Speed message which will use the message call back.*/ 
@@ -676,6 +708,8 @@ namespace comnet
       vehicle_attitude_callback on_vehicle_attitude;
       /**Private data declares on Air_Vehicle_Ground_Relative_State as call back data type used to hold call back*/ 
       air_vehicle_ground_relative_state_callback on_air_vehicle_ground_relative_state;
+      /**Private data declares on Vehicle_Waypoint_Command as call back data type used to hold call back*/ 
+      vehicle_waypoint_command_callback on_vehicle_waypoint_command;
       /**Private data declares on Payload_Bay_Command as call back data type used to hold call back*/ 
       payload_bay_command_callback on_payload_bay_command;
       /**Private data declares on Payload_Data_Recorder_Command as call back data type used to hold call back*/ 
@@ -700,6 +734,8 @@ namespace comnet
       target_status_callback on_target_status;
       /**Private data declares on Target_Acknowledgement as call back data type used to hold call back*/ 
       target_acknowledgement_callback on_target_acknowledgement;
+      /**Private data declares on Target_Designation_Command as call back data type used to hold call back*/ 
+      target_designation_command_callback on_target_designation_command;
       /**Private data declares on UAV_Location as call back data type used to hold call back*/ 
       UAV_location_callback on_UAV_location;
       /**Private data declares on UAV_Speed as call back data type used to hold call back*/ 

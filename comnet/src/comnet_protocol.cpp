@@ -71,6 +71,9 @@ void unpack_com_msg_t(
    case Com_Air_Vehicle_Ground_Relative_State:
       unpack_air_vehicle_ground_relative_state(unpack_offset, &buf->air_vehicle_ground_relative_state);
       break;
+   case Com_Vehicle_Waypoint_Command:
+      unpack_vehicle_waypoint_command(unpack_offset, &buf->vehicle_waypoint_command);
+      break;
    case Com_Payload_Bay_Command:
       unpack_payload_bay_command(unpack_offset, &buf->payload_bay_command);
       break;
@@ -106,6 +109,9 @@ void unpack_com_msg_t(
       break;
    case Com_Target_Acknowledgement:
       unpack_target_acknowledgement(unpack_offset, &buf->target_acknowledgement);
+      break;
+   case Com_Target_Designation_Command:
+      unpack_target_designation_command(unpack_offset, &buf->target_designation_command);
       break;
    case Com_UAV_Location:
       unpack_UAV_location(unpack_offset, &buf->UAV_location);
@@ -221,6 +227,10 @@ const char* com_typestr(com_msg_type_t msg_type)
    {
       return "Air Vehicle Ground Relative State";
    }
+   if(msg_type == Com_Vehicle_Waypoint_Command)
+   {
+      return "Vehicle Waypoint Command";
+   }
    if(msg_type == Com_Payload_Bay_Command)
    {
       return "Payload Bay Command";
@@ -268,6 +278,10 @@ const char* com_typestr(com_msg_type_t msg_type)
    if(msg_type == Com_Target_Acknowledgement)
    {
       return "Target Acknowledgement";
+   }
+   if(msg_type == Com_Target_Designation_Command)
+   {
+      return "Target Designation Command";
    }
    if(msg_type == Com_UAV_Location)
    {

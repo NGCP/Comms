@@ -172,6 +172,14 @@
 		<field type = "float32_t" name = "barometric_altitude"></field>
 	</message>
 
+	<message name = "Vehicle_Waypoint_Command" id = "2006">
+		<field type = "float64_t" name = "timestamp"></field>
+		<field type = "uint16_t" name = "vehicle_ID"></field>
+		<field type = "float32_t" name = "latitude"></field>
+		<field type = "float32_t" name = "longitude"></field>
+		<field type = "float32_t" name = "altitude"></field>
+	</message>
+
 	<message name = "Payload_Bay_Command" id = "3000">
 		<field type = "float64_t" name = "timestamp"></field>
 		<field type = "uint16_t" name = "payload_bay_ID"></field>
@@ -244,6 +252,18 @@
 	<message name = "Target_Acknowledgement" id = "5001">
 		<field type = "float64_t" name = "timestamp"></field>
 		<field type = "uint8_t" name = "target_status"></field>
+	</message>
+
+	<message name = "Target_Designation_Command" id = "5002">
+		<field type = "uint8_t" name = "dest_ID"></field>
+		<field type = "float64_t" name = "timestamp"></field>
+		<field type = "uint16_t" name = "vehicle_ID"></field>
+		<field type = "uint8_t" name = "payload_ID"></field>
+		<field type = "uint8_t" name = "target_ID"></field>
+		<field type = "uint8_t" name = "target_type"></field>
+		<field type = "int32_t" name = "latitude"></field>
+		<field type = "int32_t" name = "longitude"></field>
+		<field type = "int32_t" name = "altitude"></field>
 	</message>
 
 	<message name = "UAV_Location" id = "6000">

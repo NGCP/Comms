@@ -364,6 +364,7 @@ void node::null_callback_storage()
    on_vehicle_body_sensed_state = NULL;
    on_vehicle_attitude = NULL;
    on_air_vehicle_ground_relative_state = NULL;
+   on_vehicle_waypoint_command = NULL;
    on_payload_bay_command = NULL;
    on_payload_data_recorder_command = NULL;
    on_payload_operation_command = NULL;
@@ -376,6 +377,7 @@ void node::null_callback_storage()
    on_communications_payload_status = NULL;
    on_target_status = NULL;
    on_target_acknowledgement = NULL;
+   on_target_designation_command = NULL;
    on_UAV_location = NULL;
    on_UAV_speed = NULL;
    on_UAV_heading = NULL;
@@ -610,6 +612,17 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          }
          break;
       }
+   case Com_Vehicle_Waypoint_Command:
+      {
+         if(on_vehicle_waypoint_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_vehicle_waypoint_command(rx_msg->link_id, rx_msg->header, rx_buf->vehicle_waypoint_command, this);
+         }
+         break;
+      }
    case Com_Payload_Bay_Command:
       {
          if(on_payload_bay_command == NULL)
@@ -739,6 +752,17 @@ void node::handle_com_msg_t(com_msg_t* rx_msg, com_msg_buf_t* rx_buf)
          else
          {
             this->on_target_acknowledgement(rx_msg->link_id, rx_msg->header, rx_buf->target_acknowledgement, this);
+         }
+         break;
+      }
+   case Com_Target_Designation_Command:
+      {
+         if(on_target_designation_command == NULL)
+         {
+         }
+         else
+         {
+            this->on_target_designation_command(rx_msg->link_id, rx_msg->header, rx_buf->target_designation_command, this);
          }
          break;
       }
@@ -1274,6 +1298,28 @@ void node::send_air_vehicle_ground_relative_state(
    return;
 }
 
+void node::send_vehicle_waypoint_command(
+   uint8_t dest_id,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   float32_t latitude,
+   float32_t longitude,
+   float32_t altitude,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   vehicle_waypoint_command_t vehicle_waypoint_command;
+   vehicle_waypoint_command.timestamp = timestamp;
+   vehicle_waypoint_command.vehicle_ID = vehicle_ID;
+   vehicle_waypoint_command.latitude = latitude;
+   vehicle_waypoint_command.longitude = longitude;
+   vehicle_waypoint_command.altitude = altitude;
+   encode_vehicle_waypoint_command(this->node_id, dest_id, &vehicle_waypoint_command, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
 void node::send_payload_bay_command(
    uint8_t dest_id,
    float64_t timestamp,
@@ -1490,6 +1536,36 @@ void node::send_target_acknowledgement(
    target_acknowledgement.timestamp = timestamp;
    target_acknowledgement.target_status = target_status;
    encode_target_acknowledgement(this->node_id, dest_id, &target_acknowledgement, &com_msg, key);
+   queue.add(&com_msg);
+   return;
+}
+
+void node::send_target_designation_command(
+   uint8_t dest_id,
+   uint8_t dest_ID,
+   float64_t timestamp,
+   uint16_t vehicle_ID,
+   uint8_t payload_ID,
+   uint8_t target_ID,
+   uint8_t target_type,
+   int32_t latitude,
+   int32_t longitude,
+   int32_t altitude,
+   bool is_emergency)
+{
+   com_msg_t com_msg;
+   com_msg.header.is_emergency = (uint16_t)is_emergency;
+   target_designation_command_t target_designation_command;
+   target_designation_command.dest_ID = dest_ID;
+   target_designation_command.timestamp = timestamp;
+   target_designation_command.vehicle_ID = vehicle_ID;
+   target_designation_command.payload_ID = payload_ID;
+   target_designation_command.target_ID = target_ID;
+   target_designation_command.target_type = target_type;
+   target_designation_command.latitude = latitude;
+   target_designation_command.longitude = longitude;
+   target_designation_command.altitude = altitude;
+   encode_target_designation_command(this->node_id, dest_id, &target_designation_command, &com_msg, key);
    queue.add(&com_msg);
    return;
 }

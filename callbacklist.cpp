@@ -98,6 +98,11 @@ void* air_vehicle_ground_relative_state(int8_t link_id, com_header_t header,air_
 
 }
 
+void* vehicle_waypoint_command(int8_t link_id, com_header_t header,vehicle_waypoint_command_t vehicle_waypoint_command, comnet::node* node)
+{
+
+}
+
 void* payload_bay_command(int8_t link_id, com_header_t header,payload_bay_command_t payload_bay_command, comnet::node* node)
 {
 
@@ -154,6 +159,11 @@ void* target_status(int8_t link_id, com_header_t header,target_status_t target_s
 }
 
 void* target_acknowledgement(int8_t link_id, com_header_t header,target_acknowledgement_t target_acknowledgement, comnet::node* node)
+{
+
+}
+
+void* target_designation_command(int8_t link_id, com_header_t header,target_designation_command_t target_designation_command, comnet::node* node)
 {
 
 }

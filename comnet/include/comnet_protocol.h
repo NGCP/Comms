@@ -24,6 +24,7 @@
 #include <message/VehicleBodySensedState.h>
 #include <message/VehicleAttitude.h>
 #include <message/AirVehicleGroundRelativeState.h>
+#include <message/VehicleWaypointCommand.h>
 #include <message/PayloadBayCommand.h>
 #include <message/PayloadDataRecorderCommand.h>
 #include <message/PayloadOperationCommand.h>
@@ -36,6 +37,7 @@
 #include <message/CommunicationsPayloadStatus.h>
 #include <message/TargetStatus.h>
 #include <message/TargetAcknowledgement.h>
+#include <message/TargetDesignationCommand.h>
 #include <message/UAVLocation.h>
 #include <message/UAVSpeed.h>
 #include <message/UAVHeading.h>
@@ -72,6 +74,7 @@ typedef union {
    vehicle_body_sensed_state_t vehicle_body_sensed_state;
    vehicle_attitude_t vehicle_attitude;
    air_vehicle_ground_relative_state_t air_vehicle_ground_relative_state;
+   vehicle_waypoint_command_t vehicle_waypoint_command;
    payload_bay_command_t payload_bay_command;
    payload_data_recorder_command_t payload_data_recorder_command;
    payload_operation_command_t payload_operation_command;
@@ -84,6 +87,7 @@ typedef union {
    communications_payload_status_t communications_payload_status;
    target_status_t target_status;
    target_acknowledgement_t target_acknowledgement;
+   target_designation_command_t target_designation_command;
    UAV_location_t UAV_location;
    UAV_speed_t UAV_speed;
    UAV_heading_t UAV_heading;

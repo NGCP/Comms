@@ -568,6 +568,33 @@ namespace Comnet
       }
    };
 
+   /** Redefine c++ Vehicle_Waypoint_Command struct as c# struct which is auto generated*/ 
+   public ref struct VehicleWaypointCommand
+   {
+      float64_t timestamp;
+      uint16_t vehicle_ID;
+      float32_t latitude;
+      float32_t longitude;
+      float32_t altitude;
+      VehicleWaypointCommand(){}
+      VehicleWaypointCommand(const VehicleWaypointCommand% to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         latitude = to_copy.latitude;
+         longitude = to_copy.longitude;
+         altitude = to_copy.altitude;
+      }
+      VehicleWaypointCommand(const vehicle_waypoint_command_t to_copy)
+      {
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         latitude = to_copy.latitude;
+         longitude = to_copy.longitude;
+         altitude = to_copy.altitude;
+      }
+   };
+
    /** Redefine c++ Payload_Bay_Command struct as c# struct which is auto generated*/ 
    public ref struct PayloadBayCommand
    {
@@ -826,6 +853,45 @@ namespace Comnet
       }
    };
 
+   /** Redefine c++ Target_Designation_Command struct as c# struct which is auto generated*/ 
+   public ref struct TargetDesignationCommand
+   {
+      uint8_t dest_ID;
+      float64_t timestamp;
+      uint16_t vehicle_ID;
+      uint8_t payload_ID;
+      uint8_t target_ID;
+      uint8_t target_type;
+      int32_t latitude;
+      int32_t longitude;
+      int32_t altitude;
+      TargetDesignationCommand(){}
+      TargetDesignationCommand(const TargetDesignationCommand% to_copy)
+      {
+         dest_ID = to_copy.dest_ID;
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         payload_ID = to_copy.payload_ID;
+         target_ID = to_copy.target_ID;
+         target_type = to_copy.target_type;
+         latitude = to_copy.latitude;
+         longitude = to_copy.longitude;
+         altitude = to_copy.altitude;
+      }
+      TargetDesignationCommand(const target_designation_command_t to_copy)
+      {
+         dest_ID = to_copy.dest_ID;
+         timestamp = to_copy.timestamp;
+         vehicle_ID = to_copy.vehicle_ID;
+         payload_ID = to_copy.payload_ID;
+         target_ID = to_copy.target_ID;
+         target_type = to_copy.target_type;
+         latitude = to_copy.latitude;
+         longitude = to_copy.longitude;
+         altitude = to_copy.altitude;
+      }
+   };
+
    /** Redefine c++ UAV_Location struct as c# struct which is auto generated*/ 
    public ref struct UAVLocation
    {
@@ -1065,6 +1131,8 @@ namespace Comnet
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* AirVehicleGroundRelativeStateCallback(int8_t, com_header_t, air_vehicle_ground_relative_state_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* VehicleWaypointCommandCallback(int8_t, com_header_t, vehicle_waypoint_command_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PayloadBayCommandCallback(int8_t, com_header_t, payload_bay_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* PayloadDataRecorderCommandCallback(int8_t, com_header_t, payload_data_recorder_command_t, comnet::node*);
@@ -1088,6 +1156,8 @@ namespace Comnet
    public delegate void* TargetStatusCallback(int8_t, com_header_t, target_status_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* TargetAcknowledgementCallback(int8_t, com_header_t, target_acknowledgement_t, comnet::node*);
+   [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
+   public delegate void* TargetDesignationCommandCallback(int8_t, com_header_t, target_designation_command_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
    public delegate void* UAVLocationCallback(int8_t, com_header_t, UAV_location_t, comnet::node*);
    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]   /** Redefine c++ callback pointer as managed c++/cli pointer for c#.*/
@@ -1277,6 +1347,14 @@ namespace Comnet
       float32_t barometric_pressure,
       float32_t barometric_altitude);
 
+   void SendVehicleWaypointCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t latitude,
+      float32_t longitude,
+      float32_t altitude);
+
    void SendPayloadBayCommand(
       uint8_t dest_id,
       float64_t timestamp,
@@ -1350,6 +1428,18 @@ namespace Comnet
       uint8_t dest_id,
       float64_t timestamp,
       uint8_t target_status);
+
+   void SendTargetDesignationCommand(
+      uint8_t dest_id,
+      uint8_t dest_ID,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t payload_ID,
+      uint8_t target_ID,
+      uint8_t target_type,
+      int32_t latitude,
+      int32_t longitude,
+      int32_t altitude);
 
    void SendUAVLocation(
       uint8_t dest_id,
@@ -1582,6 +1672,15 @@ namespace Comnet
       float32_t barometric_altitude,
       bool emergency);
 
+   void SendVehicleWaypointCommand(
+      uint8_t dest_id,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      float32_t latitude,
+      float32_t longitude,
+      float32_t altitude,
+      bool emergency);
+
    void SendPayloadBayCommand(
       uint8_t dest_id,
       float64_t timestamp,
@@ -1666,6 +1765,19 @@ namespace Comnet
       uint8_t dest_id,
       float64_t timestamp,
       uint8_t target_status,
+      bool emergency);
+
+   void SendTargetDesignationCommand(
+      uint8_t dest_id,
+      uint8_t dest_ID,
+      float64_t timestamp,
+      uint16_t vehicle_ID,
+      uint8_t payload_ID,
+      uint8_t target_ID,
+      uint8_t target_type,
+      int32_t latitude,
+      int32_t longitude,
+      int32_t altitude,
       bool emergency);
 
    void SendUAVLocation(
@@ -1753,6 +1865,7 @@ namespace Comnet
    delegate void VehicleBodySensedStateDelegate(int8_t, Header^%, VehicleBodySensedState^%, Comnet::Node^);
    delegate void VehicleAttitudeDelegate(int8_t, Header^%, VehicleAttitude^%, Comnet::Node^);
    delegate void AirVehicleGroundRelativeStateDelegate(int8_t, Header^%, AirVehicleGroundRelativeState^%, Comnet::Node^);
+   delegate void VehicleWaypointCommandDelegate(int8_t, Header^%, VehicleWaypointCommand^%, Comnet::Node^);
    delegate void PayloadBayCommandDelegate(int8_t, Header^%, PayloadBayCommand^%, Comnet::Node^);
    delegate void PayloadDataRecorderCommandDelegate(int8_t, Header^%, PayloadDataRecorderCommand^%, Comnet::Node^);
    delegate void PayloadOperationCommandDelegate(int8_t, Header^%, PayloadOperationCommand^%, Comnet::Node^);
@@ -1765,6 +1878,7 @@ namespace Comnet
    delegate void CommunicationsPayloadStatusDelegate(int8_t, Header^%, CommunicationsPayloadStatus^%, Comnet::Node^);
    delegate void TargetStatusDelegate(int8_t, Header^%, TargetStatus^%, Comnet::Node^);
    delegate void TargetAcknowledgementDelegate(int8_t, Header^%, TargetAcknowledgement^%, Comnet::Node^);
+   delegate void TargetDesignationCommandDelegate(int8_t, Header^%, TargetDesignationCommand^%, Comnet::Node^);
    delegate void UAVLocationDelegate(int8_t, Header^%, UAVLocation^%, Comnet::Node^);
    delegate void UAVSpeedDelegate(int8_t, Header^%, UAVSpeed^%, Comnet::Node^);
    delegate void UAVHeadingDelegate(int8_t, Header^%, UAVHeading^%, Comnet::Node^);
@@ -1795,6 +1909,7 @@ namespace Comnet
    void RegisterVehicleBodySensedStateEvent(VehicleBodySensedStateDelegate^ VehicleBodySensedStateEvent);
    void RegisterVehicleAttitudeEvent(VehicleAttitudeDelegate^ VehicleAttitudeEvent);
    void RegisterAirVehicleGroundRelativeStateEvent(AirVehicleGroundRelativeStateDelegate^ AirVehicleGroundRelativeStateEvent);
+   void RegisterVehicleWaypointCommandEvent(VehicleWaypointCommandDelegate^ VehicleWaypointCommandEvent);
    void RegisterPayloadBayCommandEvent(PayloadBayCommandDelegate^ PayloadBayCommandEvent);
    void RegisterPayloadDataRecorderCommandEvent(PayloadDataRecorderCommandDelegate^ PayloadDataRecorderCommandEvent);
    void RegisterPayloadOperationCommandEvent(PayloadOperationCommandDelegate^ PayloadOperationCommandEvent);
@@ -1807,6 +1922,7 @@ namespace Comnet
    void RegisterCommunicationsPayloadStatusEvent(CommunicationsPayloadStatusDelegate^ CommunicationsPayloadStatusEvent);
    void RegisterTargetStatusEvent(TargetStatusDelegate^ TargetStatusEvent);
    void RegisterTargetAcknowledgementEvent(TargetAcknowledgementDelegate^ TargetAcknowledgementEvent);
+   void RegisterTargetDesignationCommandEvent(TargetDesignationCommandDelegate^ TargetDesignationCommandEvent);
    void RegisterUAVLocationEvent(UAVLocationDelegate^ UAVLocationEvent);
    void RegisterUAVSpeedEvent(UAVSpeedDelegate^ UAVSpeedEvent);
    void RegisterUAVHeadingEvent(UAVHeadingDelegate^ UAVHeadingEvent);
@@ -1900,6 +2016,10 @@ namespace Comnet
       AirVehicleGroundRelativeStateCallback^ OnAirVehicleGroundRelativeStateCallback;
       AirVehicleGroundRelativeStateDelegate^ OnAirVehicleGroundRelativeStateDelegate;
 
+      IntPtr OnVehicleWaypointCommandPtr;
+      VehicleWaypointCommandCallback^ OnVehicleWaypointCommandCallback;
+      VehicleWaypointCommandDelegate^ OnVehicleWaypointCommandDelegate;
+
       IntPtr OnPayloadBayCommandPtr;
       PayloadBayCommandCallback^ OnPayloadBayCommandCallback;
       PayloadBayCommandDelegate^ OnPayloadBayCommandDelegate;
@@ -1947,6 +2067,10 @@ namespace Comnet
       IntPtr OnTargetAcknowledgementPtr;
       TargetAcknowledgementCallback^ OnTargetAcknowledgementCallback;
       TargetAcknowledgementDelegate^ OnTargetAcknowledgementDelegate;
+
+      IntPtr OnTargetDesignationCommandPtr;
+      TargetDesignationCommandCallback^ OnTargetDesignationCommandCallback;
+      TargetDesignationCommandDelegate^ OnTargetDesignationCommandDelegate;
 
       IntPtr OnUAVLocationPtr;
       UAVLocationCallback^ OnUAVLocationCallback;
@@ -2004,6 +2128,7 @@ namespace Comnet
       void* VehicleBodySensedStateHelper(int8_t link_id, com_header_t header, vehicle_body_sensed_state_t vehicle_body_sensed_state, comnet::node* ptr);
       void* VehicleAttitudeHelper(int8_t link_id, com_header_t header, vehicle_attitude_t vehicle_attitude, comnet::node* ptr);
       void* AirVehicleGroundRelativeStateHelper(int8_t link_id, com_header_t header, air_vehicle_ground_relative_state_t air_vehicle_ground_relative_state, comnet::node* ptr);
+      void* VehicleWaypointCommandHelper(int8_t link_id, com_header_t header, vehicle_waypoint_command_t vehicle_waypoint_command, comnet::node* ptr);
       void* PayloadBayCommandHelper(int8_t link_id, com_header_t header, payload_bay_command_t payload_bay_command, comnet::node* ptr);
       void* PayloadDataRecorderCommandHelper(int8_t link_id, com_header_t header, payload_data_recorder_command_t payload_data_recorder_command, comnet::node* ptr);
       void* PayloadOperationCommandHelper(int8_t link_id, com_header_t header, payload_operation_command_t payload_operation_command, comnet::node* ptr);
@@ -2016,6 +2141,7 @@ namespace Comnet
       void* CommunicationsPayloadStatusHelper(int8_t link_id, com_header_t header, communications_payload_status_t communications_payload_status, comnet::node* ptr);
       void* TargetStatusHelper(int8_t link_id, com_header_t header, target_status_t target_status, comnet::node* ptr);
       void* TargetAcknowledgementHelper(int8_t link_id, com_header_t header, target_acknowledgement_t target_acknowledgement, comnet::node* ptr);
+      void* TargetDesignationCommandHelper(int8_t link_id, com_header_t header, target_designation_command_t target_designation_command, comnet::node* ptr);
       void* UAVLocationHelper(int8_t link_id, com_header_t header, UAV_location_t UAV_location, comnet::node* ptr);
       void* UAVSpeedHelper(int8_t link_id, com_header_t header, UAV_speed_t UAV_speed, comnet::node* ptr);
       void* UAVHeadingHelper(int8_t link_id, com_header_t header, UAV_heading_t UAV_heading, comnet::node* ptr);
