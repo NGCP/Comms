@@ -12,10 +12,10 @@ Class Comnet.Header: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Fields:
     Byte node_src_id : Public
     Byte node_dest_id : Public
-    Byte[] iv : Public
     UInt16 message_type : Public
     UInt16 message_length : Public
     Boolean is_mergency : Public
+    Byte[] iv : Public, Static
 Class Comnet.Enter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(enter_t): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(Comnet.Enter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

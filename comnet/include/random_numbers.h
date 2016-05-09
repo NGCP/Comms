@@ -28,14 +28,13 @@ public:
    /** Number gen specifies seed, minimum value, and max value. */
    RandomNumberGen(int seed, int min, int max) : seed(seed) { }
    /** Number gen specifies only seed */
-   RandomNumberGen(int seed) : RandomNumberGen(seed,
-                                               RANDOM_START,
-                                               RANDOM_SPECIFIED_BOUND) { }
+   RandomNumberGen(int seed) : seed(seed) { }
+   RandomNumberGen(const RandomNumberGen& rand);
    RandomNumberGen(void);
    /** Generates numbers into an array randomly. */
    /* TODO(Someone): We may need to increase the bounds since it is currently
       generating only from 0 to 1000. */
-   template<class _Ty = _Byte>
+   template<class _Ty>
    void generate_numbers(_Ty* _array, int start_index, int end_index) { 
       for(size_t i = start_index; i < end_index; ++i) {
          _array[i] = generate_random();
@@ -43,7 +42,7 @@ public:
    }
    /** Generates numbers into an array randomly. TODO(Someone): We need to fix the max 
        max bounds, as it is generating numbers over it. */
-   template<class _Ty = _Byte>
+   template<class _Ty>
    void generate_numbers(_Ty* _array, int start_index, int end_index, int min, int max) { 
       for(size_t i = start_index; i < end_index; ++i) {
          _array[i] = (generate_random() % max) + min;

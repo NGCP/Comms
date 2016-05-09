@@ -20,7 +20,7 @@ namespace Comnet
    {
       uint8_t node_src_id;
       uint8_t node_dest_id;
-      array<uint8_t> ^ iv = gcnew array<uint8_t>(16);
+      static array<uint8_t> ^ iv = gcnew array<uint8_t>(16);
       uint16_t message_type;
       uint16_t message_length;
       bool is_mergency;

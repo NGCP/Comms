@@ -5,12 +5,12 @@
 namespace Random {
 
 /** Constructor for our default constructor. */
-RandomNumberGen::RandomNumberGen(void) : RandomNumberGen(SEEDXDEFAULT,
-                                                         RANDOM_START,
-                                                         RANDOM_SPECIFIED_BOUND) {
+RandomNumberGen::RandomNumberGen(void) : seed(SEEDXDEFAULT) {
    std::time_t tim = std::time(nullptr);
    seed = static_cast<size_t>(tim);
 }
+
+RandomNumberGen::RandomNumberGen(const RandomNumberGen& rand) { }
 
 /** Generates the pseudorandom number for use. Currently only supports numbers between 0 and 1000. */
 int RandomNumberGen::generate_random(void) { 

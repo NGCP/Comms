@@ -15,8 +15,8 @@
 #include <iostream>
 #include <stdint.h>
 
-#define DISALLOW_EVIL_CONSTRUCTORS(object_constructor) object_constructor(void) = delete;
-#define _ERROR(e, str) { e, str }
+#define DISALLOW_EVIL_CONSTRUCTORS(object_constructor) object_constructor(void) { }
+#define _ERROR(m, e, str) m[e] = str; // { e, str }
 
 namespace comnet {
 namespace error { 
@@ -75,7 +75,7 @@ class AbsException : public std::exception {
 protected:
    OSErrors os_error;
 public:
-   AbsException(void) { }
+   AbsException(void) : os_error(error_no_os) { }
    AbsException(OSErrors os_err) : os_error(os_err) { }
    virtual ~AbsException(void) throw() { }
 
