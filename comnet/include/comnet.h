@@ -13,6 +13,11 @@
 #include "aes.h"
 using CryptoPP::AES;
 
+
+#ifdef _WIN32
+#pragma comment (lib, "cryptlib.lib")
+#endif
+
 //If creating C# wrapper 
 //#define _MANAGED
 
