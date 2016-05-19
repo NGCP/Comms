@@ -58,7 +58,9 @@ int32_t ZigBee::close()
          }
       }
    }
-	if(xbee != NULL)xbee_shutdown(xbee);
+		
+		if (xbee != NULL)xbee_shutdown(xbee);
+	
 
 	return 1;
 }
