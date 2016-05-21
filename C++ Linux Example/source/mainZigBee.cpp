@@ -110,42 +110,12 @@ void* tx_thread(){
 }
 
 
-void* rx_thread(){
-	/* Create the UAV node at node 1*/
-	comnet::node uav_node(1);
-
-	/* Handle for the UDP Datalink */
-	int8_t zigBee_1 = 0;
-
-	char *address1 = "0013A20040917A31";
-	/* id, baudrate, comport  */
-	uav_node.add_zigBee(&zigBee_1, 57600, "/dev/ttyUSB1");
-
-	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
-	*/
-	uav_node.establish_zigBee(zigBee_1, 1, address1);
-
-	/*
-	This node will receive a ping from Node 2, so
-	the Ping needs to be handled as the Pong was above
-	*/
-
-
-	std::chrono::milliseconds dura(1000);
-	while (1)
-	{
-		std::this_thread::sleep_for(dura);
-	}
-	return 0;
-}
 
 int main(int argc, char *argv[])
 {
 	/* Create both threads */
 	std::thread tx(tx_thread);
-	std::thread rx(rx_thread);
+
 
 	/*
 	Join threads to ensure main doesn't quit
@@ -153,7 +123,7 @@ int main(int argc, char *argv[])
 	*/
 
 	tx.join();
-	rx.join();
+
 
 	return 0;
 }

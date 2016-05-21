@@ -30,13 +30,22 @@ ZigBee::~ZigBee()
 int32_t ZigBee::open(uint32_t baud_rate, char device_path[50])
 {
 	
-	char port_name[55];
+
 #ifdef _WIN32
+	char port_name[55];
 	sprintf(port_name, "\\\\.\\COM%s", device_path);//change to com
+	if ((ret = xbee_setup(&xbee, "xbee5", "/dev/ttyUSB0", baud_rate)) != XBEE_ENONE) {
+		printf("Construct ret: %d (%s)\n", ret, xbee_errorToStr(ret));
+        throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_init);
+		//return ret;
+	}
+	connected = 1;
+	datalink_type = ZIGBEE_TYPE;
+	return 1;
 #endif
 
 
-	if ((ret = xbee_setup(&xbee, "xbee5", port_name, baud_rate)) != XBEE_ENONE) {
+	if ((ret = xbee_setup(&xbee, "xbee5", device_path, baud_rate)) != XBEE_ENONE) {
 		printf("Construct ret: %d (%s)\n", ret, xbee_errorToStr(ret));
         throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_init);
 		//return ret;

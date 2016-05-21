@@ -17,7 +17,7 @@ include_directories(${PARENT_DIR}/comnet/include/
 
 
 add_executable(comnetTest
-		source/main.cpp)
+		source/mainZigBee.cpp)
 
 target_link_libraries (comnetTest ${CMAKE_THREAD_LIBS_INIT})
 
