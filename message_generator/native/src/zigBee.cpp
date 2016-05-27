@@ -88,20 +88,33 @@ int32_t ZigBee::send(uint8_t node_id, uint8_t* tx_data, int32_t tx_len)
 /** Public method used to receive communication.*/
 int32_t ZigBee::recv(uint8_t* rx_data, int32_t* rx_len)
 {
-
 	*rx_len = 0;
-	if ((ret = xbee_conRx(con[minIndex], &pkt, NULL)) != XBEE_ENONE) {
+  // Check which node a package is coming from.
+  for (int i = 0; i < nodes.size(); ++i) {
+    // Receive a package from the node.
+    xbee_conRx(con[nodes.at(i)], &pkt, NULL);
+    // Package is not null, means we got a package from somewhere.
+    if (pkt != NULL) {
+      for(int i = 0; i < pkt->dataLen; i++) {
+        rx_data[i] = pkt->data[i];
+      }
+   
+      *rx_len = pkt->dataLen;
+      if(xbee_pktFree(pkt) != XBEE_ENONE);
+      // Try to save time by breaking off when a package is read.
+      break;
+    }
+  }
+//	if ((ret = xbee_conRx(con[6], &pkt, NULL)) != XBEE_ENONE) {
 		//printf("Error after calling xbee_conRx(): %s\n", xbee_errorToStr(ret));
-	}
-	else {
-		
-		
-		for (int i = 0; i < pkt->dataLen; i++) {
-			rx_data[i] = pkt->data[i];
-		}
-		*rx_len = pkt->dataLen;
-		if (xbee_pktFree(pkt) != XBEE_ENONE);
-	}
+//	}
+//	else {
+//		for (int i = 0; i < pkt->dataLen; i++) {
+//			rx_data[i] = pkt->data[i];
+//		}
+//		*rx_len = pkt->dataLen;
+//		if (xbee_pktFree(pkt) != XBEE_ENONE);
+//	}
 	return 1;
 }
 
@@ -121,10 +134,11 @@ int32_t ZigBee::establish(uint8_t node_id, std::string address64Hex)
                 throw error::ConnectionException(error::OSErrors::error_no_os, error::error_xbee_error_new_connection);
 				//return ret;
 			}
-
-			xbee_conSettings(con[node_id], NULL, &settings);
-			settings.catchAll = 1;
-			xbee_conSettings(con[node_id], &settings, NULL);
+      // Push node id into the list to record the availabe nodes.
+      nodes.push_back(node_id);
+//			xbee_conSettings(con[node_id], NULL, &settings);
+//			settings.catchAll = 1;
+//			xbee_conSettings(con[node_id], &settings, NULL);
 			if (node_id < minIndex)minIndex = node_id;
 			
 		}

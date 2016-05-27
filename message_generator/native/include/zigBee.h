@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <xbee.h>
 #include <ctype.h>
+#include <vector>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -65,6 +66,12 @@ private:
 	xbee_err ret;
 	struct xbee_conSettings settings;
 	uint8_t minIndex;
+private:
+  /** 
+    Keeps track of nodes that are established. Node values will be read in O(n)
+    sequence, to determine where a package is coming from.
+  */
+  std::vector<uint8_t> nodes;
 };
 
 #endif //ZIGBEE_H_
