@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -pthread    CMakeFiles/UAVtest.dir/UAVMessage/fromGCS.cpp.o CMakeFiles/UAVtest.dir/UAVMessage/main.cpp.o  -o UAVtest -rdynamic ../../../build/linux/libNGCP_COM.a ../../../cryptopp563/linux/libcryptopp.a ../../../libxbee3-3.0.11/linux/libxbee.so -Wl,-rpath,/home/jessieeisenberg/Documents/GitHub/Comms/Spoofing/UAVMessage/../../libxbee3-3.0.11/linux 
