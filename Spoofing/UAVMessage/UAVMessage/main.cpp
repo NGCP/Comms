@@ -1,20 +1,25 @@
 #include "main.h"
+#include <iostream>
+
 void* tx_thread(){
-	
+
 	comnet::node gcs_node(2); // UAV NODE at 2
 
 	int8_t zigBee_2 = 0;
-
+  
 	char *address2 = "0013A20040917974";
-	/* id, baudrate, comport  */
-	gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
+  try {	
+    /* id, baudrate, comport  */
+	  gcs_node.add_zigBee(&zigBee_2, 57600, "/dev/ttyUSB0");
 
-	/*
-	create zig bee connection
-	id, dest id, 64 bit hex address in char
-	*/
-	gcs_node.establish_zigBee(zigBee_2, 1, address2);
-
+	  /*
+	  create zig bee connection
+	  id, dest id, 64 bit hex address in char
+	  */
+	  gcs_node.establish_zigBee(zigBee_2, 1, address2);
+  } catch ( comnet::error::AbsException& e) {
+    std::cout << e.explain_error() << std::endl;
+  }
 	/*
 	This node will receive a ping from Node 1, so
 	the Ping needs to be handled as the Pong was above
