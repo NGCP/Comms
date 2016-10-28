@@ -1,3 +1,7 @@
+*** This Git is being discontinued due to proprietary complaints.***
+
+*** This verions is no longer supported and is not compatible with Comms V2 ***
+
 Files should already be compiled for linux and windows in build folder.
 
 Make sure you use correct data link for your platform and corresponding platforms listed under xBee_to_Platform.
